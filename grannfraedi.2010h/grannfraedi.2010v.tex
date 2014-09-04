@@ -1,0 +1,4701 @@
+\documentclass[a4paper,icelandic]{book}
+
+%% Use utf-8 encoding for foreign characters
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{babel}
+
+%% Margins
+\usepackage{fullpage}
+% \usepackage{geometry}
+
+%% More symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%% Theorem
+\usepackage{amsthm}
+
+%% Örvarit
+\usepackage[all]{xy}
+
+\theoremstyle{definition}
+\newtheorem{skilgr}{Skilgreining}[section]
+\newtheorem{daemi}{Dæmi}[section]
+\newtheorem*{aefing}{Æfing}
+
+\theoremstyle{plain}
+\newtheorem{setn}{Setning}[section]
+\newtheorem{fylgisetn}{Fylgisetning}[section]
+\newtheorem{hjalparsetn}{Hjálparsetning}[section]
+
+\theoremstyle{remark}
+\newtheorem*{ath}{Athugasemd}
+\newtheorem*{lausn}{Lausn}
+
+%% Ýmis mengi
+\newcommand{\R}{\mathbb{R}} % rauntölurnar
+\newcommand{\N}{\mathbb{N}} % náttúrlegu tölurnar
+\newcommand{\Z}{\mathbb{Z}} % heilu tölurnar
+\newcommand{\Q}{\mathbb{Q}} % ræðu tölurnar
+\newcommand{\C}{\mathbb{C}} % tvinntölurnar
+
+%% Föll o.fl. til að nota í math mode (verður aldrei skáletrað)
+\DeclareMathOperator{\id}{id} % samsemdarvörpunin
+\DeclareMathOperator{\innmengi}{int} % innmengi
+\DeclareMathOperator{\diam}{diam} % þvermál
+\DeclareMathOperator{\supp}{supp} % stoð
+
+\DeclareMathOperator{\rel}{rel} 
+\newcommand{\prel}[1]{\,\left(\rel #1\right)}
+
+\DeclareMathOperator{\Ob}{Ob}
+\DeclareMathOperator{\Hom}{Hom}
+
+% If you want to generate a toc for each chapter (use with book)
+\usepackage{minitoc}
+
+% Meiri stjórn á númeringu
+\usepackage{enumerate}
+
+% Atriðisorðaskrá
+\usepackage{makeidx}
+\makeindex
+
+% This is now the recommended way for checking for PDFLaTeX:
+\usepackage{ifpdf}
+
+\ifpdf
+\usepackage[pdftex]{graphicx}
+\usepackage[pdftex]{hyperref}
+\else
+\usepackage{graphicx}
+\usepackage{hyperref}
+\fi
+
+\title{\textbf{Grannfræði}}
+\author{%
+Kennari: Jón Ingólfur Magnússon\\
+Kennslubók: Munkres, James R. \emph{Topology}, 2. útgáfa. 2003. Prentice Hall.
+}
+\date{Vorönn 2010}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+% Snið dagsetninga: dd.mm.yyyy
+
+% 07.01.2010
+\part{Almenn grannfræði}
+
+\chapter{Grannrúm og samfelldar varpanir}
+
+\section{Grannrúm}
+
+\begin{skilgr}
+  \emph{Grannmynstur}\index{grannmynstur} á mengi $X$ er safn $\mathcal T$ af
+  hlutmengjum í $X$ sem uppfylla eftirfarandi skilyrði:
+  \begin{enumerate}[(i)]
+    \item $\emptyset$ og $X$ eru í $\mathcal T$.
+    \item Sammengi mengja í $\mathcal T$ eru í $\mathcal T$.
+    \item Sniðmengi endanlega margra mengja í $\mathcal T$ er í $\mathcal T$.
+  \end{enumerate}
+  Tvenndin $(X,\mathcal T)$ kallast \emph{grannrúm}\index{grannrúm}. Ef ekki fer
+  á milli mála við hvaða $\mathcal T$ er átt, þá tölum við um $X$ sem
+  grannrúm. Köllum stökin í $X$ oft \emph{punkta}\index{punktur} og stökin í
+  $\mathcal T$ \emph{opin mengi}\index{opið mengi}.
+\end{skilgr}
+\begin{ath}
+  $X$ er sniðmengi tómu fjölskyldunnar. $\emptyset$ er sammengi tómu
+  fjölskyldunnar.
+\end{ath}
+\begin{daemi}
+  (1) Látum $(M,d)$ vera firðrúm. Þá mynda opnu mengin (í firðrúmaskilningi)
+  grannmynstur á $M$.
+
+  (2) $X$ mengi. Grannmynstrið sem samanstendur eingöngu af $\emptyset$ og $X$
+  kallast \emph{grófa grannmynstrið}\index{grófa grannmynstrið}. Grannmynstrið
+  sem samanstendur af öllum hlutmengjum $X$ kallast \emph{dreifða
+    grannmynstrið}\index{dreifða grannmynstrið} (á $X$) (sérhvert mengi af
+  gerðinni $\left\{ x \right\}$ með $x\in X$ er opið).
+\end{daemi}
+\begin{skilgr}
+  $\mathcal T$ og $\mathcal T'$ tvö grannmynstur á mengi $X$. Segjum að
+  $\mathcal T'$ sé \emph{fínna en $\mathcal T$}\index{fínna grannmynstur} ef
+  $\mathcal T' \supseteq \mathcal T$. Segjum þá að $\mathcal T$ sé \emph{grófara
+    en}\index{grófara grannmynstur} $\mathcal T'$.
+\end{skilgr}
+\begin{skilgr}
+  (ekki í bók) $X$ grannrúm og $A\subseteq X$. Við segjum að $V\subseteq X$ sé
+  \emph{grennd um}\index{grennd} $A$ ef til er opið mengi $U$ í $X$ þannig að
+  $A\subseteq U\subseteq V$. Grenndir einstökungs $\left\{ x \right\}$ kallast
+  líka grenndir $x$.
+\end{skilgr}
+\begin{skilgr}
+  Safn $\mathcal B$ af hlutmengjum í $X$ kallast \emph{grunnur fyrir
+    grannmynstur á}\index{grunnur} $X$ ef eftirfarandi gildir:
+  \begin{enumerate}[(i)]
+    \item Fyrir öll $x\in X$ er til a.m.k. eitt $B$ úr $\mathcal B$ þ.a. $x\in B$.
+    \item Ef $B_1,B_2\in\mathcal B$ og $x\in B_1\cap B_2$, þá er til
+      $B_3\in\mathcal B$ þ.a. $x\in B_3\subseteq B_1\cap B_2$.
+  \end{enumerate}
+\end{skilgr}
+\begin{setn}
+  Látum $\mathcal T_{\mathcal B}$ vera safn allra hlutmengja $U$ í $X$ sem
+  fullnægja eftirfarandi skilyrði:
+  \begin{quote}
+    Fyrir sérhvert $x\in U$ er til $B$ úr $\mathcal B$ þ.a. $x\in B\subseteq U$.
+  \end{quote}
+  Þá er $\mathcal T_{\mathcal B}$ grannmynstur á $X$ og við köllum það
+  \emph{grannmynstrið sem $\mathcal B$ framleiðir}\index{framleitt
+    grannmynstur}\index{grannmynstur!framleitt}.
+\end{setn}
+\begin{proof}
+  (i) Að $\emptyset \in \mathcal T_{\mathcal B}$ er augljóst.
+
+  (ii) $X\in\mathcal T_{\mathcal B}$: Fyrir sérhvert $x \in X$ er til (skv. (i))
+  $B\in\mathcal B$ þ.a. $x\in B\subseteq X$.
+
+  (iii) Sammengi mengja úr $\mathcal T_{\mathcal B}$ er í $\mathcal T_{\mathcal
+    B}$: Látum $(U_\alpha)_{\alpha\in J}$ vera fjölskyldu í $\mathcal
+  T_{\mathcal B}$ og setjum $U:=\bigcup_{\alpha\in J}U_\alpha$. Ef $x\in U$ þá
+  er til $\alpha \in J$ þ.a. $x\in U_{\alpha}$ og því er til $B\in\mathcal B$
+  þ.a. $x\in B\subseteq U_\alpha$ og þar með er $x\in B\subseteq U$. Þetta hefur
+  í för með sér að $U\in\mathcal T_{\mathcal B}$.
+
+  (iv) Endanleg sniðmengi mengja í $\mathcal T_{\mathcal B}$ eru í $\mathcal
+  T_{\mathcal B}$: Nóg að sýna að sniðmengi tveggja mengja í $\mathcal
+  T_{\mathcal B}$ sé í $\mathcal T_{\mathcal B}$ og beita svo þrepun. Látum
+  $U_1,U_2\in\mathcal T_{\mathcal B}$ og $x\in U_1,U_2$. Þá eru til
+  $B_1,B_2\in\mathcal B$ þ.a. $x\in B_1\subseteq U_1$ og $x\in B_2\subseteq
+  U_2$. Skv. skilyrði (ii) fyrir grunna er þá til $B_3$ úr $\mathcal B$
+  þ.a. $x\in B_3\subseteq B_1\cap B_2\subseteq U_1\cap U_2$. Þar með er $U_1\cap
+  U_2$ í $\mathcal T_{\mathcal B}$.
+\end{proof}
+\begin{daemi}
+  (1) Ef $\mathcal T$ er grannmynstur á $X$, þá er $\mathcal T$ grunnur fyrir
+  $\mathcal T$.
+
+  (2) Safn allra einstökunga $\left\{ x \right\}$ er grunnur fyrir dreifða
+  grannmynstrið á $X$.
+
+  (3) $(M,d)$ firðrúm og $\mathcal T_{d}$ grannmynstrið sem $d$ skilgreinir
+  (safn opnu mengjanna). Setjum $B_{\varepsilon}(x) := \left\{ y\in M : d(x,y) <
+    \varepsilon \right\}$ fyrir öll $\varepsilon > 0$ og öll $x\in M$. Þá er
+  $\mathcal B := \left\{ B_{\varepsilon}(x) : \varepsilon > 0, x\in M \right\}$
+  grunnur fyirr $\mathcal T_{d}$.
+\end{daemi}
+\begin{setn}
+  $\mathcal B$ grunnur fyrir grannmynstur $\mathcal T$ á mengi $X$. Þá er
+  $\mathcal T$ jafnt safni allra sammengja af mengjum í $\mathcal B$.
+\end{setn}
+\begin{proof}
+  Ef $(B_\alpha)_{\alpha\in J}$ er fjölskylda í $\mathcal B$, þá er
+  $(B_\alpha)_{\alpha\in J}$ jafnframt fjölskylda í $\mathcal T$ og þar með er
+  $\bigcup_{\alpha\in J}B_\alpha$ í $\mathcal T$ (vegna þess að $\mathcal T$ er
+  grannmynstur).
+
+  Öfugt, ef $U$ er í $\mathcal T$, þá er fyrir sérhvert $x$ úr $U$ til $B_x$ úr
+  $\mathcal B$ þannig að $x\in B_x\subseteq U$. Þar með er $U=\bigcup_{x\in U}
+  B_x$.
+\end{proof}
+\begin{setn}
+  $\mathcal B$ og $\mathcal B'$ grunnar fyrir grannmynstur á mengi $X$. Þá eru
+  eftirfarandi skilyrði jafngild:
+  \begin{enumerate}[(i)]
+    \item $\mathcal T_{\mathcal B'}$ er fínna en $\mathcal T_{\mathcal B}$.
+    \item Fyrir sérhvert $x\in X$ og $B\in \mathcal B$ sem inniheldur $x$ er til
+      $B'$ úr $\mathcal B'$ þannig að $x\in B'\subseteq B$.
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  \emph{(i)$\Rightarrow$(ii):} Gefið $x\in X$ og $B\in \mathcal B$ með $x\in B$.
+  Nú er
+  \[
+  B\in \mathcal B\subseteq \mathcal T_{\mathcal B} \underset{(i)}{\subseteq}
+  \mathcal T_{\mathcal B'}
+  \]
+  svo þar sem $\mathcal B'$ framleiðir $\mathcal T_{\mathcal B'}$ þá er til $B'$
+  $\mathcal B'$ úr $\mathcal B'$ þ.a. $x\in B'\subseteq B$.  g
+  \emph{(ii)$\Rightarrow$(i):} Gefið $U$ úr $\mathcal T_{\mathcal B}$. Viljum
+  sýna að $U\in \mathcal T_{\mathcal B'}$. Ef $x\in U$, þá er til $B$ úr
+  $\mathcal B$ með 4$x\in B\subseteq U$. Skv. (ii) er þá til $B'$ úr $\mathcal
+  B'$ með $x\in B'\subseteq B$ og því $x\in B'\subseteq U$, en það þýðir að
+  $U\in \mathcal T_{\mathcal B'}$.
+\end{proof}
+\begin{ath}
+  Oft hagstæðara að vinna með grunnana.
+\end{ath}
+\begin{setn}
+  Látum $(X,\mathcal T)$ vera grannrúm og $\mathcal C\subseteq \mathcal T$
+  þannig að fyrir sérhvert $U\in \mathcal T$ og sérhvert $x\in U$ er til $C$ úr
+  $\mathcal C$ þannig að $x\in C\subseteq U$. Þá er $\mathcal C$ grunnur fyirr
+  grannmynstrið $\mathcal T$.
+\end{setn}
+\begin{proof}
+  Sýnum fyrst að $\mathcal C$ sé grunnur fyrir grannmynstur á $X$.
+
+  (i) Gefið $x$ úr $X$. Viljum sýna að til sé $C$ úr $\mathcal C$ þannig að
+  $x\in C$.  En $X\in \mathcal T$ svo að til er $C\in \mathcal C$þannig að $x\in
+  C\subseteq X$.
+
+  (ii) Gefin séu $C_1$ og $C_2$ úr $\mathcal C$ og $x\in C_1\cap C_2$. Viljum
+  sýna að til sé $C_3$ úr $\mathcal C$ þ.a. $x\in C_3\subseteq C_1\cap C_2$. En
+  $C_1,C_2$ eru í $\mathcal T$ og því $C_1\cap C_2 \in \mathcal T$ og þar með er
+  til $C_3\in \mathcal C$ þannig að $x\in C_3\subseteq C_1\cap C_2$.
+
+  Tökum nú eftir að $\mathcal T = \mathcal T_{\mathcal T}$ svo skv. síðustu
+  setningu er $\mathcal T_{\mathcal C}$ fínna en $\mathcal T$ og ljóst er að
+  $\mathcal T = \mathcal T_{\mathcal T}$ er fínna en $\mathcal T_{\mathcal C}$
+  vegna þess að $\mathcal C\subseteq \mathcal C$. Þar með er $\mathcal T =
+  \mathcal T_{\mathcal C}$.
+\end{proof}
+\begin{daemi}
+  $\mathcal B$ safn allra opinna bila $\left] a,b\right[$ í $\R$ og $\mathcal
+  B'$ safn allra hálfopinna bila af gerðinni $\left[a,b\right[$ í $\R$. Þá eru
+  $\mathcal B$ og $\mathcal B'$ grunnar fyrir grannmynstur á $\R$. $\mathcal
+  T_{\mathcal B}$ er venjulega grannmynstrið á $\R$, en $\mathcal T_{\mathcal
+    B'}$ er stranglega fínna en $\mathcal T_{\mathcal B}$, þ.e.a.s. $\mathcal
+  T_{\mathcal B} \subsetneq \mathcal T_{\mathcal B'}$ [lesa sjálf].
+\end{daemi}
+\begin{skilgr}
+  $\mathcal S$ Safn hlutmengja í mengi $X$ sem þekur $X$ kallast
+  \emph{hlutgrunnur fyrir grannmynstur
+    á}\index{hlutgrunnur}\index{grunnur!hlutgrunnur} $X$.
+\end{skilgr}
+\begin{setn}
+  Ef $\mathcal S$ er hlutgrunnur (fyrir grannmynstur á $X$) og $\mathcal B$ er
+  safn allra endanlegra sniðmengja af mengjum í $\mathcal S$ þá er $\mathcal B$
+  grunnur fyrir grannmynstur á $X$. Við segjum að $\mathcal S$
+  \emph{framleiði}\index{framleiða} $\mathcal T_{\mathcal B}$.
+\end{setn}
+\begin{proof}
+  (i) Ef $x\in X$, þá er til $S$ úr $\mathcal S$ þannig að $x\in S$ og $\mathcal
+  S\subseteq \mathcal B$.
+
+  (ii) Ef $B_1,B_2\in \mathcal B$, þá eru til $S_1,\dots,S_m$ og
+  $S_1',\dots,S_n'$ úr $\mathcal S$ þannig að $B_1 = \bigcap_{j=1}^m S_j$ og
+  $B_2 = \bigcap_{j=1}^n S_j'$ og því $B_1\cap B_2 = S_1 \cap\cdots\cap S_m \cap
+  S_1'\cap \cdots \cap S_n'$ líka úr $\mathcal B$.
+\end{proof}
+
+% 11.01.2010
+\section{Röðunargrannmynstur}
+$(X,<)$ línulega raðað mengi og $a,b\in X$. Köllum
+\begin{itemize}
+\item $\left]a,b\right[ := \left\{ x\in X: a<x<b \right\}$ \emph{opið
+    bil}\index{opið bil}.
+\item $\left[a,b\right[ := \left\{ x\in X: a\leq x < b \right\}$ \emph{hálfopið
+    bil}\index{hálfopið bil}.
+\item $\left]a,b\right] := \left\{ x\in X: a < x \leq b \right\}$ \emph{hálfopið
+    bil}\index{hálfopið bil}.
+\item $\left[a,b\right] := \left\{ x\in X: a\leq x \leq b \right\}$ \emph{lokað
+    bil}\index{lokað bil}.
+\item $\left]a,+\infty\right[ := \left\{ x\in X : a < x \right\}$ \emph{opinn
+    geisla}\index{opinn geisli}.
+\item $\left]-\infty,a\right[ := \left\{ x\in X : x < a \right\}$ \emph{opinn
+    geisla}\index{opinn geisli}.
+\item $\left[a,+\infty\right[ := \left\{ x\in X : a\leq x \right\}$
+  \emph{lokaðan geisla}\index{lokaður geisli}.
+\item $\left]-\infty,a\right] := \left\{ x\in X : x\leq a \right\}$
+  \emph{lokaðan geisla}\index{lokaður geisli}.
+\end{itemize}
+\begin{skilgr}
+  $(X,<)$ línulega raðað. Látum $\mathcal B$ vera safn allra mengja af
+  eftirfarandi gerðum:
+  \begin{enumerate}[(i)]
+    \item opin bil í $X$
+    \item hálfopin bil $\left[a_0, b\right[$ þar sem $a_0 := \min X$ (ef til)
+    \item hálfopin bil $\left]a, b_0\right]$ þar sem $b_0 := \max X$ (ef til). 
+  \end{enumerate}
+  $\mathcal B$ er greinilega grunnur fyrir grannmynstur á $X$. Við köllum
+  $\mathcal T_{\mathcal B}$
+  \emph{röðunargrannmynstur}\index{röðunargrannmynstur} línulega raðaða
+  mengisins $(X,<)$.
+\end{skilgr}
+\begin{daemi}
+  (1) $\R\times\R$ með \emph{orðabókarröðun}\index{orðabókarröðun}.
+
+  (2) $\N = \left\{ 0,1,2,\dots \right\}$. Röðunargrannmynstrið er dreifða
+  grannmynstrið.
+
+  (3) $X = \left\{ 1,2 \right\}\times\N$ með orðabókarröðun.  Dreifða
+  grannmynstrið er fínna en röðunargrannmynstrið, vegna þess að $\left\{ 2\times
+    0 \right\}$ er ekki opið.
+
+  (4) Opnir geislar eru opin mengi í röðunargrannmynstrinu.
+\end{daemi}
+\begin{skilgr}
+  $X$ línulega raðað. 
+  \begin{enumerate}[(i)]
+    \item Stak $c$ úr $X$ kallast \emph{eftirfari}\index{eftirfari} $a$ ef $a <
+      c$ og $\left] a,c \right[=\emptyset$.
+    \item Stak $b$ úr $X$ kallast \emph{undanfari}\index{undanfari} $b$ ef $d<b$
+      og $\left] d,b \right[ = \emptyset$. 
+  \end{enumerate}
+  \end{skilgr}
+
+\section{Faldgrannmynstur}
+\begin{skilgr}
+  Látum $X$ og $Y$ vera grannrúm. Öll mengi af gerðinni $U\times V$ þar sem $U$
+  er opið í $X$ og $V$ er opið í $Y$, mynda grunn fyrir grannmynstur á $X\times
+  Y$ sem við köllum \emph{faldgrannmynstrið}\index{faldgrannmynstur} á $X\times
+  Y$.
+\end{skilgr}
+\begin{setn}
+  Ef $\mathcal B$ er grunnur fyrir á $X$ og $\mathcal C$ er grunnur fyrir
+  grannmynstrið á $Y$, þá er safnið $\mathcal D := \left\{ B\times C :
+    B\in\mathcal B, C\in\mathcal C \right\}$ grunnur fyrir faldgrannmynstrið á
+  $X\times Y$.
+\end{setn}
+\begin{proof}
+  Látum $W$ vera opið í $X\times Y$ og $(x,y)\in W$. Þá er til opið $U$ í $X$ og
+  opið $V$ í $Y$ þ.a. $(x,y)\in U\times V\subseteq W$. Þar eð $\mathcal B$ er
+  grunnur fyrir $\mathcal T_X$ og $\mathcal C$ er grunnur fyrir $\mathcal T_Y$,
+  þá eru til $B$ úr $\mathcal B$ og $C$ úr $\mathcal C$ þ.a. $x\in B\subseteq U$
+  og $y\in C\subseteq V$ og þar með $(x,y)\in B\times C\subseteq U\times
+  V\subseteq W$.
+\end{proof}
+\begin{daemi}
+  [Ganga vel úr skugga um það!] Faldgrannmynstrið á $\R^2 = \R\times\R$ er
+  venjulega grannmynstrið.
+\end{daemi}
+\begin{setn}
+  Táknum ofanvörpin $\pi_1:X\times Y\to X;(x,y)\mapsto x$ og $\pi_2:X\times Y\to
+  Y;(x,y)\mapsto y$. Safnið
+  \[
+  \mathcal S := \left\{ \pi_1^{-1}(U): U\text{ opið í } X \right\}\cup\left\{
+    \pi_{2}^{-1}(V) : V\text{ opið í } Y \right\}
+  \]
+  er hlutgrunnur fyrir faldgrannmynstrið.
+\end{setn}
+\begin{proof}
+  Leiðir beint af því að $\pi_1^{-1}(U)\cap\pi_2^{-1}(V) = U\times V$.
+\end{proof}
+
+\section{Hlutrúmsgrannmynstur}
+\begin{skilgr}
+  $(X,\mathcal T)$ grannrúm og $Y\subseteq X$. Safnið $\mathcal T_Y := \left\{
+    Y\cap U : U\in \mathcal T \right\}$ er grannmynstur á $Y$, kallað
+  \emph{hlutrúmsgrannmynstrið}\index{hlutrúmsgrannmynstur} á $Y$. Hlutmengi í
+  $X$ með hlutrúmsgrannmynstrinu kallast \emph{hlutrúm}\index{hlutrúm} í $X$.
+\end{skilgr}
+\begin{setn}
+  Ef $\mathcal B$ er grunnur fyrir grannmynstrið á $X$, þá er 
+  \[
+  \mathcal B_{Y} := \left\{ B\cap Y : B\in \mathcal B \right\}
+  \]
+  grunnur fyrir hlutrúmsgrannmynstrið á $Y$.
+\end{setn}
+\begin{proof}
+  Augljóst.
+\end{proof}
+\begin{setn}
+  $Y$ hlutrúm í grannrúmi $X$. Ef $U$ er opið í $Y$ og $Y$ er opið í $X$, þá er
+  $U$ opið í $X$.
+\end{setn}
+\begin{proof}
+  Augljóst.
+\end{proof}
+\begin{daemi}
+  Lítum á hlutmengin $Y_1 = \left[ 0,1 \right]$ og $Y_2 = \left[ 0,1
+  \right[\cup\left\{ 2 \right\}$ í $\R$. Þá er hlutrúmsgrannmynstrið (í $\R$) og
+  röðunargrannmynstrið eins á $Y_1$, en ekki á $Y_2$ ($\left\{ 2 \right\}$ er
+  ekki opið í röðunargrannmynstrinu).
+\end{daemi}
+% Ég er svangur
+\begin{ath}
+  (dæmi 6 á bls. 91 í kennslubók): Á bili eða geisla í línulega röðuðu mengi
+  $(X,<)$ eru röðunargrannmynstrin og hlutrúmsgrannmynstrin eins (sjá einnig
+  almennari útgáfu: Setning 16.4 í kennslubók).
+\end{ath}
+\begin{setn}
+  $A$ hlutrúm í grannrúmi $X$ og $B$ hlutrúm í grannrúmi $Y$. Þá er
+  faldgrannmynstrið á $A\times B$ það sama og hlutrúmsgrannmynstrið sem $A\times
+  B$ erfir frá $X\times Y$.
+\end{setn}
+\begin{proof}
+  $U$ opið í $X$ og $V$ opið í $Y$. Þá er 
+  \begin{align*}
+    \underbrace{(U\times V)\cap(A\times B)}_{\substack{\text{mynda grunn fyrir}\\\text{hlutrúmsgrannmynstrið}}}
+    &= \underbrace{(U\cap A)\times(V\cap B)}_{\substack{\text{mynda grunn fyrir}\\\text{faldgrannmynstrið}}}.
+  \end{align*}
+\end{proof}
+
+\section{Lokuð mengi}
+\begin{skilgr}
+  Hlutmengi $A$ í grannrúmi $X$ er sagt \emph{lokað}\index{lokað mengi} ef
+  $X\setminus A$ er opið.
+\end{skilgr}
+\begin{setn}
+  $X$ grannrúm. Þá gildir:
+  \begin{enumerate}[(i)]
+    \item $\emptyset$ og $X$ eru lokuð.
+    \item Sniðmengi lokaðra mengja í $X$ er lokað.
+    \item Endanleg sammengi lokaðra mengja eru lokuð.
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  (i) $\emptyset = X\setminus X$ og $X = X\setminus\emptyset$.
+  
+  (ii) og (iii) leiðir beint af reglum de Morgans og samsvarandi reglum fyrir
+  opin mengi.
+\end{proof}
+\begin{daemi}
+  Í dreifðu grannmynstri eru öll mengi bæði opin og lokuð.
+\end{daemi}
+\begin{setn}
+  $Y$ hlutrúm í grannrúmi $X$. Hlutmengi $Y$ er lokað í $Y$ \emph{þ.þ.a.a.} það
+  sé sniðmengi $Y$ og lokaðs mengis í $X$.
+\end{setn}
+\begin{proof}
+  Látum $A\subseteq Y$. Ef $A = C\cap Y$ með $C$ lokað í $X$, þá er $X\setminus
+  C$ opið í $X$ og því $Y\setminus A = (X\setminus C)\cap Y$ opið í $Y$, svo $A$
+  er lokað í $Y$.
+
+  \emph{Öfugt}, ef $A$ er lokað í $Y$, þá er $Y\setminus A$ opið í $Y$ og því er
+  $Y\setminus A = U\cap Y$, þar sem $U$ er opið í $X$. Mengið $X\setminus U$ er
+  þá lokað í $X$ og $A = (X\setminus U)\cap Y$.
+\end{proof}
+\begin{setn}
+  $Y$ hlutrúm í grannrúmi $X$. Ef $A$ er lokað í $Y$ og $Y$ er lokað í $X$, þá
+  er $A$ lokað í $X$.
+\end{setn}
+\begin{proof}
+  Augljóst.
+\end{proof}
+
+% 12.10.2010
+\section{Lokanir og innri mengi}
+\begin{skilgr}
+  $A$ hlutmengi í grannrúmi $X$.
+  \begin{enumerate}[(i)]
+  \item Sammengi allra opinna mengja sem eru innihaldin í $A$ er stærsta opna
+    mengið sem $A$ inniheldur og kallast \emph{innra mengi}\index{innra mengi}
+    eða \emph{innmengi}\index{innmengi} mengisins $A$, táknað $\overset \circ A$
+    eða $\innmengi(A)$.
+  \item Sniðmengi allra lokaðra mengja sem innihalda $A$ er minnsta lokaða
+    mengið sem inniheldur $A$ og kallast \emph{lokun}\index{lokun} (eða
+    \emph{lokunarhjúpur}\index{lokunarhjúpur}) $A$, táknað $\overline A$.
+  \end{enumerate}
+\end{skilgr}
+\begin{ath}
+  $\overset \circ A \subseteq A \subseteq \overline A$.
+\end{ath}
+\begin{daemi}
+  $X = \R^2, Y = \left[0,1\right[\times\left\{ 0 \right\}$ og $A =
+  \left]0,1\right[\times\left\{ 0 \right\}$. Lokun $A$ í $Y$,
+  þ.e.a.s. $\overline A_Y = Y$. Lokun $A$ í $X$ er jöfn lokun $Y$ í $X$,
+  þ.e.a.s. $\overline A_X = \overline Y_X = \left[ 0,1 \right]\times\left\{ 0
+  \right\}$. Innmengi $A$ í $Y$ er $A$. Innmengi $A$ í $X$ er $\emptyset$.
+\end{daemi}
+\begin{setn}
+  $Y$ hlutrúm í grannrúmi $X$ og $A\subseteq Y$. Látum $\overline A$ tákna lokun
+  $A$ í $X$. Þá er $\overline A\cap Y$ lokun $A$ í $Y$.
+\end{setn}
+\begin{proof}
+  Látum $B$ tákna lokun $A$ í $Y$. Þar eð $\overline A\cap Y$ er lokað í $Y$, þá
+  er $B\subseteq \overline A\cap Y$. En þar eð $B$ er lokað í $Y$, þá er til $C$
+  í $X$ þ.a. $B = C\cap Y$ og því $\overline A \subseteq C$ og það gefur að
+  $\overline A\cap Y \subseteq C\cap Y = B$.
+\end{proof}
+\begin{setn}
+  $A$ hlutmengi í grannrúmi $X$
+  \begin{enumerate}[(i)]
+    \item $X\in\overline A$ \emph{þ.þ.a.a.} sérhver grennd $U$ um $x$ skeri $A$.
+    \item Ef $\mathcal B$ er grunnur fyrir $\mathcal T_X$, þá gildir:
+      $x\in\overline A$ \emph{þ.þ.a.a.} $B\cap A\neq\emptyset$ fyrir öll
+      $B\in\mathcal B$ þ.a. $x\in B$.
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  (i) $x\in X\setminus \overline A$ \emph{þ.þ.a.a.} til sé opin grennd $U$ um
+  $x$ þ.a. $x\in U\subseteq X\setminus \overline A$.
+
+  (ii) Augljós.
+\end{proof}
+
+\section{Þéttipunktar}
+\begin{skilgr}
+  $A$ hlutmengi í grannrúmi $X$. Punktur $x$ úr $X$ er kallaður
+  \emph{þéttipunktur}\index{zettipunktur@þéttipunktur} $A$ ef $(A\setminus\left\{ x
+  \right\})\cap U\neq\emptyset$ fyrir allar grenndir $U$ um $x$.
+\end{skilgr}
+\begin{ath}
+  Þéttipunktur $A$ getur hvort sem er tilheyrt $A$ eða ekki. $A$ getur haft
+  punkta sem eru ekki þéttipunktar.
+\end{ath}
+\begin{setn}
+  $A$ hlutmengi í grannrúmi $X$ og $A'$ mengi allra þéttipunkta $A$. Þá er
+  $\overline A = A\cup A'$.
+\end{setn}
+\begin{proof}
+  Ef $x\in A'$, þá gildir um sérhverja grennd $U$ um $x$ að $(A\setminus\left\{
+  x \right\})\cap U \neq \emptyset$ og því $A\cap U\neq \emptyset$. Skv.
+  niðurstöðu (i) í síðustu setningu er þá $x\in\overline A$ við höfum því sýnt
+  að $A'\subseteq \overline A$ og þar sem $A\subseteq \overline A$ skv.
+  skilgreiningu þá gildir $A\cup A' \subseteq \overline A$.
+
+  \emph{Öfugt}, sýnum að $\overline A\subseteq A\cup A'$. Látum $x\in\overline
+  A$. Ef $x\in A$, þá þarf ekkert að gera. Gerum ráð fyrir að $x\in\overline
+  A\setminus A$. Þá gildir um sérhverja grennd $U$ um $x$ að $\emptyset \neq
+  A\cap U = (A\setminus \left\{ x \right\})\cap U$. Þar með er $x\in A$.
+\end{proof}
+\begin{fylgisetn}
+  Hlutmengi í grannrúmi er lokað \emph{þ.þ.a.a.} það innihaldi alla þéttipunkta
+  sína.
+\end{fylgisetn}
+\begin{proof}
+  $A$ er lokað \emph{þ.þ.a.a.} $A = \overline A$ \emph{þ.þ.a.a.} $A'\subseteq A$.
+\end{proof}
+
+\section{$T_1$-rúm og Hausdorff-rúm}
+\begin{skilgr}
+  Við segjum að grannrúm $X$ sé
+  \begin{enumerate}[(i)]
+  \item \emph{$T_1$-rúm}\index{T-rúm@$T_1$-rúm} (eða uppfylli
+    \emph{$T_1$-frumsenduna}) ef fyrir sérhverja tvo punkta $x,y$ úr
+    $X$ eru til grenndir $U_x$ um $x$ og $U_y$ um $y$ þannig að
+    $y\notin U_x$ og $x\notin U_y$.
+  \item \emph{Hausdorff-rúm}\index{Hausdorff-rúm} (eða uppfylli
+    \emph{$T_2$-frumsenduna}) ef fyrir sérhverja tvo punkta $x,y$ úr
+    $X$ eru til grenndir $U_x$ um $x$ og $U_y$ um $y$ þ.a. $U_x\cap
+    U_y = \emptyset$.
+  \end{enumerate}
+\end{skilgr}
+\begin{setn}
+  Endanleg mengi í $T_1$-rúmi $X$ eru lokuð.
+\end{setn}
+\begin{proof}
+  Látum $A\subseteq X$ vera endanlegt og $x\in X\setminus A$. Þá er fyrir
+  sérhvert $a$ úr $A$ til grennd $U_a$ um $x$ þ.a. $a\notin U_a$ og þar með er
+  $\bigcap_{a\in A}U_a$ grennd um $x$ í $X\setminus A$. Mengið $X\setminus A$ er
+  því opið og þar með er $A$ lokað.
+\end{proof}
+\begin{setn}
+  $A$ hlutmengi í $T_1$-rúmi $X$. Þá er $x$ þéttipunktur $A$ \emph{þ.þ.a.a.}
+  sérhver grennd um $x$ skeri $A$ í óendanlega mörgum punktum.
+\end{setn}
+\begin{proof}
+  Ef sérhver grennd um $x$ sker $A$ í óendanlega mörgum punktum, þá sker hún
+  $A\setminus\left\{ x \right\}$ og þar með er $x$ þéttipunktur $A$.
+
+  \emph{Öfugt}, g.r.f. að $x$ sé punktur úr $X$ þ.a. til sé grennd $U$ um $x$
+  sem sker $A$ í aðeins endanlega mörgum punktum. Þá fæst
+  \[
+  (A\setminus \left\{ x \right\})\cap U = \left\{ x_1,\dots,x_m \right\}.
+  \]
+  En skv. síðustu setningu er $X\setminus\left\{ x_1,\dots,x_m \right\}$ opið
+  mengi í $X$ og þar með grennd um $x$, sem sker ekki $A\setminus\left\{ x
+  \right\}$. Af því sést að $x$ er ekki þéttipunktur $A$.
+\end{proof}
+\begin{setn}
+  \begin{enumerate}[(i)]
+    \item Línulega raðað mengi er Hausdorff-rúm með tilliti til
+      röðunargrannmynstursins.
+    \item Faldrúm tveggja Hausdorff-rúma er Hausdorff-rúm. 
+    \item Hlutrúm í Hausdorff-rúmi er Hausdorff-rúm. 
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  Dæmi 10,11 og 12 á bls. 101 í kennslubók.
+\end{proof}
+
+\section{Samfelldar varpanir}
+\begin{skilgr}
+  Vörpun $f:X\to Y$ milli grannrúma er sögð \emph{samfelld}\index{samfelld
+  vörpun} ef frummynd $f$ opnu mengi í $Y$ er opið mengi í $X$; þ.e.a.s.
+  $f^{-1}(U)$ er opið í $X$ ef $U$ er opið í $Y$.
+\end{skilgr}
+\begin{ath}
+  (i) $f:X\to Y$ er samfelld \emph{þ.þ.a.a.} vörpunin $\mathcal P(Y)\to \mathcal
+  P(X), Z\mapsto f^{-1}(Z)$ varpi $\mathcal T_Y$ inn í $\mathcal T_X$.
+
+  (ii) Ef $\mathcal B$ er grunnur fyrir $\mathcal T_Y$, þá er $f:X\to Y$
+  samfelld \emph{þ.þ.a.a.} $f^{-1}(B)$ sé opið í $X$ fyrir sérhvert $B$ úr
+  $\mathcal B$: Ef $V$ er opið í $Y$, þá er $V=\bigcup_{i\in I}B_i$ ($B_i\in
+  \mathcal B \; \forall i\in I$) og $f^{-1}(V) = \bigcup_{i\in I} f^{-1}(B_i)$.
+
+  (iii) Ef $\mathcal S$ er hlutgrunnur fyrir $\mathcal T_Y$, þá er $f:X\to Y$
+  samfelld \emph{þ.þ.a.a.} $f^{-1}(S)$ sé opið í $X$ fyrir sérhvert $S$ úr
+  $\mathcal S$: Látum $\mathcal B$ vera grunninn sem $\mathcal S$ framleiðir. Ef
+  $B\in\mathcal B$, þá
+  \[
+  B = S_1\cap\cdots\cap S_m \quad (S_j\in\mathcal S, \; j=1,\dots,m),
+  \]
+  \[
+  f^{-1}(B) = f^{-1}(S_1)\cap\cdots\cap f^{-1}(S_m).
+  \]
+\end{ath}
+\begin{daemi}
+  $(X,d_X)$ og $(Y,d_Y)$ firðrúm. Vörpun $f:X\to Y$ er samfelld í
+  firðrúmaskilningi \emph{þ.þ.a.a.} $f$ sé samfelld í grannrúmaskilningi.
+\end{daemi}
+\begin{ath}
+  $X$ mengi og $\mathcal T, \mathcal T'$ tvö grannmynstur á $X$. Þá er vörpunin
+  \[
+  \id_X: (X,\mathcal T') \to (X,\mathcal T), x\mapsto x
+  \]
+  samfelld \emph{þ.þ.a.a.} $\mathcal T\subseteq \mathcal T'$, þ.e.a.s. $\mathcal
+  T'$ sé fínni en $\mathcal T$.
+\end{ath}
+\begin{setn}
+  $X$ og $Y$ grannrúm og $f:X\to Y$. Þá eru eftirfarandi skilyrði jafngild:
+  \begin{enumerate}[(i)]
+    \item $f$ er samfelld.
+    \item Fyrir öll $A\subseteq X$ er $f(\overline A) \subseteq \overline{f(A)}$.
+    \item Fyrir sérhvert lokað hlutmengi $B$ í $Y$ er $f^{-1}(B)$ lokað í $X$. 
+  \end{enumerate}
+\end{setn}
+% 18.01.2010
+\begin{proof}
+  \emph{(i)$\Rightarrow$(ii):} Látum $A\subseteq X$ og $x\in\overline A$. Viljum
+  sýna að $f(x)\in\overline{f(A)}$. Ef $V$ er grennd um $f(x)$ í $Y$, þá er
+  $f^{-1}(V)$ grennd um $x$ í $X$ (vegna þess að $f$ er samfelld), svo að
+  $f^{-1}(V)\cap A\neq \emptyset$ (vegna þess að $x\in\overline A$). Veljum
+  punkt $y$ úr $f^{-1}(V)\cap A$. Þá er $f(y)\in f(f^{-1}(V)\cap A) = V\cap
+  f(A)$ og þar með er $V\cap f(A)\neq \emptyset$. Við höfum því sýnt að
+  $f(x)\in\overline{f(A)}$.
+
+  \emph{(ii)$\Rightarrow$(iii):} Látum $B$ vera lokað í $Y$ og sýnum að
+  $f^{-1}(B)\subseteq f^{-1}(B)$. Ljóst er að $f(f^{-1}(B))\subseteq B$ svo ef
+  $x\in \overline{f^{-1}(B)}$, þá gildir að 
+  \[
+  f(x)
+  \in
+  f(\overline{f^{-1}(B)}) 
+  \underset{\text{(ii)}}{\subseteq}
+  \overline{f(f^{-1}(B))}
+  \subseteq
+  \overline B
+  = B.
+  \]
+  Þar með er $x\in f^{-1}(B)$.
+
+  \emph{(iii)$\Rightarrow$(i):} Látum $V$ vera opið í $Y$. Viljum sýna að
+  $f^{-1}(V)$ sé opið í $X$. Nú er $Y\setminus V$ lokað í $Y$ svo að 
+  \[
+  X\setminus f^{-1}(V)
+  = f^{-1}(Y)\setminus f^{-1}(V)
+  = f^{-1}(Y\setminus V)
+  \]
+  er lokað í $X$ og því $f^{-1}(V)$ opið í $X$.
+\end{proof}
+\begin{skilgr}
+  $X,Y$ grannrúm og $f:X\to Y$. Við segjum að $f$ sé \emph{samfelld í
+  punkti}\index{samfelldni í punkti} $x_0$ úr $X$ ef fyrir sérhverja grennd
+  $V$ um $f(x_0)$ í $Y$ er til grennd $U$ um $x_0$ í $X$ þannig að
+  $f(U)\subseteq V$.
+\end{skilgr}
+\begin{ath}[Æfing]
+  $X,Y$ grannrúm og $f:X\to Y$. Vörpunin $f$ er samfelld \emph{þ.þ.a.a.}
+  $f$ sé samfelld í sérhverjum punkti úr $X$.
+\end{ath}
+
+
+\section{Grannmótanir}
+\begin{skilgr}
+  $X$ og $Y$ grannrúm og $f:X\to Y$ \emph{gagntæk} vörpun. Ef bæði $f$ og
+  $f^{-1}$ eru samfelldar, þá er $f$ kölluð \emph{grannmótun}\index{grannmótun}
+  (þ.e. einsmótun milli grannrúma).
+\end{skilgr}
+\begin{daemi}
+  (1) $\R\to\R,x\mapsto x^n$ er grannmótun ef $n$ er oddatala.
+
+  (2) $\arctan:\R\to\left]-\frac\pi 2, \frac\pi 2\right[$ er grannmótun.
+\end{daemi}
+\begin{skilgr}
+  $X$ og $Y$ grannrúm og $f:X\to Y$ samfelld og eintæk. Þá fæst gagntæk vörpun
+  $\hat f:X\to f(X)$. Hún er \emph{samfelld}, en ef hún er grannmótun þá kallast
+  $f$ \emph{greyping}\index{greyping} og við segjum að $f$ \emph{greypi}
+  $X$ í $Y$.
+\end{skilgr}
+\begin{ath}
+  Hér er $f(X)$ að sjálfsögðu með \emph{hlutrúmsgrannmynstrið}.
+\end{ath}
+\begin{daemi}
+  (1) $f:\left]0,2\pi\right[\to\R^2, f(t):=(\cos(t),\sin(t))$ er greyping.
+
+  (2) $g:\left[0,2\pi\right[\to\R^2, g(t):=(\cos(t),\sin(t))$ er \emph{ekki}
+  greyping: T.d. er $f\left( \left[ 0,\pi \right[ \right)$ ekki opið í
+  $f\left( \left[ 0,2\pi \right[ \right)$.
+\end{daemi}
+
+\section{Reglur varðandi samfelldni}
+\begin{setn}
+  $X,Y$ og $Z$ grannrúm.
+  \begin{enumerate}[(i)]
+    \item Ef $y_0\in Y$, þá er vörpunin $f:X\to Y, f(x):=y_0$ fyrir öll $x\in
+      X$, samfelld.
+    \item Ef $A$ er hlutrúm í $X$, þá er ívarpið $j:A\hookrightarrow X, a\mapsto
+      a$ samfellt.
+    \item Ef $f:X\to Y$ og $g:Y\to Z$ eru samfelldar, þá er $g\circ f:X\to Z$
+      samfelld. 
+    \item Ef $f:X\to Y$ er samfelld og $A$ er hlutrúm í $X$, þá er einskorðunin
+      $f|_A:A\to Y$ samfelld.
+    \item Ef $f:X\to Y$ og $B$ hlutrúm í $Y$ þannig að $f(X)\subseteq B$, þá er
+      vörpunin $g:X\to B, g(x) := f(x)$ samfelld.
+    \item[(v')] Ef $f:X\to Y$ er samfelld og $Y$ er hlutrúm í $Z$, þá er
+      $h:X\to Z, x\mapsto f(x)$ samfelld.
+    \item  Vörpunin $f:X\to Y$ er samfelld \emph{þ.þ.a.a.} til sé opin þakning
+      $(U_\alpha)_{\alpha\in I}$ á $X$ þannig að $f|_{U_\alpha}:U_\alpha\to Y$
+      sé samfelld fyirr öll $\alpha$ úr $I$.
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  (i) Ef $V$ er opið í $Y$ þá fæst 
+  \[
+  f^{-1}(V) =
+  \begin{cases}
+    \emptyset, & \text{ef $y_0\notin V$},\\
+    X,         & \text{ef $y_0\in V$}.
+  \end{cases}
+  \]
+
+  (ii) Fyrir sérhvert opið $U$ í $X$ er $j^{-1}(U) = A\cap U$ opið í $A$ skv.
+  skilgreiningu á hlutrúmsgrannmynstrinu.
+
+  (iii) $V$ opið í $Z$. Þá fæst 
+  \[
+  (g\circ f)^{-1}(V)
+  = f^{-1}(g^{-1}(V))
+  \]
+  opið í $x$ vegna þess að $f$ og $g$ eru samfelldar.
+
+  (iv) Skv. (ii) er ívarpið $j_A:A\hookrightarrow X$ samfellt svo skv. (iii) er
+  $f|_A = f\circ j_A$ samfelld.
+
+  (v) Fyrir $U$ opið í $B$ er til opið mengi $V$ í $Y$ þannig að $U = B\cap Y$.
+  En þar sem $f(X)\subseteq B$, þá gildir að 
+  \[
+  g^{-1}(U)
+  = g^{-1}(B\cap V)
+  = f^{-1}(B\cap V)
+  = f^{-1}(V)
+  \]
+  sem er opið í $X$.
+
+  (v') $h=j_Y \circ f$, þar sem $j_Y : Y\hookrightarrow Z$ er ívarpið. Þar með
+  er $h$ samfelld skv. (iii).
+
+  (vi) Vitum: Ef $f$ samfelld og $(U_\alpha)_{\alpha\in I}$ opin þakning, þá er
+  $f|_{U_{\alpha}}:U_\alpha\to Y$ samfelld fyrir öll $\alpha\in I$. Öfugt, látum
+  $(U_\alpha)_{\alpha\in I}$ vera opna þakningu á $X$ og sýnum að $f$ sé
+  samfelld ef $f|_{U_\alpha}$ er samfelld $\forall\,\alpha\in I$. Sönnum á tvo
+  vegu:
+
+  \emph{1. sönnun:} Látum $x\in X$ og $V$ vera grennd um $f(x)$ í $Y$. Til er
+  $\alpha$ úr $I$ þannig að $x\in U_\alpha$ og þar sem $f|_{U_\alpha}$ er
+  samfelld þá er til opin grennd $W$ um $x$ í $U_\alpha$ þannig að
+  $f|_{U_\alpha}(W)\subseteq V$. En $U_\alpha$ er opið í $X$ svo að $W$ er opin
+  grennd um $x$ í $X$ og $f|_{U_\alpha}(W)=f(W)$.
+
+  \emph{2. sönnun:} Látum $V$ vera opið mengi í $Y$. Þá fæst
+  \[
+  f^{-1}(V)
+  = f^{-1}(V)\cap \underbrace{\bigcup_{\alpha\in I} U_\alpha}_{X}
+  = \bigcup_{\alpha\in I} (f^{-1}(V)\cap U_\alpha)
+  = \bigcup_{\alpha\in I} \left( f|_{U_\alpha} \right)^{-1}(V)
+  \]
+  sem er opið í $X$.
+\end{proof}
+\begin{setn}
+  [Samlíming]\index{samlíming}
+  $X$ grannrúm og $A,B$ lokuð hlutmengi í $X$ þannig að $X= A\cup B$. Látum
+  $Y$ vera grannrúm og $f:A\to Y$, $g:B\to Y$ vera samfelldar. Ef $f|_{A\cap B}
+  = g_{A\cap B}$, þá er vörpunin $h:X\to Y$, 
+  \[
+  h(x) :=
+  \begin{cases}
+    f(x) & \text{ef $x\in A$}\\
+    g(x) & \text{ef $x\in B$}
+  \end{cases}
+  \]
+  samfelld.
+\end{setn}
+\begin{proof}
+  Fyrir sérhvert lokað mengi $C$ í $Y$ er 
+  \begin{align*}
+    h^{-1}(C)
+    &= h^{-1}(C)\cap (A\cup B) \\
+    &= (h^{-1}(C)\cap A)\cup (h^{-1}(C)\cap B) \\
+    &= (h|_A)^{-1}(C)\cup (h|_B)^{-1}(C) \\
+    &= f^{-1}(C)\cup g^{-1}(C)
+  \end{align*}
+  sem er lokað í $X$ vegna þess að $f^{-1}(C)$ er lokað í $A$ sem er lokað í
+  $X$ og $g^{-1}(C)$ er lokað í $B$, sem er lokað í $X$.
+\end{proof}
+\begin{setn}
+  $A,X,Y$ grannrúm, $\pi_1:X\times Y\to X$ og $\pi_2:X\times Y\to Y$ venjulegu
+  ofanvörpin. Vörpun $f:A\to X\times Y$ er samfelld \emph{þ.þ.a.a.} $\pi_1\circ
+  f$ og $\pi_2\circ f$ séu samfelldar.
+\end{setn}
+\begin{proof}
+  Ef $f$ er samfelld, þá eru $\pi_1\circ f$ og $\pi_2\circ f$ samfelldar vegna
+  þess að $\pi_1$ og $\pi_2$ eru samfelldar.
+
+  Öfugt, ef $\pi_1\circ f$ og $\pi_2\circ f$ eru samfelldar, þá gildir um
+  sérhvert grunnmengi $U\times V$ þar sem $U$ er opið í $X$ og $V$ er opið í
+  $Y$, að 
+  \[
+  f^{-1}(U\times V)
+  = (\pi_1\circ f)^{-1}\cap (\pi_2\circ f)^{-1}(V)
+  \]
+  sem er opið í $A$.
+\end{proof}
+
+% 19.01.2010
+\section{Kartesísk margfeldi grannrúma}
+\begin{skilgr}
+  $(X_\alpha)_{\alpha\in J}$ fjölskylda af grannrúmum.
+
+  \begin{enumerate}[(i)]
+    \item Mengin $\prod_{\alpha\in J}U_\alpha$ þar sem $U_\alpha$ er opið í
+      $X_\alpha$ mynda grunn fyrir grannmynstur á $\prod_{\alpha\in J}X_\alpha$.
+      Umrætt grannmynstur kallast
+      \emph{kassagrannmynstrið}\index{kassagrannmynstur} á $\prod_{\alpha\in
+      J}X_\alpha$.
+    \item Setjum fyrir sérhvert $\beta\in J$
+      \[
+      \mathcal S_{\beta} 
+      := \left\{ \pi^{-1}_\beta (U_\beta) : U_\beta\text{ opið í }
+      X_\beta\right\}
+      \]
+      og $\mathcal S := \bigcup_{\beta\in J} \mathcal S_\beta$. Grannmynstrið
+      sem er framleitt af hlutgrunninum $\mathcal S$ kallast
+      \emph{faldgrannmynstrið}\index{faldgrannmynstur} á $\prod_{\alpha\in J}
+      X_{\alpha}$. Mengið $\prod_{\alpha\in J}X_\alpha$ með þessu grannmynstri
+      kallast \emph{faldrúm}\index{faldrúm} grannrúmanna $X_\alpha$.
+  \end{enumerate}
+  \end{skilgr}
+\begin{ath}
+  (i) Þar sem grunnur er búinn til út frá hlutgrunni með því að taka öll
+  \emph{endanleg} sniðmengi, þá fæst:
+  \begin{itemize}
+    \item Grunnur fyrir kassagrannmynstrið samanstendur af öllum hlutmengjum af
+      gerðinni $\prod_{\alpha\in J}U_\alpha$ með $U_\alpha$ opið í $X_\alpha$.
+    \item Grunnur fyrir faldgrannmynstrið samanstendur af öllum hlutmengjum af
+      gerðinni $\prod_{\alpha\in J}U_\alpha$, þar sem $U_\alpha$ er opið í
+      $X_\alpha$ og $U_\alpha = X_\alpha$ fyrir öll nema endanlega mörg
+      $\alpha$ úr $J$ (m.ö.o. fyrir næstum öll). 
+  \end{itemize}
+
+  (ii) Kassagrannmynstrið og faldgrannmynstrið eru eins ef $J$ er
+  \emph{endanlegt} mengi.
+\end{ath}
+\begin{setn}
+  $(X_\alpha)_{\alpha\in J}$ fjölskylda grannrúma og $\mathcal B_{\alpha}$
+  grunnur fyrir grannmynstur á $X_\alpha$ fyrir sérhvert $\alpha\in J$. 
+  \begin{enumerate}[(i)]
+    \item Mengin $\prod_{\alpha\in J}B_\alpha$ þar sem $B_\alpha\in\mathcal
+      B_\alpha\;\forall\,\alpha\in J$ mynda grunn fyrir kassagrannmynstrið á
+      $\prod_{\alpha\in J}X_\alpha$.
+    \item Mengin $\prod_{\alpha\in J}B_\alpha$, þar sem $B_\alpha\in\mathcal
+      B_\alpha \cup \left\{ X_\alpha \right\}\; \forall\,\alpha$ og $B_\alpha =
+      X_\alpha$ fyrir næstum öll $\alpha$ úr $J$, mynda grunn fyrir
+      faldgrannmynstrið. 
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  Æfing!
+\end{proof}
+\begin{setn}
+  $(X_\alpha)_{\alpha\in J}$ fjölskylda af grannrúmum. Faldrúmið
+  $\prod_{\alpha\in J}X_\alpha$ uppfyllir eftirfarandi allsherjareiginleika:
+
+  Fyrir sérhvert $\beta\in J$ látum við $\pi_\beta:\prod X_\alpha\to X_\beta$
+  tákna náttúrlega ofanvarpið, þ.e.a.s. ef $(x_\alpha)_{\alpha\in
+  J}\in\prod_{\alpha\in J}X_\alpha$, þá $\pi_\beta( (x_\alpha)_{\alpha\in J})
+  = x_\beta$. Tvenndin $\left( \prod_{\alpha\in J}X_\alpha,
+  (\pi_\alpha)_{\alpha\in J} \right)$ fullnægir:
+
+  \begin{quote}
+    Látum $Z$ vera grannrúm og $f:Z\to \prod_{\alpha\in J}X_\alpha$. Þá er
+    $f$ samfelld \emph{þ.þ.a.a.} vörpunin $\pi_\alpha\circ f$ sé samfelld
+    fyrir sérhvert $\alpha\in J$.
+  \end{quote}
+\end{setn}
+\begin{proof}
+  Ef $f:Z\to\prod_{\alpha\in J}X_\alpha$ er samfelld, þá er
+  $f_\alpha:=\pi_\alpha\circ f$ samfelld fyrir öll $\alpha$ vegna þess að
+  $\pi_\alpha$ er augljóslega samfelld.
+
+  Ef $f_\alpha$ er samfelld fyrir öll $\alpha$ úr $J$ og $U$ er opið í
+  $X_\beta$ fyrir sérhvert $\beta$ úr $J$, þá er $f^{-1}(\pi^{-1}_\beta
+  (U)) = f^{-1}_\beta (U)$ opið í $Z$. En mengi af gerðinni $\pi^{-1}_\beta(U)$
+  mynda hlutgrunn fyrir faldgrannmynstrið, svo að $f$ er samfelld.
+\end{proof}
+Með allsherjareiginleika einhvers fyrirbrigðis er átt við eiginleika sem
+ákvarðar það burtséð frá \emph{einkvæmt ákvarðaðri} einsmótun.
+
+Gerum ráð fyrir að $(Y,(g_\alpha)_{\alpha\in J})$ sé þannig að $Y$ sé grannrúm
+og fyrir sérhvert $\alpha$ úr $J$ sé $g_\alpha:Y\to X_\alpha$ samfelld og um
+sérhvert grannrúm $Z$ og sérhverja vörpun $f:Z\to Y$ gildi að hún er samfelld
+\emph{þ.þ.a.a.} allar varpanirnar $g_{\alpha}\circ f$ séu samfelldar. Þá er til
+nákvæmlega ein grannmótun $h:Y\to\prod_{\alpha\in J}X_\alpha$ sem uppfyllir
+$g_\alpha = \pi_\alpha\circ h$ fyrir öll $\alpha$ úr $J$.
+\begin{proof}
+  \[
+  \xymatrix{
+     & X_\beta 
+     \\
+     Y \ar[r]^{\exists ! g}\ar@/^/[ur]^{g_\beta}\ar@/_/[dr]_{g_\gamma}
+     & \prod_{\alpha\in J} X_\alpha \ar[u]^{\pi_\beta}\ar[d]_{\pi_\gamma} 
+     \\
+     & X_\gamma
+  }
+  \]
+  \emph{Ath.} Það er víst eitthvað vitlaust í þessari efnisgrein eftir síðustu
+  sönnun. Jón Ingólfur lætur okkur fá dæmi úr þessu.
+\end{proof}
+\begin{setn}
+  Látum $A_\alpha$ vera hlutrúm í $X_\alpha$ fyrir sérhvert $\alpha$ úr
+  $J$.
+  \begin{enumerate}[(i)]
+    \item $\prod_{\alpha\in J}$ með kassagrannmynstrinu eru hlutrúm í
+      $\prod_{\alpha\in J} X_\alpha$ með kassagrannmynstrinu.
+    \item Faldrúmið $\prod_{\alpha\in J} A_\alpha$ er hlutrúm í faldrúminu
+      $\prod_{\alpha\in J}X_\alpha$. 
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  Æfing.
+\end{proof}
+\begin{setn}
+  $(X_\alpha)_{\alpha\in J}$ fjölskylda af Hausdorff-rúmum, þá er
+  $\prod_{\alpha\in J}X_\alpha$ Hausdorff-rúm, hvort sem er í kassa- eða
+  faldgrannmynstrinu.
+\end{setn}
+\begin{proof}
+  Æfing (nægir að sanna fyrir faldgrannmynstrið, því það er fínna).
+\end{proof}
+\begin{daemi}
+  Setjum $\R^\omega := \prod_{n\in\N^*} X_n$  með $X_n = \R$ fyrir öll $n$. Setjum
+  $f: \R\to\R^{\omega}, t\mapsto (t,t,t,\dots)$ þ.e.a.s. $f = (f_n)_{n\in\N^*}$
+  með $f_n(t) = t$ fyrir öll $n\in\N^*$ og öll $t$ úr $\R$. Ljóst er að $f$ er
+  samfelld ef $\R^\omega$ er með faldgrannmynstrið. $f$ er hins vegar ekki
+  samfelld ef $\R^\omega$ er með kassagrannmynstrið:
+  \[
+  V := \left] -1,1 \right[\times\prod_{n\geq 1}\left] -\frac 1n,\frac 1n \right[
+  \]
+  er opið í kassagrannmynstrinu, en 
+  \[
+  f^{-1}(V) 
+  = \bigcap_{n\geq 1} \left] -\frac 1n,\frac 1n \right[ 
+  = \left\{ 0 \right\}
+  \]
+  sem er ekki opið í $\R$.
+\end{daemi}
+
+\section{Grannfræði firðrúma}
+Látum $(X,d)$ vera firðrúm. Munum að opnu mengin í $X$ (í firðrúmaskilningi)
+mynda grannmynstur, þar sem opnu kúlurnar mynda grunn. Það kallast
+\emph{grannmynstrið sem $d$ framleiðir}.
+\begin{skilgr}
+  Grannrúm $X$ er sagt \emph{firðanlegt}\index{firðanlegt grannrúm} ef til er
+  firð á $X$ sem framleiðir grannmynstrið.
+\end{skilgr}
+% 25.10.2010
+\begin{skilgr}
+  $(X,d)$ firðrúm. Hlutmengi $A$ í $X$ er sagt \emph{takmarkað}\index{takmarkað
+  hlutmengi í firðrúmi} ef $\diam(A) := \sup\left\{ d(a,b):a,b\in A
+  \right\}<+\infty$.
+\end{skilgr}
+\begin{ath}
+  \emph{Takmörkun} er ekki grannfræðilegt hugtak, þ.e.a.s. grannmynstur á
+  tilteknu mengi getur verið framleitt á ólíkum firðum þannig að ákveðið
+  hlutmengi sé takmarkað í sumum þeirra, en ekki í öðrum.
+\end{ath}
+\begin{setn}
+  $(X,d)$ firðrúm og setjum\[
+  \overline d: X\times X\to\R_+, (x,y)\mapsto\min\left\{ d(x,y) , 1 \right\}.
+  \]
+  Þá er $\overline d$ firð á $X$ sem framleiðir sama grannmynstur og $d$ á
+  $X$.
+\end{setn}
+\begin{skilgr}
+  Firðin $\overline d$ kallast \emph{staðlaða takmarkaða firðin}\index{staðlaða
+  takmarkaða firðin} sem tilheyrir $d$.
+\end{skilgr}
+\begin{proof}
+  [Sönnun á síðustu setningu]
+  Ljóst að $\overline d(x,y) \geq 0$ og að $\overline d(x,y) = \overline d(y,x)$
+  fyrir öll $x,y$ úr $X$. Sýnum nú að fyrir öll $x,y,z$ úr $X$ gildi\[
+  \overline d(x,z)\leq \overline d(x,y)+ \overline d(y,z).
+  \]
+  Ef $d(x,y)\geq 1$ eða $d(y,z)\geq 1$, þá er $\overline d(x,z)\leq 1 \leq
+  \overline d(x,y) + \overline d(y,z)$. Ef hins vegar $d(x,y) < 1$ og
+  $d(y,z)<1$, þá fæst\[
+  \overline d(x,z)
+  \leq d(x,z)
+  \leq d(x,y) + d(y,z)
+  = \overline d(x,y) + \overline d(y,z).
+  \]
+  Ennfremur gildir: Ef $\varepsilon > 0$, þá $B_d(x,\varepsilon)\subseteq
+  B_{\overline d}(x,\varepsilon)$ og ef $\delta \leq \min\left\{ \varepsilon,1
+  \right\}$ þá $B_{\overline d}(x,\delta)\subseteq B_d(x,\varepsilon)$. Þar með
+  er sýnt að firðirnar framleiða sama grannmynstur.
+\end{proof}
+\begin{skilgr}
+  Látum $(V,\|\cdot\|)$ vera staðalrúm (staðlað vigurrúm)\index{staðalrúm} og
+  skilgreinum firð á $V$ með $d:V\times V\to \left[ 0,+\infty \right[,
+  (x,y)\mapsto \|x-y\|$. Við segjum að grannmynstrið sem þessi firð framleiðir
+  sé \emph{framleitt af staðlinum}. Segjum að tveir staðlar séu
+  \emph{jafngildir} ef þeir framleiða sama grannmynstrið.
+\end{skilgr}
+\begin{setn}
+  $(V,\|\cdot\|)$ staðlað rúm. 
+  \begin{enumerate}[(i)]
+    \item Línuleg vörpun $L:V\to V$ er samfelld \emph{þ.þ.a.a.}
+      til sé fasti $k>0$ þ.a.  $\|L(x)\|\leq k\cdot\|x\|$ fyrir öll $x$ úr $V$.
+    \item Staðall $\|\cdot\|_1$ á $V$ er jafngildur $\|\cdot\|$ \emph{þ.þ.a.a.}
+      til séu fastar $m>0$ og $M>0$ þ.a. $m\cdot\|x\|\leq \|x\|_1\leq
+      M\cdot\|x\|$ fyrir öll $x$ úr $V$.
+    \item Allir staðlar á endanlega víðu $\R$-vigurrúmi eru jafngildir. 
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  Æfing (sjá dæmablað 4).
+\end{proof}
+\begin{setn}
+  Sérhver staðall á $\R^n$ framleiðir faldgrannmynstrið.
+\end{setn}
+\begin{proof}
+  Nóg að sanna niðurstöðuna fyrir staðalinn\[
+  \|x\|:=\max\left\{ |x_1|,\dots,|x_n| \right\}
+  \]
+  fyrir sérhvert $x = (x_1,\dots,x_n)$ úr $\R^n$. Látum
+  $\rho:\R^n\times\R^n\to\left[ 0,+\infty \right[$ vera tilheyrandi firð. Þá
+  gildir fyrir sérhvert $x=(x_1,\dots,x_n)$ úr $\R^n$ og sérhvert $\varepsilon
+  >0$ að\[
+  B_\rho(x,\varepsilon) 
+  = \left] x_1-\varepsilon,x_1+\varepsilon \right[
+  \times\cdots\times\left] x_n-\varepsilon,x_n+\varepsilon \right[
+  \]
+  tilheyrir grunninum sem framleiðir faldgrannmynstrið. Hins vegar gildir fyrir
+  sérhvert hlutmengi\[
+  B = \left] a_1,b_1 \right[\times\cdots\times\left] a_n,b_n \right[
+  \]
+  úr umræddum grunni og $x = (x_1,\dots,x_n)$ úr $B$ að til eru
+  $\varepsilon_1,\dots,\varepsilon_n>0$ þ.a.\[
+  \left] x_i-\varepsilon,x_i+\varepsilon \right[
+  \subseteq
+  \left] a_i,b_i\right[
+  \]
+  fyrir $i=1,\dots,n$. Setjum $\varepsilon:=\min\left\{
+  \varepsilon_1,\dots,\varepsilon_n \right\}$ og fáum
+  $B_\rho(x,\varepsilon)\subseteq B$.
+\end{proof}
+\begin{skilgr}
+  Látum $d$ vera venjulegu firðina á $\R$ og $\overline d$ vera tilheyrandi
+  staðlaða takmarkaða firð. Fyrir mengið $J$ skilgreinum við firðina $\overline
+  \rho$ á $\R^J$ með\[
+  \overline\rho(x,y)
+  := \sup\left\{ \overline d(x_\alpha,y_\alpha) : \alpha\in J \right\}
+  \]
+  þar sem $x = (x_\alpha)_{\alpha\in J}$ og $y = (y_\alpha)_{\alpha\in J}$.
+  Köllum þessa firð \emph{jafnmælisfirðina}\index{jafnmælisfirðin}
+  á $\R^J$ og tilheyrandi grannmynstur
+  \emph{jafnmælisgrannmynstrið}\index{jafnmælisgrannmynstrið} á $\R^J$.
+\end{skilgr}
+\begin{setn}
+  \emph{Jafnmælisgrannmynstrið} á $\R^J$ er stranglega fínna en
+  faldgrannmynstrið ef $J$ er óendanlegt mengi.
+\end{setn}
+\begin{proof}
+  Látum $\prod_{\alpha\in J}U_\alpha$ vera grunnmengi fyrir faldgrannmynstrið og
+  $x = (x_\alpha)_{\alpha\in J}\in\prod_{\alpha\in J}U_\alpha$. Látum
+  $\alpha_1,\dots,\alpha_n$ vera þau stök ú $J$ þ.a. $U_\alpha\neq \R$. Þá eru
+  til $\varepsilon_1,\dots,\varepsilon_n>0$ þ.a. $B_{\overline
+  d}(X_{\alpha_i},\varepsilon_i)\subseteq U_{\alpha_i}$ fyrir $i=1,\dots,n$.
+  Setjum $\varepsilon := \min \left\{ \varepsilon_1,\dots,\varepsilon_n
+  \right\}$ og fáum að $B_{\overline
+  \rho}(x,\varepsilon)\subseteq\prod_{\alpha\in J}U_\alpha$. Hins vegar er ljóst
+  að $B_{\overline\rho}(x,1/2)$ getur ekki innihaldið mengi af gerðinni
+  $\prod_{\alpha\in J}U_\alpha$ þar sem $U_\alpha = \R$ fyrir eitthvert
+  $\alpha$ úr$J$.
+\end{proof}
+\begin{setn}
+  Látum $\overline d$ vera stöðluðu takmörkuðu firðina á $\R$ og setjum
+  \[
+  D:\R^\omega\times\R^\omega\to\R,
+  (x,y)\mapsto\sup\left\{ \frac{\overline d(x_i,y_i)}{i} : i\in\N^* \right\},
+  \]
+  þar sem $x = (x_i)_{i\in\N^*}$ og $y=(y_i)_{i\in\N^*}$. Þá er $D$ firð sem
+  framleiðir faldgrannmynstrið á $\R^\omega$.
+\end{setn}
+\begin{proof}
+  (1) \emph{$D$ er firð:} Ljóst að $D(x,y)\geq 0$, $D(x,y)=0$ þ.þ.a.a.
+  $x= y$; og $D(x,y) = D(y,x)$ fyrir öll $x,y$ úr $\R^\omega$. Látum $x =
+  (x_i)$, $y=(y_i)$ og $z=(z_i)$. Þá gildir fyrir sérhvert $i$ úr $\N^*$ að\[
+  \frac{\overline d(x_i,z_i)}{i}
+  \leq \frac{\overline d(x_i,y_i)}{i} + \frac{\overline d(y_i,z_i)}{i}
+  \leq D(x,y)+D(y,z)
+  \]
+  og þar með $D(x,z) = \sup_{i\in\N^*}\frac{\overline d(x_i,z_i)}{i}\leq
+  D(x,y)+D(y,z)$.
+
+  (2) \emph{$D$ framleiðir faldgrannmynstrið:} Látum $U$ vera opið í
+  firðgrannmynstrinu og $x=(x_i)\in U$. Sýnum að til sé opið mengi $V$ í
+  faldgrannmynstrinu þ.a. $x\in V\subseteq U$. Veljum $\varepsilon$-kúlu
+  $B_D(x,\varepsilon)$ og veljum svo $N$ úr $\N^*$ þannig að $1/N<\varepsilon$.
+  Setjum \[
+  V := \left] x_1-\varepsilon,x_1+\varepsilon \right[\times\cdots\times\left]
+  x_N-\varepsilon,x_N+\varepsilon \right[\times\R\times\R\times\cdots
+  \]
+  Fyrir öll $y = (y_i)_{i\in\N^*}$ úr $\R^\omega$ og öll $i\geq N$ gildir að
+  \[
+  \frac{\overline d(x_i,y_i)}{i}\leq \frac 1N,
+  \]
+  svo að\[
+  D(x,y) \leq\max\left\{ \frac{\overline d(x_1,y_1)}{1}, \frac{\overline
+  d(x_2,y_2}{2},\dots,\frac{\overline d(x_N,y_N)}{N}, \frac{1}{N} \right\}.
+  \]
+  Þar með er $D(x,y)<\varepsilon$ fyri öll $y$ úr $V$ og því $V\subseteq
+  B_D(x,\varepsilon)$.
+
+  Öfugt, látum $U = \prod_{n\in\N^*}U_n$ vera grunnmengi fyrir faldgrannmynstrið
+  á $\R^\omega$ og $x = (x_n)$ vera stak úr $U$. Viljum sýna að til sé opið
+  mengi í firðgrannmynstrinu þ.a. $x\in V\subseteq U$. Látum $I$ vera endanlegt
+  hlutmengi í $\N^*$ þ.a. $U_n = \R$ ef $n\notin I$. Fyrir sérhvert $n$ úr
+  $I$ veljum við $\varepsilon_n$ þ.a. $0<\varepsilon_n<1$ og 
+  $\left] x_n-\varepsilon_n,x_n+\varepsilon_n \right[\subseteq U_n$. Setjum svo
+  $\varepsilon := \min\left\{ \varepsilon_n/n : n\in I \right\}$. Þá er fljótséð
+  að $B_D(x,\varepsilon)\subseteq U$.
+\end{proof}
+\begin{skilgr}
+  Runa $(x_n)$ í grannrúmi $X$ er sögð \emph{samleitin að
+  punkti\index{samleitni runu að punkti} $x$ úr $X$} ef fyrir sérhverja grennd
+  $U$ um $x$ er til jákvæð heil tala $N$ þ.a. $x_n\in U$ fyrir öll $n\geq N$.
+  Köllum þá $x$ \emph{markgildi}\index{markgildi runu} rununnar. Táknum þetta
+  $x_n\longrightarrow x$ eða $\lim_{n\to+\infty}x_n = x$.
+\end{skilgr}
+\begin{ath}
+  Í Hausdorff-rúmi getur runa í mesta lagi haft eitt markgildi.
+\end{ath}
+\begin{skilgr}
+  $X$ grannrúm og $x\in X$. 
+  \begin{enumerate}[(i)]
+    \item Setjum að $x$ hafi \emph{teljanlegan grenndagrunn\index{teljanlegur
+      grenndagrunnur} í} $X$ eða að $X$ hafi \emph{teljanlegan grenndagrunn um}
+      $x$ ef til er safn $(U_n)_{n\in\N}$ af grenndum um $x$ þannig að sérhver
+      grennd $U$ um $x$ innihaldi a.m.k. eitt $U_n$.
+    \item Segjum að $X$ fullnægi \emph{fyrstu teljanleika-frumsendu
+      (f.t.f)}\index{f.t.f.}\index{fyrsta teljanleika-frumsendan} ef $X$ hefur
+      teljanlegan grenndagrunn um sérhvern punkt sinn.
+  \end{enumerate}
+\end{skilgr}
+\begin{ath}
+  Firðrúm fullnægir f.t.f.
+\end{ath}
+% 26.01.2010
+\begin{setn}
+  $X$ grannrúm, $A\subseteq X$ og $x\in X$.
+  \begin{enumerate}[(i)]
+    \item Ef til er runa $(x_n)$ í $A$ þ.a. $x_n\longrightarrow x$, þá er
+      $x\in\overline A$.
+    \item Ef $X$ fullnægir f.t.f., þá gildir öfugt: Ef $x\in\overline A$, þá er
+      til runa $(x_n)$ í $A$ þ.a. $x_n\longrightarrow x$. 
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  (i) Látum $(x_n)$ vera runu í $A$ þ.a. $x_n\longrightarrow x$. Þá inniheldur
+  sérhver grennd um $x$ punkt úr $A$ svo að $x\in\overline A$.
+
+  (ii) G.r.f. að $X$ uppfylli f.t.f. og $x\in\overline A$. Látum
+  $(U_n)_{n\geq 1}$ vera teljanlegan grenndagrunn um $x$ í $X$ og setjum
+  $U_n' := U_1\cap\cdots\cap U_n$ fyrir öll $n\geq 1$. Veljum svo fyrir sérhvert
+  $n$ punkt $x_n$ úr $A\cap U_n'$. Þá er ljóst að $x_n\longrightarrow x$.
+\end{proof}
+\begin{setn}
+  $X,Y$ grannrúm og g.r.f. að $X$ fullnægi f.t.f. Vörpun $f:X\to Y$ er samfelld
+  \emph{þ.þ.a.a.} um sérhverja samleitna runu $(x_n)$ í $X$ gildi að
+  \begin{equation}
+    \lim_{n\to\infty}f(x_n) = f\left(\lim_{n\to\infty}x_n\right)
+    \label{eq:ftf_limit}
+  \end{equation}
+\end{setn}
+\begin{proof}
+  G.r.f. að $f$ sé samfelld, $x_n\longrightarrow x$, og $V$ sé grennd um
+  $f(x)$ í $Y$. Þá er $f^{-1}(V)$ grennd um $x$ (vegna þess að $f$ er samfelld),
+  svo að til er $N$ þ.a. $x_n\in f^{-1}(V)$ $\forall\,n\geq N$ og þar með
+  $f(x_n)\in V$ $\forall\,n\geq N$.
+
+  Öfugt, g.r.f. að um allar samleitnar runur $(x_n)$ í $X$ gildi
+  \eqref{eq:ftf_limit}. Látum $C$ vera lokað mengi í $Y$ og $x\in
+  \overline{f^{-1}(C)}$. Viljum sýna að $x\in f^{-1}(C)$. Veljum runu $(x_n)$ úr
+  $f^{-1}(C)$ þ.a. $x_n\longrightarrow x$. Þá gildir að $f(x_n)\longrightarrow
+  f(x)$, og þar með er $f(x)\in C$ vegna þess að $C$ er lokað, og þar með er
+  $x\in f^{-1}(C)$.
+\end{proof}
+\begin{setn}
+  $V$ staðalrúm (yfir $\R$). Þá eru varpanirnar $\R\times V\to V,
+  (\lambda,x)\mapsto \lambda x$ og $V\times V\to V, (x,y)\mapsto x+y$ samfelldar
+  ($\R\times V$ og $V\times V$ með faldgrannmynstri).
+\end{setn}
+\begin{proof}
+  Æfing.
+\end{proof}
+\begin{setn}
+  $X$ grannrúm og $f,g:X\to\R$ samfelldar. Þá eru $f+g$, $f-g$ og $f\cdot g$ frá
+  $X$ til $\R$ líka samfelldar.
+\end{setn}
+\begin{proof}
+  $h:X\to\R\times\R$, $h(x) := (f(x),g(x))$ er samfelld. Notum svo annars vegar
+  að samskeyting samfelldra varpana er samfelld vörpun og hins vegar síðustu
+  setningu.
+\end{proof}
+\begin{skilgr}
+  $X$ mengi, $(Y,d)$ firðrúm og $(f_n)$ runa af vörpunum frá $X$ í $Y$. Við
+  segjum að runan $(f_n)$ sé \emph{samleitin í jöfnum mæli}\index{samleitni í
+  jöfnum mæli} (j.m) að vörpun $f:X\to Y$ ef fyrir sérhvert $\varepsilon > 0$ er
+  til jákvæð heil tala $N$ þannig að $d(f_n(x),f(x))<\varepsilon$ fyrir sérhvert
+  $x$ úr $X$ og öll $n\geq N$.
+\end{skilgr}
+\begin{setn}
+  $(f_n)$ runa af samfelldum vörpunum frá grannrúmi $X$ yfir í firðrúm
+  $Y$. Ef $(f_n)$ er samleitin í j.m. að vörpun $f:X\to Y$, þá er $f$ samfelld.
+\end{setn}
+\begin{proof}
+  (Þekkt) æfing.
+\end{proof}
+\begin{daemi}
+  (1) $\R^\omega$ með kassagrannmynstrinu er \emph{ekki} firðanlegt. Setjum\[
+  A := \left\{ (x_1,x_2,\dots)\in\R^\omega : x_n>0\;\forall\,n\in\N^* \right\}.
+  \]
+  Þá er $\mathbf 0 = \left( 0,0,\dots \right)\in \overline A$ vegna þess að
+  sé $\mathbf 0\in B = \left] a_1,b_1 \right[\times\left] a_2,b_2
+  \right[\times\cdots$, þá er $(\frac 12 b_1, \frac 12 b_2,\dots)\in B\cap A$.
+  Hins vegar er ekki til nein runa í $A$ sem hefur $\mathbf 0$ sem markgildi:
+  Látum $(\mathbf a_n)$ vera runu í $A$ og skrifum $\mathbf a_n =
+  (a_{1n},a_{2n},\dots,a_{in},\dots)$ með $a_{in}>0$ $\forall\,i$ og $\forall\,n$.
+  Mengið $B' := \left] -a_{11},a_{11} \right[\times\left] -a_{22},a_{22}
+  \right[\times\cdots$ er þá grennd um $\mathbf 0$ sem inniheldur ekki neitt
+  $\mathbf a_n$, því að $a_{nn}\notin \left]-a_{nn},a_{nn}\right[$ fyrir
+  sérhvert $n$.
+
+  (2) $\R^{J}$ með faldgrannmynstrinu er ekki firðanlegt ef $J$ er óteljanlegt.
+  Látum $J$ vera óteljanlegt og látum $A$ vera hlutmengi allra
+  $(x_{\alpha})_{\alpha\in J}$ úr $\R^J$ þ.a. $x_\alpha = 0$ fyrir endanlega
+  mörg $\alpha$ og $x_\alpha = 1$ fyrir hin $\alpha$. Þá er $\mathbf 0\in
+  \overline A$: Ef $\prod_{\alpha\in J} U_\alpha$ er grunngrennd um $\overline
+  0$ með $U_\alpha = \R$ fyrir öll $\alpha$ úr $J\setminus I$, þar sem
+  $I$ er endanlegt hlutmengi í $J$, þá eru allir punktar $(x_\alpha)_{\alpha\in
+  J}$ úr $A$ sem uppfylla $x_\alpha = 0$ ef $\alpha\in I$ líka í
+  $\prod_{\alpha\in J} U_\alpha$.
+
+  Sýnum nú að engin runa í $A$ hafi $\mathbf 0$ sem markgildi: Látum
+  $(\mathbf a_n)$ vera runu í $A$ og skrifum $\mathbf a_n =
+  (a_{n\alpha})_{\alpha\in J}$. Skilgreinum mengi $J_n := \left\{ \alpha\in J :
+  a_{n\alpha} = 0 \right\}$. Þá er $J_n$ endanlegt og því $\bigcup_{n} J_n$
+  teljanlegt, þar með er $J\setminus\bigcup_n J_n \neq \emptyset$. Veljum
+  $\beta$ úr $J\setminus \bigcup_n J_n$ og fáum $a_{n\beta}=1$ fyrir öll $n$.
+  Þar með inniheldur opna grenndin $\pi_\beta^{-1}\left( \left] -1,1 \right[
+  \right)$ ekkert $\mathbf a_n$.
+\end{daemi}
+
+
+\section{Deildagrannrúm}
+\emph{Upprifjun:} $X$ mengi, $R$ jafngildisvensl á $X$. $R$ skilgreinir
+\emph{deildaskiptingu}\index{deildaskipting} á $X$ (skiptingu ekki tómra
+hlutmengja $X_i$ í $X$, $i\in I$, þ.a. $X_i\cap X_j=\emptyset$ ef $i\neq j$ og
+$\bigcup_{i\in I} X_i = X$). Öfugt, ef $(X_i)_{i\in I}$
+er deildaskipting á $X$, þá skilgreinir hún jafngildisvensl $R$: Segjum að
+$xRy$ þ.þ.a.a. $x$ og $y$ séu úr sömu deild.
+Táknum með $X/R$ mengið af deildunum, þ.e.a.a. $X/R = \left\{ X_i: i\in I
+\right\}$, og ef $x\in X$, þá látum við $[x]$ tákna tilheyrandi deild.
+
+\begin{skilgr}
+  Látum $X$ vera grannrúm og $R$ vera jafngildisvensl á $X$. Látum $\pi: X\to
+  X/R$ vera ofanvarpið á deildamengið sem $R$ skilgreinir. Skilgreinum
+  grannmynstur á $X/R$ með því að $U\subseteq X/R$ sé opið \emph{þ.þ.a.a.}
+  $\pi^{-1}(U)$ sé opið í $X$. Köllum þetta
+  \emph{deildagrannmynstrið}\index{deildagrannmynstur} á $X/R$ og segjum að
+  $X/R$ sé \emph{deildagrannrúm $X$ m.t.t. $R$}\index{deildagrannrúm}.
+\end{skilgr}
+\begin{ath}
+  Deildagrannmynstrið á $X/R$ er \emph{fínasta} grannmynstrið á $X/R$ þ.a.
+  ofanvarpið $\pi: X\to X/R$ sé samfellt!
+\end{ath}
+\begin{setn}
+  $Y$ grannrúm og $X,R$ eins og áður. Vörpun $f:X/R\to Y$ er samfelld
+  \emph{þ.þ.a.a.} $f\circ \pi: X\to Y$ sé samfelld.
+  \[
+  \xymatrix{
+  X\ar[d]_\pi \ar[r]^{f\circ\pi}&  Y\\
+  X/R \ar[ur]_f &
+  }
+  \]
+\end{setn}
+\begin{proof}
+  Ef $V$ er opið í $Y$, þá er $f^{-1}(V)$ opið í $X/R$ \emph{þ.þ.a.a.}
+  $(f\circ \pi)^{-1}(V) = \pi^{-1}(f^{-1}(V))$ sé opið í $X$.
+\end{proof}
+\begin{fylgisetn}
+  Ef $Y$ er grannrúm ($X,\pi,R$ eins og áður) og $f:X\to Y$ er samfelld og föst
+  á trefjum $\pi$ (þ.e. ef $xRy$, þá $f(x) = f(y)$) þá er ótvírætt ákvarðaða
+  vörpunin $\tilde f : X/R \to Y$ líka samfelld ($\tilde f = f\circ\pi$).\[
+  \xymatrix{
+  X \ar[r]^f\ar[d]_\pi & Y\\
+  X/R\ar[ur]_{\exists!\,\tilde f} &
+  }
+  \]
+\end{fylgisetn}
+\begin{proof}
+  Leiðir beint af síðustu setningu.
+\end{proof}
+% 01.02.2010
+\begin{setn}
+  $X$ og $Y$ grannrúm, $R$ jafngildisvensl á $X$. Ef $f:X\to Y$ er samfelld og
+  föst á trefjum $\pi:X\to X/R$, þá getum við skrifað $f$ sem samskeytingu
+  þriggja samfelldra varpana:
+ \[
+ \xymatrix{
+ X       \ar[rr]^\pi_{\text{ofanv.}}           &&
+ X/R   \ar[rr]^g_{[x]\mapsto f(x)}             &&
+ f(X)  \ar@{^{(}->}[rr]^\iota_{\text{ívarpið}} &&
+ Y
+ }
+ \]
+ Ennfremur gildir að vörpunin $g$ er grannmótun \emph{þ.þ.a.a.}
+ \begin{enumerate}[(i)]
+   \item $f(x)=f(y)$ \emph{þ.þ.a.a.} $xRy$ ($g$ gagntæk)
+   \item $V\subseteq f(X)$ er opið í $f(X)$ (með hlutrúmsgrannmynstrinu)
+     \emph{þ.þ.a.a.} $f^{-1}(V)$ sé opið í $X$ (\emph{þ.þ.a.a.} $g^{-1}(V)$ sé
+     opið í $X/R$ vegna $f^{-1}(V) = (g\circ \pi)^{-1}(V)$). 
+ \end{enumerate}
+\end{setn}
+\begin{proof}
+  Vörpunin $g$ er ótvírætt ákvörðuð og samfelld. Skilyrði (i) þýðir að
+  $g$ sé gagntæk og skilyrði (ii) að $g$ sé opin vörpun. 
+\end{proof}
+\begin{skilgr}
+  $X,Y$ grannrúm og $f:X\to Y$. Skilgreinum jafngildisvensl $R$ á $X$ með
+  $x_1 R x_2$ \emph{þ.þ.a.a.} $f(x_1)=f(x_2)$. Við segjum að $f$ sé
+  \emph{deildavörpun}\index{deildavörpun} ef $f$ er samfelld og átæk og
+  $g$-ið úr síðustu setningu er grannmótun, m.ö.o. ótvírætt ákvarðaða vörpunin
+  $\tilde f:X/R\to Y$ sé grannmótun. 
+\end{skilgr}
+\begin{skilgr}
+  Hlutmengi $U$ í $X$ er sagt \emph{mettað}\index{mettað mengi} (\emph{e}.
+  saturated) m.t.t. jafngildisvensla $R$ á $X$ ef eftirfarandi gildir:
+  \begin{quote}
+    Ef $x\in U$ og $xRy$, þá $y\in U$.
+  \end{quote}
+\end{skilgr}
+\begin{ath}
+  (i) Mengi $U$ í $X$ er mettað \emph{þ.þ.a.a.} $\pi^{-1}(\pi(U))=U$ þar sem
+  $\pi:X\to X/R$.
+
+  (ii) $X,Y$ grannrúm og $f:X\to Y$ átæk. Þá er $f$ deildavörpun \emph{þ.þ.a.a.}
+  $f$ sé samfelld og varpi opnum mettuðum mengjum á opin mettuð mengi (jafngilt
+  því að $V$ sé opið í $Y$ \emph{þ.þ.a.a.} $f^{-1}(V)$ sé opið í $X$).
+\end{ath}
+\begin{daemi}
+  (1) $X$ og $Y$ grannrúm, $A$ hlutmengi í $Y$ og $f:A\to X$ samfelld. Á
+  sundurlæga sammenginu $X\coprod Y$ skilgreinum við vensl $R$ með því að
+  skilgreina deildirnar $\left\{ y \right\}$ ef $y\in Y\setminus A$ og
+  $\left\{ y,f(y) \right\}$ ef $y\in A$ og $\left\{ x \right\}$ ef $x\in
+  X\setminus f(A)$. Deildagrannrúmið $(X\coprod Y)/R$ er táknað $X\cup_f Y$. Við
+  segjum að $X\cup_f Y$ fáist með því að \emph{líma $Y$ við $X$ með $f$}. 
+
+  T.d. fæst áhugavert dæmi með því að skoða $X=\R^2$, $S^1=\partial D(0,1)$,
+  $f:S^1\to\R^2, s\mapsto s$ og $Y=\overline{D(0,1)}$. Þá verður $X\cup_f Y$
+  grannmóta rúmi sem fæst með því að líma hálfkúlu í $\R^3$ með geisla $1$
+  ofan á einingarskífuna í $\R^2$.
+
+  (2) Ef $X = \left\{ * \right\}$ er einn punktur, þá skrifum við $\left\{ *
+  \right\}\cup_A Y$ í stað $\left\{ *\right\}\cup_f Y$ og segjum að $\left\{
+  * \right\}\cup_A Y$ fáist með því að \emph{draga $A$ saman í einn punkt}. T.d.
+  $Y=\left[ 0,1 \right]$ og $A=\left\{ 0,1 \right\}$, þá er $\left\{ *
+  \right\}\cup_A Y\cong S'$ (grannmóta) vegna þess að $Y\to S'; t\mapsto
+  e^{2\pi it}$ er deildamótun.
+
+  Annað dæmi: $D = \left\{ (x,y)\in\R^2:x^2+y^2 \leq 1 \right\}$ og $A =
+  S^1 =\partial D$. Þá er $\left\{ * \right\}\cup_{S^1}D\cong S^2$ (sjáum það
+  síðar).
+\end{daemi}
+
+
+
+\chapter{Samhengni og þjöppun}
+
+\section{Samanhangandi rúm}
+\begin{skilgr}
+  \begin{enumerate}[(1)]
+    \item \emph{Strjált rúm}\index{strjált rúm} er grannrúm með strjála
+      grannmynstrinu.
+    \item \emph{Opin tvískipting}\index{opin tvískipting} á grannrúmi $X$ er
+      safn $\left\{ U,V \right\}$ þar sem $U$ og $V$ eru opin í $X$, 
+      $X = U\cap V$, $U\cap V= \emptyset$ og $U,V\neq \emptyset$.
+  \end{enumerate}
+\end{skilgr}
+\begin{setn}
+  Eftirfarandi skilyrði eru jafngild fyrir grannrúm $X$:
+  \begin{enumerate}[(i)]
+    \item $X$ á sér enga opna tvískiptingu.
+    \item Einu hlutmengin í $X$ sem eru bæði opin og lokuð eru $\emptyset$ og
+      $X$.
+    \item Sérhver samfelld vörpun frá $X$ inn í strjált grannrúm er föst
+      (þ.e.a.s. tekur bara eitt gildi). 
+  \end{enumerate}
+\end{setn}
+\begin{skilgr}
+  Grannrúm sem fullnægir skilyrðum (i), (ii) og (iii) að ofan er sagt
+  \emph{samanhangandi}\index{samanhangandi} (\emph{e}. connected).
+\end{skilgr}
+\begin{proof}
+  [Sönnun á síðustu setningu]
+  \emph{(i)$\Rightarrow$(ii):} Ef $U$ er opið og lokað í $X$, þá er $X\setminus
+  U$ líka opið og lokað í $X$. Þá er ljóst að $\left\{ U,X\setminus U \right\}$
+  er opin tvískipting á $X$ nema $U=\emptyset$ eða $U=X$.
+
+  \emph{(ii)$\Rightarrow$(iii):} Ef $Y$ er strjált, $f:X\to Y$ samfelld og
+  $x\in X$, þá er $f^{-1}(f(x))$ bæði opið og lokað í $X$. Þar með er
+  $f^{-1}(f(x))=X$ vegna þess að $x\in f^{-1}(f(x))$.
+
+  \emph{(iii)$\Rightarrow$(i):} G.r.f. að $X=U\cup V$ þar sem $U$ og $V$ eru
+  opin og $U\cap V=\emptyset$. Þá er vörpunin $f:X\to \left\{ 0,1 \right\}$, \[
+  f(x) := 
+  \begin{cases}
+    0 & x\in U\\
+    1 & x\in V,
+  \end{cases}
+  \]
+  samfelld og þá fasti. Þar með gildir að $U = \emptyset$ eða $V = \emptyset$.
+\end{proof}
+\begin{daemi}
+  \begin{enumerate}[(1)]
+    \item Grannrúm, sem inniheldur bara einn punkt, er samanhangandi.
+    \item Strjált rúm er samanhangandi \emph{þ.þ.a.a.} það innihaldi bara einn
+      eða engan punkt.
+    \item Samanhangandi hlutrúm í $\R$ er bil ($\emptyset$ og $\R$ meðtalin).
+    \item Samanhangandi hlutrúm í $\Q$ er $\emptyset$ eða einstökungur.
+  \end{enumerate}
+\end{daemi}
+\begin{setn}
+  $X$ grannrúm.
+  \begin{enumerate}[(i)]
+    \item Látum $Y$ vera grannrúm og $f:X\to Y$ samfellda. Ef $X$ er
+      samanhangandi, þá er $f(X)$ samanhangandi.
+    \item Ef $A\subseteq X$ er samanhangandi og $A\subseteq B\subseteq \overline
+      A$, þá er $B$ samanhangandi.
+    \item Ef $X=\bigcup_{i\in I}A_i$ með $A_i$ samanhangandi fyrir öll $i\in I$
+      og $\bigcap_{i\in I} A_i \neq \emptyset$, þá er $X$ samanhangandi.
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  (i) Ef $\left\{ U,V \right\}$ opin tvískipting á $f(X)$, þá er $\left\{
+  f^{-1}(U), f^{-1}(V) \right\}$ opin tvískipting á $X$.
+
+  (ii) Ef $f:B\to Y$ er samfelld og $Y$ strjált, þá er $f$ föst á $A$ og því
+  einnig á $B$ vegna þess að $f(B)\subseteq f(\overline A) \subseteq
+  \overline{f(A)} = \overline{\left\{ * \right\}} = \left\{ * \right\}$.
+
+  (iii) Ef $f$ er samfelld vörpun frá $X$ inn í strjált rúm, þá er $f$ föst á
+  sérhverju $A_i$ og þá einnig á $X$.
+\end{proof}
+% 02.02.2010
+\begin{daemi}
+  $A := \left\{ (x,y)\in\R^2 : x>0, \sin(1/x)=y \right\}$ er
+  samanhangandi vegna þess að $A$ er mynd samfelldu vörpunarinnar\[
+  \left] 0,+\infty \right[\to\R^2, x\mapsto (x,\sin(x)),
+  \]
+  þar með er lokun $A$ í $\R^2$,\[
+  \overline A = A\cup \left\{ (0,y)\in\R^2:-1\leq y\leq 1 \right\},
+  \]
+  líka samanhangandi.
+\end{daemi}
+\begin{setn}
+  $A\neq \emptyset$ samanhangandi hlutrúm í grannrúmi $X$. Sammengi allra
+  samanhangandi hlutrúma í $X$ sem innihalda $A$ er lokað og samanhangandi
+  hlutrúm í $X$.
+\end{setn}
+\begin{proof}
+  Sammengi þessara rúma er samanhangandi vegna þess að sniðmengi þeirra er ekki
+  tómt (sjá síðustu setningu) og þar sem lokun samanhangandi hlutrúms er
+  samanhangandi, þá er það lokað (sjá síðustu setningu).
+\end{proof}
+\begin{skilgr}
+  Ef $x$ er punktur í grannrúmi $X$, þá táknum við með $C_x$ sammengi allra
+  samanhangandi hlutmengja í $X$ sem hafa $x$ sem stak. Köllum $C_x$
+  \emph{samhengisþátt $x$ í $X$}\index{samhengisþáttur}.
+\end{skilgr}
+\begin{ath}
+  (i) Samhengisþættir $X$ eru hér stök í safni allra samanhangandi hlutmengja í
+  $X$ (m.t.t. íveruröðunar\footnote{röðunin í veldismenginu, $\mathcal P(X)$}).
+
+  (ii) Samhengisþættir eru lokuð hlutmengi, en ekki endilega opin; t.d.
+  $X:=\left\{ 0 \right\}\cup\left\{ 1/n:n\in\N^*\right\}$ sem hlutrúm í $\R$:
+  $C_{1/n} = \left\{ 1/n \right\}$ bæði opið og lokað, en $C_0 = 0$ er ekki
+  opið.
+\end{ath}
+\begin{skilgr}
+  Grannrúm $X$ er sagt \emph{algerlega ósamanhangandi}\index{algerlega
+  ósamanhangandi} ef $C_x = \left\{ x \right\}$ fyrir öll $x$ úr $X$. 
+\end{skilgr}
+\begin{daemi}
+  (1) Strjál grannrúm eru algerlega ósamanhangandi. Hins vegar þurfa algerlega
+  ósamanhangandi grannrúm ekki að vera strjál; t.d. er $X$ úr athugasemd (ii) að
+  ofan ekki strjált. 
+
+  (2) Ef $A\subseteq \R$ hefur þann eiginleika að fyrir sérhver $x$ og $y$ úr
+  $A$ er til $z$ úr $\R\setminus A$ þ.a. $x<z<y$, þá er $A$ algerlega
+  ósamanhangandi. Þetta hefur m.a. í för með sér að $\Q$ er algerlega
+  ósamanhangandi.
+\end{daemi}
+\begin{setn}
+  Á grannrúmi $X$ eru venslin 
+  \begin{quote}
+    $x\sim y$ þ.þ.a.a. $x\in C_y$
+  \end{quote}
+  jafngildisvensl og deildarúmið $X/\sim$ er algerlega ósamanhangandi.
+\end{setn}
+\begin{proof}
+  Æfing.
+\end{proof}
+\begin{skilgr}
+  \emph{Vegur}\index{vegur} í grannrúmi $X$ er samfelld vörpun $\gamma:\left[
+  0,1 \right]\to X$. Segjum að $\gamma$ tengi (saman) punktana $\gamma(0)$ og
+  $\gamma(1)$. Köllum $\gamma(0)$ \emph{upphafspunkt}, $\gamma(1)$
+  \emph{lokapunkt}; þeir kallast saman \emph{endapunktar} $\gamma$.
+\end{skilgr}
+\begin{skilgr}
+  Grannrúm er sagt \emph{vegsamanhangandi}\index{vegsamanhangandi} ef sérhverja
+  punkta í $X$ er unnt að tengja með vegi í $X$.
+\end{skilgr}
+\begin{setn}
+  Vegsamanhangandi grannrúm $X$ er samanhangandi.
+\end{setn}
+\begin{proof}
+  Tökum $a$ úr $X$. Fyrir sérhvert $x$ úr $X$ veljum við veg $\gamma_x$ frá $a$
+  til $x$. Þá er\[
+  X = \bigcup_{x\in X}\gamma_x(\left[ 0,1 \right])
+  \]
+  samanhangandi vegna þess að $\bigcup_{x\in X}\gamma_x(\left[ 0,1 \right])\ni
+  a$
+\end{proof}
+\begin{skilgr}
+  \emph{Vegsamhengisþáttur}\index{vegsamhengisþáttur} punkts $x$ í grannrúmi $X$
+  er mengi allra punkta í $X$ sem unnt er að tengja við $x$ með vegi í $X$.
+\end{skilgr}
+\begin{ath}
+  (i) Vegsamhengisþáttur $x$ er innihaldinn í $C_x$ en getur verið ólíkur og
+  þarf ekki að vera lokaður.
+
+  (ii) Vegsamhengisþættir grannrúms $X$ mynda deildaskiptingu á $X$.
+\end{ath}
+\begin{daemi}
+  $A = \left\{ (x,y)\in\R^2 : x>0, y=\sin(1/x) \right\}$ er vegsamanhangandi, en
+  $\overline A$ er ekki vegsamanhangandi (Sönnun: æfing).
+\end{daemi}
+\begin{skilgr}
+  Segjum að grannrúm sé \emph{staðsamanhangandi}\index{staðsamanhangandi}
+  [\emph{staðvegsamanhangandi}\index{staðvegsamanhangandi}]
+  ef það hefur grunn af samanhangandi [vegsamanhangandi] opnum mengjum.
+  Þetta þýðir að fyrir sérhvert opið mengi $U$ og sérhvern punkt $x\in U$ er til
+  [veg]samanhangandi opið mengi $V$ þ.a. $x\in V\subseteq U$.
+\end{skilgr}
+\begin{daemi}
+  (1) Fyrir öll $n\geq 0$ er $\R^n$ ($\R^0 = \left\{ 0 \right\}$)
+  vegsamanhangandi og staðvegsamanhangandi.
+
+  (2) $\R\setminus\left\{ 0 \right\}$ er staðvegsamanhangandi, en ekki
+  samanhangandi.
+
+  (3) $A = \left\{ 0 \right\}\cup\left\{ 1/n:n\in\N^* \right\}$. Hlutmengið
+  $(A\times \left[ 0,1 \right])\cup(\left[ 0,1 \right]\times\left\{ 0
+  \right\})$ í $\R^2$ kallast \emph{hárgreiðan}\index{hárgreiðan}. Það er
+  vegsamanhangandi, en ekki staðsamanhangandi.
+\end{daemi}
+\begin{ath}
+  (i) Í staðsamanhangandi grannrúmi eru samhengisþættirnir bæði opin og lokuð
+  hlutmengi.
+
+  (ii) Í staðvegsamanhangandi grannrúmi eru samhengisþættirnir opin mengi. En
+  þar sem þeir mynda skiptingu þá eru þeir líka lokaðir.
+\end{ath}
+\begin{setn}
+  Grannrúm sem er samanhangandi og staðvegsamanhangandi er vegsamanhangandi.
+\end{setn}
+\begin{proof}
+  Sérhver vegsamhengisþáttur er bæði opið og lokað hlutmengi í samanhangandi
+  rúmi. Þar með er hann allt rúmið.
+\end{proof}
+\begin{fylgisetn}
+  Í staðvegsamanhangandi grannrúmi eru vegsamhengisþættirnir og
+  samhengisþættirnir þeir sömu.
+\end{fylgisetn}
+\begin{proof}
+  Ljóst.
+\end{proof}
+\begin{setn}
+  $(X_\alpha)_{\alpha\in I}$ fjölskylda af grannrúmum.
+  \begin{enumerate}[(i)]
+    \item Ef $X_\alpha$ er samanhangandi fyrir öll $\alpha\in I$, þá er
+      $\prod_{\alpha\in I} X_\alpha$ samanhangandi.
+    \item Ef $X_\alpha$ er vegsamanhangandi fyrir öll $\alpha\in I$, þá er
+      $\prod_{\alpha\in I} X_\alpha$ vegsamanhangandi.
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  (i) Sjá dæmi 10 á bls. 152. (ii) Er létt æfing.
+
+  (ii) Létt æfing.
+\end{proof}
+
+\section{Stefnan tekin á pólsku martröðina}
+
+\paragraph{Upprifjun} 
+\begin{itemize}
+  \item Ef $(X,d)$ firðrúm, þá kallast talan \[
+    \diam(X) := \sup\left\{ d(x,y) : x,y\in X \right\} \]
+    \emph{þvermál}\index{zvermal firdrums@þvermál firðrúms} $X$.
+  \item Firðrúm er sagt fullkomið ef sérhver Cauchy-runa í því er samleitin.
+\end{itemize}
+
+
+\begin{setn}
+  Ef $(X_n)_{n\geq 0}$ er minnkandi runa (m.t.t. $\subseteq$) af ekki-tómum,
+  lokuðum hlutmengjum í fullkomnu firðrúmi $X$ þ.a.\[
+  \lim_{n\to\infty}\diam(X_n) = 0,
+  \]
+  þá inniheldur $\bigcup_{n\geq 0} X_n$ nákvæmlega einn punkt.
+l\end{setn}
+\begin{proof}
+  Fyrir sérhvert $n\in\N$ tökum við $a_n$ úr $X_n$. Sýnum að $(a_n)$ sé
+  Cauchy-runa: Látum $\varepsilon>0$, þá er til $N$ þ.a.
+  $\diam(X_n)<\varepsilon$ fyrir öll $n\geq N$; ef $n,m\geq N$ er þá $a_n,a_m\in
+  X_N$ og því $d(a_n,a_m) < \varepsilon$.
+
+  Setjum $a := \lim_{n\to\infty} a_n$ og fáum auðveldlega að $a\in\bigcup X_n$
+  vegna þess að $X_n$-in eru lokuð.
+\end{proof}
+% 08.10.2010
+\begin{setn}
+  [Baire]\index{Baire-setning}
+  Látum $X$ vera fullkomið firðrúm og $(A_n)_{n\geq 0}$ vera teljanlega
+  fjölskyldu af lokuðum mengjum sem hvert um sig hefur engan innri punkt,
+  þ.e.a.s. $\innmengi(A) = \emptyset$. Þá hefur $\bigcup_{n\geq 0} A_n$
+  engan innri punkt, þ.e.a.s. $\innmengi\left( \bigcup_{n\geq 0} A_n \right) =
+  \emptyset$.
+\end{setn}
+\begin{proof}
+  $\innmengi\left(\bigcup_{n\geq 0}A_n\right)=\emptyset$ jafngildir því að
+  $X\setminus\bigcup_{n\geq 0}A_n$ sé þétt í $X$, þ.e.a.s. skeri sérhvert opið
+  og ekki tómt mengi í $X$. Látum $U$ vera opið og ekki tómt mengi í $X$. Þá er
+  $U\nsubseteq A_0$ og því $U\setminus A_0 \neq\emptyset$. Þar eð $U\setminus
+  A_0$ er opið þá er til opin kúla $B_1$ í $X$ með $\overline B_1\subseteq
+  U\setminus A_0$ og $\diam(B_1)<1$. Nú er $B_1\nsubseteq A_1$ svo að
+  $B_1\setminus A_1 \neq \emptyset$ og því er til opin kúla $B_2$ með $\overline
+  B_2 \subseteq B_1\setminus A_1$ og $\diam(B_2)<1/2$. Með þrepun fæst minnkandi
+  runa af kúlum $B_0\supseteq B_1\supseteq \cdots$ þ.a. $\overline B_{n+1} \cap
+  A_n = \emptyset$ og $\diam(B_n)<1/n$ fyrir öll $n\geq 0$. Skv. síðustu
+  setningu er til $x$ úr $X$ þ.a. $\{x\} = \bigcap_{n\geq 0} \overline B_n$. Þá
+  er $x\in U$ og $x\notin A_n$ fyrir öll $n\geq 0$, svo að $x\in U\cap
+  \left(X\setminus\bigcup_{n\geq 0} A_n\right)$.
+\end{proof}
+\begin{skilgr}
+  Grannrúm $X$ er sagt vera \emph{Baire-rúm}\index{Baire-rúm} eða fullnægja
+  \emph{Baire-eiginleikanum} ef sérhver teljanleg fjölskylda af lokuðum
+  hlutmengjum innri punkta í $X$ hefur sammengi, sem hefur engan innri punkt.
+\end{skilgr}
+\begin{ath}
+  (i) Baire-eiginleikinn er oft orðaður svona: Ef $(A_n)_{n\geq 0}$ er runa af
+  hlutmengjum í $X$ þ.a. $\innmengi(\overline A_n)=\emptyset\;\forall\,n$, þá er
+  $X\setminus\bigcup_{n\geq 0}A_n$ þétt í $X$. Mengi $B$ sem uppfyllir
+  $\innmengi(\overline B)=\emptyset$ kallast \emph{hvergi þétt}\index{hvergi
+    þétt}.
+
+  (ii) Jafngild framsetning á Baire-setningu fæst með því að skoða fyllimengi:
+  Ef $(U_n)_{n\geq 0}$ er runa af opnum þéttum hlutmengjum í firðrúmi $X$, þá er
+  $\bigcap_{n\geq 0} U_n$ líka þétt.
+\end{ath}
+\begin{fylgisetn}
+  $X$ fullkomið firðrúm og $X =\bigcup_{n\geq 0} A_n$ þar sem $A_n$ er lokað
+  fyrir öll $n$, þá er til $n$ úr $\N$ þ.a. $\innmengi(A_n) \neq \emptyset$.
+\end{fylgisetn}
+
+\section{Pólsk martröð}
+\label{sec:polsk_martrod}
+Látum $C$ tákna Cantor-mengið með hlutrúmsgrannmynstrinu. Það er búið til með
+því að taka burt opna miðþriðjunginn úr $\left[0,1\right]$, og síðan opnu
+miðþriðjungana úr bilunum sem eftir verða, o.s.frv.
+
+Sérhverja tölu úr $\left[0,1\right]$ er unnt að setja fram sem
+$\sum_{n=1}^\infty \frac{a_n}{3^n}$ með $a_n\in\{0,1,2\}$. Cantor-mengið er
+myndað úr þeim tölum þar sem öll $a_n$-in eru annaðhvort $0$ eða
+$2$. Endapunktar allra miðþriðjunganna sem numdir eru burt mynda þétt hlutmengi
+í $C$, táknum það með $C_{\text A}$, og setjum $C_{\text{Ó}} := C\setminus
+C_{\text A}$ (hér stendur A fyrir aðgengilegur, Ó fyrir óaðgengilegur). Látum
+$X_{\text A}$ vera keiluna yfir $C_{\text A}$ með toppunkt $(\frac 12, 1)$,
+þ.e.a.s. mengi allra línustrika frá $(\frac 12,1)$ til punktanna í $C_{\text
+  A}$. Eins látum við $X_{\text{Ó}}$ tákna keiluna yfir $C_{\text{Ó}}$ með
+toppunkt $(\frac 12, 1)$. Látum $Y_{\text A}$ vera mengi allra punkta $(x,y)$ úr
+$X_\text{A}$ þ.a. $y$ sé ræð. Látum $Y_\text{Ó}$ vera mengi allra punkta $(x,y)$
+úr $X_\text{Ó}$ þ.a. $y$ sé óræð \emph{eða} 0 \emph{eða} 1. Setjum $Y :=
+Y_\text{A} \cup Y_\text{Ó}$.
+\begin{setn}\label{setn:polska_martrod}
+  $Y$ er samanhangandi, en $Y\setminus\{(\frac 12, 1)\}$ er algerlega
+  ósamanhangandi. 
+\end{setn}
+\begin{fylgisetn}
+  $Y$ er samanhangandi, en allir vegsamhengisþættir $Y$ eru einstökungar.
+\end{fylgisetn}
+Við þurfum á eftirfarandi niðurstöðu að halda:
+\begin{hjalparsetn}
+  $Y$ hlutmengi í firðrúmi $X$. Ef $Y$ er \emph{ekki} samanhangandi, þá eru til
+  opin mengi $U$ og $V$ í $X$ þ.a. $Y\subseteq U\cup V$, $U\cap Y\neq\emptyset$,
+  $V\cap Y\neq\emptyset$ og $U\cap V=\emptyset$.
+\end{hjalparsetn}
+\begin{proof}
+  Æfing.
+\end{proof}
+\begin{proof}
+  [Sönnun á setningu \ref{setn:polska_martrod}] Beitum óbeinni sönnun; g.r.f. að
+  $U$ og $V$ séu opin sundurlæg mengi í $\R^2$ þannig að $Y\subseteq U\cup V$ og
+  $(\frac 12, 1)\in U$ og $V\cap Y\neq \emptyset$. Fyrir sérhvert $r > 0$ setjum
+  við $W(r):= \{(x,y)\in\R^2 : y>r\}$ og fyrir sérhvert $x$ úr $C$ látum við
+  $\ell(x)$ vera lokaða línustrikið sem tengir $(x,0)$ og $(\frac 12,
+  1)$. Skilgreinum (aðgreiningar-)fall $f:C\to \left[0,1\right]$ með \[ f(x) :=
+  \inf\{r : W(r)\cap\ell(x)\subseteq U\}.
+  \]
+  Til hagræðis skilgreinum við svo fall \[
+  g:C\to\left[0,1\right]
+  \]
+  með því að \[
+  (g(x),f(x))\in\ell(x).
+  \]
+  Tökum eftir \[
+  (g(x),f(x)) =\begin{cases}
+    \text{hæsti punktur á $\ell(x)$, sem er ekki í $U$}, & \text{ef
+      $\ell(x)\nsubseteq U$}.\\
+    (x,0) & \text{ef $\ell(x)\subseteq U$}.
+  \end{cases}
+  \]
+  Þar með er $(g(x),f(x))$ hvorki í $U$ né $V$ ef $f(x)\neq 0$. Tökum einnig
+  eftir að $f(x) > 0$ \emph{þ.þ.a.a.} $\ell(x')\cap V\neq 0$ í grennd við
+  $x$. Þetta þýðir að til er opið bil í $\left[0,1\right]$ þ.a. $f(x)>0$ fyrir
+  öll $x$ úr bilinu. Nú er $C$ búið til með því að endurtaka í sífellu sömu
+  aðgerðina (þ.e. brottnám miðþriðjunga), svo að umrætt opið bil inniheldur
+  mengi $C'$ sem er eins og $C$. Við getum því einfaldlega gert ráð fyrir að
+  $f(x)>0$ fyrir öll $x$ úr $C$. Setjum \[
+  Z := \{ (g(x),f(x)) : x\in C_\text{Ó}\}.
+  \]
+  Nú er $Z\cap (U\cup V) = \emptyset$, og því $\overline Z \cap (U\cup
+  V)=\emptyset$ vegna þess að $U\cup V$ er opið; sér í lagi $\overline Z\cap Y =
+  \emptyset$. Einnig er ljóst að $\overline Z$ er innihaldið í keilunni
+  $X_\text{A} \cup X_\text{Ó}$ yfir $C$ vegna þess að hún er lokuð. Af þessu
+  leiðir að fyrir $(a,b)$ úr $\overline Z$ gildir:
+  \begin{itemize}
+  \item Ef $b$ er óræð, þá er $(a,b)\in\ell(x)$ með $x\in C_\text{A}$.
+  \item Ef $b$ er ræð, þá er $(a,b)\in\ell(x)$ með $x\in C_\text{Ó}$.
+  \end{itemize}
+  % 09.02.2010
+  Fyrir sérhverja ræða tölu $q$ er mengið  $\overline Z\cap \{y=q\}$ lokað og
+  því er keiluofanvarp þess á $x$-ásinn líka lokað, þ.e.a.s. mengið
+  \[
+  Z(q):=\{x\in C : \ell(x) \cap \{ y = q\}\cap \overline Z \neq\emptyset\}
+  \]
+  er lokað. Fyrir $x$ úr $C_\text{Ó}$ er $f(x)$ ræð svo að $x\in Z(f(x))$ og þar
+  með er \[
+  C_\text{Ó} = \bigcup_{\substack{q\in\Q\\0\leq q<1}}Z(q).
+  \]
+  Fáum þá \[
+  C = C_\text{Ó} \coprod C_\text{A}
+  =\underbrace{
+   \left(\bigcup_{z\in\Q} Z(q)\right) \cup\left( \bigcup_{a\in C_\text{A}}\{a\}\right).
+  }_{\substack{\text{teljanlegt sammengi}\\\text{lokaðra hlutmengja í $C$}}}
+  \]
+  Skv. Baire-setningu er til $q$ úr $\Q$ þ.a. $Z(q)$, og þar með $C_\text{Ó}$,
+  innihaldi opið mengi í $C$ ($C$ er þjappað firðrúm og því fullkomið), en það
+  er í mótsögn við að $C_\text{A}$ er þétt í $C$ og $C_\text{A}\cap C_\text{Ó}
+  =\emptyset$.
+
+  Sýnum að $Y\setminus\{(\frac 12, 1)\}$ sé algerlega ósamanhangandi:
+  Keiluofanvarpið $\pi: Y\setminus\{(\frac 12,1)\}\to\R$ er samfelld
+  vörpun. Látum $B$ vera samanhangandi og ekki tómt hlutmengi á
+  $Y\setminus\{(\frac 12,1)\}$. Þá er $\pi(B)$ samanhangandi. En þar sem $C$ er
+  algerlega ósamanhangandi, þá er til $x$ úr $C$ þ.a. $\pi(B) = \{x\}$,
+  þ.e.a.s. $B\subseteq \ell(x)$. Látum $p_2 : \R^2\to\R$ vera venjulega
+  ofanvarpið á $y$-hnitið, þá er $p_2(B)$ samanhangandi og tilheyrandi vörpun
+  $B\to p_2(B)\subseteq\left[0,1\right[$ gagntæk.
+  \begin{itemize}
+  \item Ef $x\in C_\text{A}$, þá er $p_2(B)\subseteq \Q$ og þar með er $p_2(B)$
+    einstökungur.
+  \item Ef $x\in C_\text{Ó}$, þá er $p_2(B)\subseteq(\R\setminus\Q)\cup\{0\}$,
+    og þar með er $p_2(B)$ einstökungur.
+  \end{itemize}
+\end{proof}
+
+
+\section{Þjöppuð rúm}
+\label{sec:thjoppud_rum}
+
+\begin{skilgr}
+  Grannrúm $X$ er sagt \emph{þjappað}\index{zjappad@þjappað} ef sérhver opin þakning á
+  $X$ hefur endanlega hlutþakningu.
+\end{skilgr}
+\begin{ath}
+  Víða í stærðfræðiritum er \emph{hálfþjappað}\index{halfzjappad@hálfþjappað}
+  (quasi-compact) notað í stað \emph{þjappað} og þau sögð \emph{þjöppuð} sem
+  bæði eru hálfþjöppuð og Hausdorff.
+\end{ath}
+\begin{setn}
+  \begin{enumerate}[(i)]
+  \item Hlutrúm $Y$ í grannrúmi $X$ er þjappað \emph{þ.þ.a.a.} sérhver þakning á
+    $Y$ með opnum mengjum í $X$ hefur endanlega hlutþakningu.
+  \item Lokuð hlutmengi í þjöppuðum rúmum eru þjöppuð.
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  (Næstum augljós) æfing.
+\end{proof}
+\begin{setn}
+  Þjappað hlutrúm $Y$ í Hausdorff-rúmi $X$ er lokað.
+\end{setn}
+\begin{proof}
+  Sýnum að $X\setminus Y$ sé opið. Látum $x_0\in X\setminus Y$. Fyrir sérhvert
+  $y$ úr $Y$ eru til opnar grenndir $W_y$ um $x_0$ og $V_y$ um $y$ í $X$
+  þ.a. $W_y\cap V_y = \emptyset$ vegna þess að $X$ er Hausdorff. Þá er
+  $Y\subseteq \bigcup_{y\in Y} V_y$ svo til eru $y_1,\dots, y_l$ úr $Y$
+  þ.a. $Y\subseteq V_{y_1}\cup\cdots\cup V_{y_l}$ vegna þess að $Y$ er
+  þjappað. Af því leiðir að $Y\cap (W_{y_1}\cap\cdots\cap W_{y_l})\subseteq
+  (V_{y_1}\cup\cdots\cup V_{y_l})\cap(W_{y_1}\cap\cdots\cap W_{y_l})=\emptyset$
+  svo að $W_{y_1}\cap\cdots\cap W_{y_l}$ er grennd um $x_0$ í $X\setminus Y$.
+\end{proof}
+\begin{setn}
+  $X$ þjappað grannrúm og $f: X\to Y$ samfelld. Þá er $f(X)$ þjappað.
+\end{setn}
+\begin{proof}
+  Ef $(U_\alpha)_{\alpha\in I}$ er opin þakning á $f(X)$, þá er $\left(
+    f^{-1}(U_\alpha)\right)_{\alpha\in I}$ opin þakning á $X$. Þar með er til
+  endanlegt hlutmengi $J$ í $I$ þ.a. $X\subseteq \bigcup_{\alpha\in J}
+  f^{-1}(U_\alpha)$ og því \[
+  f(X)
+  \subseteq f\left(\bigcup_{\alpha\in J} f^{-1}(U_\alpha)\right)
+  \subseteq \bigcup_{\alpha\in J} U_\alpha
+  \]
+  þ.e.a.s. $(U_\alpha)_{\alpha\in J}$ er endanleg hlutþakning á $f(X)$.
+\end{proof}
+\begin{setn}
+  Látum $f:X\to Y$ vera gagntæka og samfellda vörpun. Ef $X$ er þjappað og $Y$
+  er Hausdorff, þá er $f$ grannmótun.
+\end{setn}
+\begin{proof}
+  Okkur nægir að sýna að $f$ sé lokuð vörpun. Ef $A$ er lokað í $X$, þá er $A$
+  þjappað og þar með $f(A)$ þjappað í $Y$. En $Y$ er Hausdorff, svo að $f(A)$ er
+  lokað skv. þarsíðustu setningu.
+\end{proof}
+\begin{hjalparsetn}
+  $X,Y$ grannrúm og $Y$ þjappað. Ef $x_0\in X$ og $W$ er opin grennd um
+  $\{x_0\}\times Y$ í $X\times Y$, þá er til grennd $U$ um $x_0$ í $X$
+  þ.a. $U\times Y\subseteq W$.
+\end{hjalparsetn}
+\begin{proof}
+  Fyrir sérhvert $y$ úr $Y$ veljum við opin mengi $U_y$ í $X$ og $V_y$ í $Y$
+  þ.a. \[
+  (x_0, y)\in U_y\times V_y\subseteq W.
+  \]
+  Þá er $(V_y)_{y\in Y}$ opin þakning á $Y$. Tökum endanlega undirþakningu
+  $\{V_{y_1},\dots,V_{y_k}\}$ og setjum $U = \bigcap_{i=1}^k U_{y_i}$. Þá fæst
+  að \[
+  \{x_0\}\times Y\subseteq U\times Y
+  = U\times\left(\bigcup_{i=1}^k V_{y_i}\right)
+  = \bigcup_{i=1}^k (U\times V_{y_i})
+  \subseteq \bigcup_{i=1}^k (U_{y_i}\times V_{y_i})
+  \subseteq W.
+  \]
+\end{proof}
+% 15.02.2010
+\begin{setn}
+  Faldrúm endanlelga margra þjappaðra rúma er þjappað.
+\end{setn}
+\begin{proof}
+  Nóg að sanna setninguna fyrir tvö þjöppuð rúm og beita svo
+  þrepun. Látum $X$ og $Y$ vera þjöppuð og $\mathcal A$ vera opna
+  þakningu á $X\times Y$. Ef $x\in X$, þá er $\{x\}\times Y$ þjappað
+  og því til $A_1,\dots,A_l$ úr $\mathcal A$ þ.a. $\{x\}\times
+  Y\subseteq A_1\cup\cdots\cup A_l$. Skv. síðustu setningu er þá til
+  opin grennd $W_x$ um $x$ í $X$ sem uppfyllir $W_x\times Y\subseteq
+  A_1\cup\cdots\cup A_l$. Nú er $\{ W_x : x\in X\}$ opin þakning á $X$
+  svo hún hefur endanlega hlutþakningu $\{W_1,\dots,W_k\}$. Þar með er
+  $X\times Y = \left( \bigcup_{j=1}^k W_j\right)\times Y =
+  \bigcup_{j=1}^k(W_j\times Y)$ og sérhvert $W_j\times Y$ er þakið með
+  endanlega mörgum stökum úr $\mathcal A$.
+\end{proof}
+\begin{ath}
+  Almennt gildir að faldrúm hvaða fjölskyldu sem er af þjöppuðum
+  grannrúmum er þjappað . Þetta er hin svokallað
+  \emph{Tychonoff-setning}\index{Tychonoff}, sem verður sönnuð síðar
+  (umtalsvert erfiðari).
+\end{ath}
+\begin{setn}
+  Grannrúm $X$ er þjappað \emph{þ.þ.a.a.} það fullnægi eftirfarandi
+  skilyrði:
+  \begin{quote}
+    Ef $(A_\alpha)_{\alpha\in I}$ er fjölskylda af lokuðum mengjum
+    þ.a. $\bigcap_{\alpha\in I} A_\alpha \neq\emptyset$ fyrir öll
+    endanleg hlutmengi $J$ í $I$, þá er $\bigcap_{\alpha\in
+      I}A_\alpha\neq \emptyset$.
+  \end{quote}
+\end{setn}
+\begin{proof}
+  G.r.f. að $X$ sé þjappað og $(A_\alpha)_{\alpha\in I}$ sé fjölskylda
+  af lokuðum hlutmengjum í $X$ þ.a. $\bigcap_{\alpha\in I} A_\alpha =
+  \emptyset$, þá er \[
+  \bigcup_{\alpha\in I}(\underbrace{X\setminus A}_\text{opið})
+  = X\setminus \bigcap A_\alpha
+  = X.
+  \]
+  Þar sem $X$ er þjappað, þá hefur opna þakningin $\{X\setminus
+  A_\alpha : \alpha\in I\}$ endanlega hlutþakningu, þ.e.a.s. til er
+  endanlegt hlutmengi $J$ í $I$ þ.a. $\bigcup_{\alpha\in J}(X\setminus
+  A_\alpha) = X$ og þá $\bigcap_{\alpha\in J} A_\alpha = \emptyset$
+  skv. de Morgan.
+
+  Öfugt, g.r.f. að $X$ fullnægi skilyrðinu og látum
+  $(U_\alpha)_{\alpha\in I}$ vera opna þakningu á $X$. Setjum
+  $A_\alpha = X\setminus U_\alpha$. Þá er $\bigcap_{\alpha\in
+    I}A_\alpha=\emptyset$ skv. de Morgan og þar með er til endanleg
+  hlutþakning á $J$ í $I$ þ.a. $\bigcap_{\alpha\in J}A_\alpha =
+  \emptyset$, en það jafngildir því að $\bigcup_{\alpha\in J} U_\alpha
+  = X$.
+\end{proof}
+\begin{fylgisetn}
+  Ef $(C_n)_{n\in\N}$ er minnkandi runa (þ.e.a.s. $C_n\supseteq
+  C_{n+1}\forall n$) af lokuðum hlutmengjum í þjöppuðu rúmi
+  þ.a. $C_n\neq\emptyset\forall n\in\N$, þá er $\bigcap_{n\in\N}
+  C_n\neq\emptyset$.
+\end{fylgisetn}
+
+\paragraph{Upprifjun}
+$(X,\leq)$ línulega raðað og $A\subseteq X$. Stak $b$ úr $X$ þ.a. $a\leq
+b$ fyrir öll $a$ úr $A$ kallast \emph{yfirstak}\index{yfirstak} $A$.
+Ef mengi allra yfirstaka mengisins $A$ á sér minnsta stak, þá kallast
+það \emph{efra mark}\index{efra mark} $A$.
+\begin{daemi}
+  (1) Vitum að sérhvert hlutmengi í $\R$, sem er takmarkað að ofan, á
+  sér efra mark.
+
+  (2) Hlutmengið $A = \{r\in\Q : 0<r, r^2 < 2\}$ í $\Q$ á sér ekki efra
+  mark í $\Q$.
+\end{daemi}
+Höfum samsvarandi hluti fyrir \emph{neðra mark}\index{neðra mark}.
+
+\begin{setn}
+  Látum $X$ vera línulega raðað mengi þar sem sérhvert hlutmengi, sem
+  er takmarkað að ofan, hefur efra mark í $X$. Þá er sérhvert lokað
+  bil í $X$ þjappað (í röðunargrannmynstrinu).
+\end{setn}
+\begin{proof}
+  Látum $a,b\in X$ og $\mathcal A$ vera opna þakningu á
+  $\left[a,b\right]$. Sýnum að unnt sé að þekja $\left[a,b\right]$ með
+  endanlega mörgum stökunum úr $\mathcal A$.
+
+  (1) Sýnum fyrst: Ef $x\in\left[a,b\right]$ og $x\neq b$, þá er til
+  $y>x$ úr $\left[a,b\right]$ og $A,B\in\mathcal A$
+  þ.a. $\left[x,y\right]\subseteq A\cup B$.
+  \begin{itemize}
+  \item Ef $\left]x,b\right]$ hefur minnsta stak, $y$, þá er
+    $\left[x,y\right] =\{x,y\}$. Veljum þá $A$ og $B$ úr $\mathcal A$
+    þ.a. $x\in A$ og $y\in B$.
+  \item Ef $\left]x,b\right]$ hefur ekki minnsta stak, þá veljum við
+    eitthvert $A$ úr $\mathcal A$ þ.a. $x\in A$. Þa rsem $x\neq b$ og
+    $A$ er opið, þá er til $c>x$ þ.a. $\left[x,c\right[\subseteq
+    A$. Veljum síðan $y$ úr $\left[x,c\right[$ og fáum að
+    $\left[x,y\right]\subseteq A$; tökum svo $B = A$.
+  \end{itemize}
+
+  (2) Setjum \[
+  C := \{ y\in \left]a,b\right] : \text{hægt er að þekja
+    $\left[a,y\right]$ með endanlega mörgum stökum úr $\mathcal A$}\}.
+  \]
+  Setjum $c := \sup C$. Þá, skv. (1), er $a<c\leq b$. Sýnum að $c\in
+  C$, þ.e. að hægt sé að þekja $\left[a,c\right]$ með endanlega mörgum
+  stökum úr $\mathcal A$. Veljum $A$ úr $\mathcal A$ þ.a. $c\in
+  A$. Þar sem $A$ er opið, þá er til $d<c$ úr $\left[a,b\right]$ sem
+  uppfyllir $\left]d,c\right]\subseteq A$. Þar sem $c$ er efra mark
+  $C$, þá er til $c'$ úr $C$ þ.a. $d < c'\leq c$, og því
+  $\left[c',c\right]\subseteq A$. Nú eru til $A_1,\dots,A_m$ úr
+  $\mathcal A$ þ.a. $\left[a,c'\right]\subseteq A_1\cup \cdots\cup
+  A_m$ og þar með \[ \left[a,c\right] =
+  \left[a,c'\right]\cup\left[c',c\right]\subseteq A_1\cup\cdots\cup
+  A_m\cup A.\]
+
+  Ljúkum nú sönnuninni með því að sýna að $c = b$: Ef ekki, þá er er
+  til $y>c$ úr $\left[a,b\right]$  þ.a. $\left[c,y\right]$ sé hægt að
+  þekja með endanlega mörugm stökum úr $\mathcal A$. Það sama gildir
+  þá um $\left[a,y\right] = \left[a,c\right]\cup\left[c,y\right]$ og
+  það þýðir að $y\in C$; í mótsögn við að $y>c =\sup C$.
+\end{proof}
+\begin{fylgisetn}
+  Lokuð bil í $\R$ eru þjöppuð.
+\end{fylgisetn}
+\begin{proof}
+  Augljóst.
+\end{proof}
+\begin{setn}
+  [Heine-Borel]\index{Heine-Borel}
+  Hlutmengi í $\R^n$ er þjappað \emph{þ.þ.a.a.} það sé lokað og takmarkað.
+\end{setn}
+\begin{proof}
+  Látum $A\subseteq\R^n$. Ef $A$ er þjappað, þá er $A$ lokað vegna
+  þess að $\R^n$ er Hausdorff. Nú er $A\subseteq \R^n = \bigcup_{r>0}
+  B(0,r)$ svo til eru $r_1,\dots,r_k > 0$ þ.a. $A\subseteq
+  B(0,r_1)\cup\cdots\cup B(0,r_k) = B(0,r_0)$ þar sem $r_0 :=
+  \max_{1\leq i\leq k}$. Þar með er $A$ takmarkað.
+
+  Öfugt, g.r.f. að $A$ sé lokað og takmarkað. Þá er til $r>0$ þ.a.
+  \[
+  A\subseteq B(0,r)
+  \subseteq \left[-r,r\right]\times\cdots\times\left[-r,r\right]
+  \]
+  sem er þjappað, vegna þess að endanlegt faldrúm þjappaðra rúma er
+  þjappað. Af þessu sést að $A$ er lokað mengi í þjöppuðu rúmi, og þar
+  með þjappað.    
+\end{proof}
+\begin{setn}
+  $f: X\to Y$ samfelld þar sem $Y$ er línulega raðað með
+  röðunargrannmynstrinu. Ef $X$ er þjappað, þá eru til $c$ og $d$ úr
+  $X$ þ.a. $f(c)\leq f(x)\leq f(d)$ fyrir öll $x$ úr $X$.
+\end{setn}
+\begin{proof}
+  Ef $f(X)$ hefur ekkert stærsta stak, þá mynda mengin
+  $\left]-\infty,y\right[$ með $y\in f(X)$ opna þakningu á $f(X)$. En
+  $f(X)$ er þjappað, svo að til eru $y_1,\dots,y_l$ úr $f(X)$
+  þ.a. $f(X)\subseteq
+  \left]-\infty,y_1\right[\cup\cdots\cup\left]-\infty,y_l\right[ =
+  \left]-\infty,y_0\right[$, þar sem $y_0 = \max_{1\leq i\leq l} y_i$,
+  í mótsögn við að $y_0\in f(X)$.
+
+  Tilvist minnsta staks í $f(X)$ fæst á svipaðan hátt.
+\end{proof}
+\begin{setn}
+  $X$ þjappað og ekki-tómt Hausdorff-rúm. Ef sérhver punktur úr $X$ er
+  þéttipunktur, þá er $X$ óteljanlegt.
+\end{setn}
+\begin{proof}
+  Sýnum að ekki sé til átæk vörpun $f:\N\to X$. G.r.f að $f:\N\to X$
+  sé átæk og setjum $x_n := f(n)$. Veljum opið mengi $V_1$ í $X$
+  þ.a. $x_1\notin\overline V_1$. Almennt veljum við $V_n$ opið í $X$
+  þ.a. $\overline V_n\subseteq \overline V_{n-1}$ og $x_n\notin
+  \overline V_n$. Þar sem $X$ er þjappað, þá er $\bigcap_{n\geq
+    1}V_n\neq\emptyset$, en ljóst er að $f(\N)\cap\left(\bigcap_{n\geq
+    1} V_n\right) = \emptyset$ svo að $f(\N) \neq X$.
+\end{proof}
+% 16.02.2010
+\begin{fylgisetn}
+  Látum $a,b\in\R$  þ.a. $a<b$. Þá er $\left[a,b\right]$ óteljanlegt.
+\end{fylgisetn}
+\begin{proof}
+  Leiðir beint af síðustu setningu.
+\end{proof}
+
+\paragraph{Upprifjun}
+
+Línulega raðað mengi er sagt \emph{velraðað}\index{velraðað} ef
+sérhvert ekki-tómt hlutmengi þess hefur minnsta stak. Setjum þá að
+röðunin sé \emph{velröðun}\index{velröðun}. \emph{Velröðunarfrumsenda}
+segir að sérhverju mengi megi velraða. Af henni leiðir: Til er
+velraðað óteljanlegt mengi. Látum nú $X$ vera línulega raðað mengi og
+$\alpha\in X$. Hlutmengið \[
+S_\alpha := \{ x\in X: x<\alpha \}
+\]
+kallast \emph{snið}\index{snið} (í $X$).
+
+
+\begin{setn}
+  Til er óteljanlegt velraðað mengi þar sem sérhvert snið er teljanlegt.
+\end{setn}
+\begin{proof}
+  Sýnum fyrst að til er velraðað mengi sem hefur óteljanlegt snið:
+  Láum $X$ vera óteljanlegt og velraðað. Þá er $\{1,2\}\times X$
+  velraðað með orðabókarröðun, og sérhvert snið af gerðinni
+  $S_{(2,x)}$ er óteljanlegt.
+
+  Látum nú $Y$ vera eitthvert velraðað mengi sem hefur óteljanlegt
+  snið og setjum \[
+  \Omega := \min\{\alpha\in Y: S_\alpha\text{ er óteljanlegt}\}.
+  \]
+  Þá er $S_\Omega$ óteljanlegt og velraðað og sérhvert snið í því er
+  teljanlegt.
+\end{proof}
+\begin{skilgr}
+  [ritháttur]
+  $\overline S_\Omega = S_\Omega \cup \{\Omega\}$.
+\end{skilgr}
+\begin{ath}
+  $S_\Omega$ er þétt í $\overline S_\Omega$.
+\end{ath}
+\begin{fylgisetn}
+  Ef $A$ er teljanlegt hlutmengi í $S_\Omega$, þá er $A$ takmarkað að ofan.
+\end{fylgisetn}
+\begin{proof}
+  Mengið $\bigcup_{a\in A} S_a =: B$ er teljanlegt svo að $B\subsetneq
+  S_\Omega$. Ef $x\notin B$, þá er $a\leq x\;\forall\,a\in A$, því
+  annars fengist $a>x$ fyrir eitthvert $a\in A$, og þar með $x\in
+  S_a\subseteq B$, sem er mótsögn.
+\end{proof}
+
+
+\subsection{Nokkrir eiginleikar $S_\Omega$ og $\overline S_\Omega$}
+Táknum minnsta stakið í $S_\Omega$ með $0$.
+\begin{enumerate}[(i)]
+\item Séhrvert takmarkað hlutmengi í $S_\Omega$ hefur efra mark í $S_\Omega$.
+\item Sérhvert hlutmengi á sér efra mark í $\overline S_\Omega$.
+\item $\overline S_\Omega$ er þjappað og $S_\Omega$ er þétt í
+  $\overline S_\Omega$.
+\item Sérhver runa í $S_\Omega$ hefur samleitna hlutrunu.
+\end{enumerate}
+\begin{proof}
+  (i) Látum $A\subseteq S_\Omega$ vera takmarkað. Þá er $B := \{b\in
+  S_\Omega : a\leq b \,\forall a\in A\}$ ekki tómt $\sup A = \min B$.
+
+  (ii)  Ef $A\subseteq \overline S_\Omega$, þá er $\sup A =
+  \min\{b\in\overline S_\Omega : a\leq b \;\forall\,a\in A\}$.
+
+  (iii) Þar sem öll hlutmengi í $\overline S_\Omega$ hafa efra mark,
+  þá er $\overline S_\Omega = \left[0,\Omega\right]$ þjappað.
+
+  (iv) Æfing.
+\end{proof}
+\begin{aefing}
+  Látum $X$ tákna $\N\times\left[0,1\right[$ með
+  orðabókargrannmynstrinu. Sýnið að $X$ sé grannmóta
+  $\left[0,+\infty\right[$.
+\end{aefing}
+
+\subsection{Langa (hálf)línan og langa bilið}
+
+$L := S_\Omega \times\left[0,1\right[$ með orðabókarröðun kallast
+\emph{langa (hálf)línan}\index{langa (hálf)línan} og $L^+ :=
+(S_\Omega\times\left[0,1\right[)\cup(\Omega,0)$ kallast \emph{langa
+  bilið}\index{langa bilið}. Unnt er að sýna: Fyrir sérhvert
+$\alpha\in L$ er $S_\alpha$ einsmóta
+$\left[0,1\right[\cong\left[0,+\infty\right[$, en $L$ er ekki
+grannmóta $\left[0,1\right[$. Skoðum þetta rúm betur í heimadæmum.
+
+
+\section{Runulegur þjappleiki (eða runuþjappleiki)}
+
+\begin{setn}\label{setn:thjoppun}
+  $X$ firðanlegt grannrúm. Þá eru eftirfarandi skilyrði jafngild:
+  \begin{enumerate}[(i)]
+  \item $X$ er þjappað.
+  \item Sérhvert óendanlegt hlutmengi í $X$ hefur þéttipunkt.
+  \item Sérhver runa í $X$ hefur samleitna hlutrunu.
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  Þekkt.
+\end{proof}
+\begin{skilgr}
+  Grannrúm sem uppfyllir (iii) kallast
+  \emph{runuþjappað}\index{runuþjappað rúm}.
+\end{skilgr}
+\begin{ath}
+  $S_\Omega$ er ekki þjappað, vegna þess að $S_\Omega$ er ekki lokað í
+  $\overline S_\Omega$ og $\overline S_\Omega$ er Hausdorff. Hins
+  vegar er $S_\Omega$ runuþjappað. Sér í lagi er $S_\Omega$ ekki firðanlegt.
+\end{ath}
+\begin{setn}[Viðbót við setningu \ref{setn:thjoppun}]
+  Fyrir grannrúm $X$ gildir að (i)$\Rightarrow$(ii) og
+  (iii)$\Rightarrow$(ii).
+\end{setn}
+\begin{proof}
+  \emph{(iii)$\Rightarrow$(ii):} Látum $A$ vera óendanlegt mengi í
+  $X$. Þá er til eintæk vörpun $\N\to A$, þ.e.a.s. til er runa
+  $(x_n)_{n\in\N}$ í $A$ þ.a. $x_n\neq x_m$ ef $n\neq m$. Skv. (iii)
+  hefur hún samleitna hlutrunu og markgildi hennar er bersýnilega
+  þéttipunktur $A$.
+
+  \emph{(i)$\Rightarrow$(ii):} Ef $A$ hefur enga þéttipunkta í $X$, þá
+  er $A$ lokað í $X$ og því þjappað í strjála grannmynstrinu, svo það
+  er endanlegt.
+\end{proof}
+% 22.02.2010
+Hinar áttirnar gilda almennt ekki í grannrúmi: Auðséð er að við höfum
+(iii)$\nRightarrow$(i), (ii)$\nRightarrow$(i). Að
+(i)$\nRightarrow$(iii) (og þar með (ii)$\nRightarrow$(iii)) fæst með
+$X := \left\{ 0,1 \right\}\subseteq \R$. Það er greinilega þjappað,
+svo að skv. setningu Tychonoffs (verður sönnuð síðar) er $X^{\left[ 0,1
+\right]}$ líka þjappað. Minnumst þess að sérhver tala $t\in\left[ 0,1
+\right]$ hefur tvíundarframsetningu $t = \sum_{n\geq 1}
+\frac{a_n}{2^n}$ þar sem $a_n\in\left\{ 0,1 \right\}$, þar af er
+nákvæmlega ein framsetning fyrir hverja tölu gefin með óendanlegri
+summu. Skilgreinum $\phi_n:\left[ 0,1 \right]\to\left\{ 0,1
+\right\} = X$ þ.a. $\phi_n(t) = a_n$ ef $t = \sum_{n\geq 1}
+\frac{a_n}{2^n}$ er óendanleg. Sýnum að Sýnum að $(\phi_n)_{n\geq 1}$
+eigi sér enga samleitna hlutrunu: Ef $(\varphi_{n_k})_{k\geq 0}$ væri
+slík hlutruna, þá gilti sér í lagi að $(\phi_{n_k}(t))_{k\geq 0}$ væri
+samleitin fyrir sérhvert $t$ úr $\left[ 0,1 \right]$. Skilgreinum runu
+$(a_n)_{n\geq 1}$ með því að setja $a_n=0$ ef $n\notin\left\{ n_k:k\geq
+0 \right\}$, $a_{n_{2k}} = 1$ og $a_{n_{2k+1}}=0$ og setjum $t_0 =
+\sum_{n\geq 1} \frac{a_n}{2^n}$. Þá fæst \[
+\phi_{n_k}(t_0) =
+\begin{cases}
+  1 &\text{ef $k$ er slétt},\\
+  0 &\text{ef $k$ er oddatala}
+\end{cases}
+\]
+sem er ekki samleitin; mótsögn!
+
+
+\section{Staðþjöppuð rúm}
+\begin{skilgr}
+  $X$ grannrúm og $x\in X$. Ef til er þjöppuð grennd um $x$ í $X$, þá er
+  sagt að $X$ sé \emph{staðþjappað í $x$}\index{staðþjappað}. Segjum að
+  $X$ sé \emph{staðþjappað} ef það er staðþjappað í öllum punktum sínum.
+\end{skilgr}
+\begin{ath}
+  Víða í stærðfræðibókum þýðir staðþjappað að rúmið sé staðþjappað 
+  \emph{og Hausdorff}.
+\end{ath}
+\begin{setn}
+  Ef Hausdorff-rúm $X$ er staðþjappað í $x$, þá mynda þjöppuðu
+  grenndirnar grenndagrunn um $x$; nánar tiltekið: Ef $U$ er grennd um
+  $x$ í $X$, þá er til þjöppuð grennd $B$ um $x$ þ.a. $B\subseteq U$.
+\end{setn}
+\begin{proof}
+  Látum $C$ vera þjappaða grennd um $x$ í $X$ og $U$ vera opna grennd um
+  $x$ í $X$. Þá er $C\cap(X\setminus U)$ lokað mengi í $C$ og þar með
+  þjappað. Þa rsem $x\notin C\cap(X\setminus U)$, þá eru til opin
+  sundurlæg mengi $V'$ og $W'$ þ.a. $f\in V'$ og $C\cap(X\setminus
+  U)\subseteq W'$. Af þessu leiðir að $\overline{V'}\cap C\cap
+  (X\setminus U) = \emptyset$. Setjum nú $V := V'\cap C^\circ$ og fáum
+  að $\overline V\subseteq C$ og því \[
+  \overline V\cap (X\setminus U) 
+  = \overline V \cap (X\setminus U)\cap C
+  = \emptyset
+  \]
+  og þar með $\overline V \subseteq U$.
+\end{proof}
+\begin{setn}
+  Látum $X$ vera staðþjappað grannrúm og veljum punkt $\infty_X\notin
+  X$. Setjum $\hat{X}:=X\coprod\left\{ \infty_x \right\}$ og skilgreinum
+  grannmynstur á $\hat X$ með því að kalla hlutmengi $U$ í $\hat X$
+  \emph{opið} ef annað hvort eftirfarandi skilyrða er uppfyllt
+  \begin{enumerate}[(a)]
+    \item $U\subseteq X$ og $U$ er opið í $X$.
+    \item $\infty_X\in U$ og $U\cap X = X\setminus K$ þar sem $K$ er
+      þjappað (þ.e. grenndirnar um $\infty_X$ eru fyllimengi þjappaðra
+      hlutmengja í $X$).
+  \end{enumerate}
+  Þá gildir:
+  \begin{enumerate}[(i)]
+    \item $\hat X$ er þjappað og $X$ er hlutrúm í $\hat X$ (þ.e.a.s.
+      hlutrúmsgrannmynstur $X$ er sama og upphaflega grannmynstur $X$).
+    \item Ef $X$ er ekki þjappað, þá er $X$ þétt í $\hat X$.
+    \item Ef $X$ er þjappað, þá er $\infty_X$ einangraður punktur í
+      $\hat X$.
+    \item Ef $X$ er Hausdorff, þá er $\hat X$ Hausdorff. 
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  Til þess að sýna að (a) og (b) ákvarði grannmynstur á $\hat X$, þá
+  nægir að sýna að endanlegt sniðmengi opinna gennda um $\infty_X$ sé
+  opin grennd um $\infty_X$ (sjá vikublað 1). En ef $K_1$ og $K_2$ eru
+  þjöppuð í $X$, þá er $K_1\cup K_2$ þjappað í $X$ og $(X\setminus
+  K_1)\cap (X\setminus K_2) = X\setminus (K_1\cup K_2)$.
+
+  (i) Látum $\mathcal U$ vera opna þakningu á $\hat X$ og veljum $V$ úr
+  $\mathcal U$ þ.a. $\infty_X\in V$. Þá er til þjappað hlutmengi $K$ í
+  $X$ þ.a. $X\cap V = X\setminus K$ og safnið $\left\{ X\cap U :
+  U\in\mathcal U \right\}$ er opin þakning á $X\setminus (V\cap X) = K$.
+  Þar með eru til $U_1,\dots,U_l$ úr $\left\{ X\cap U : U\in\mathcal U
+  \right\}$, þ.e. $K\subseteq U_1\cup\cdots\cup U_l$. En það hefur
+  bersýnilega í för með sér að $\hat X \subseteq V\cup U_1\cup\cdots\cup
+  U_l$.
+
+  (ii) og (iii). $\infty_X$ er einangraður í $\hat X$ \emph{þ.þ.a.a.}
+  $\left\{ \infty_X \right\}$ sé opið í $\hat X$ \emph{þ.þ.a.a.}
+  $\emptyset = \left\{ \infty_X \right\}\cap X = X\setminus K$ þar sem
+  $K$ er þjappað \emph{þ.þ.a.a.} $X$ sé þjappað.
+
+  (iv) Látum $x, y\in \hat X$. Ef $x,y\in X$, þá þarf ekkert að gera. Ef
+  $x = \infty_X$, þá tökum við þjappaða grennd $C$ um $y$ og setjum $U
+  :=\hat X\setminus C$, þá eru $U$ og $C^\circ$ sundurlægar opnar
+  grenndir um $\infty_X$ og $y$.
+\end{proof}
+\begin{skilgr}
+  Rúmið $\hat X$ kallast
+  \emph{Alexandroff-þjöppun}\index{Alexandroff-þjöppun} (eða
+  \emph{einspunktsþjöppun}\index{einspunktsþjöppun}) grannrúmsins $X$.
+\end{skilgr}
+\begin{ath}
+  Þó svo $X$ sé ekki staðþjappað, þá má búa $\hat X$ til á sama hátt og
+  áður, en þá verður $\hat X$ aldrei Hausdorff (lesandi skal sanna það!).
+\end{ath}
+
+
+\chapter{Ýmis dæmi og skilgreiningar}
+
+\section{Zariski-grannmynstur á $K^n$}
+\index{Zariski-grannmynstur}
+Zariski-grannmynstur á $K^n$ þar sem $K$ er kroppur/svið. Segjum að
+$A\subseteq K^n$ sé \emph{algebrulegt}\index{algebruleg mengi}
+ef til er mengi $M$ af margliðum í $K[X_1,\dots,X_n]$ þ.a. $A=N(M)
+:=\left\{ x\in K^n : f(x) = 0\forall f\in M \right\}$. Fáum
+\begin{enumerate}[(i)]
+  \item $K^n = N(\{0\})$ og $\emptyset = N(K\left[ x_1,\dots,x_n
+    \right]) = N(\{1\})$.
+  \item Ef $A = N(M)$ og $B = N(L)$, þá er $A\cup B = N(M\cdot L)$, þar
+    sem $M\cdot L = \left\{ p\cdot q:p\in M,q\in L \right\}$:  Ef $x\in
+    A$, þá er $p(x) = 0$ $\forall p\in M$ og $(p\cdot q)(x) = 0$
+    $\forall p\in M$ og $\forall q\in L$, og þar með $x\in N(M\cdot L)$.
+    Þar með er sýnt að $A\subseteq N(M\cdot L)$ og á sama hátt er
+    $B\subseteq N(M\cdot L)$. Öfugt, ef $x\notin A\cup B$, þá eru til
+    $p$ úr $M$ og $q$ úr $L$ þ.a. $p(x)\neq 0$, $q(x)\neq 0$ og því
+    $(p\cdot q)(x)\neq 0$ og þar með $x\notin N(M\cdot L)$.
+  \item Ef $A_\alpha = N(M_\alpha)$, $\alpha\in I$, þá gildir \[
+    \bigcap_{\alpha\in I} A_\alpha
+    = N\left( \cup_{\alpha\in I} M_\alpha \right).
+    \]
+\end{enumerate}
+(i), (ii) og (iii) hafa í för með sér að algebrulegu mengin í $K^n$ eru
+lokuðu mengin í grannmynstrinu á $K^n$; svokölluðu
+\emph{Zariski-grannmynstri}. 
+
+% 23.02.2010
+Almennt er þetta \emph{ekki} Hausdorff (m.ö.o. $T_2$), en það er $T_1$.
+Algebruleg mengi í $K$ eru bara endanleg mengi í $K$ svo að
+Zariski-grannmynstrið á $K$ er Hausdorff \emph{þ.þ.a.a.} $K$ sé
+endanlegur kroppur.
+
+
+\section{(Grannfræðilegar) víðáttur}
+Grannrúm $X$ kallast \emph{$n$-víð víðátta}\index{víðátta} [e. manifold]
+ef sérhver punktur $x$ úr $X$ hefur opna grennd $U$, sem er grannmoa
+opnu mengi í $\R^n$. 
+\begin{ath}
+  Aðeins eitt $n$ kemur til greina því unnt er að sýna fram á með
+  algebrulegri grannfræði að ef opið mengi í $\R^n$ er grannóta opnu
+  mengi í $\R^k$, þá er $n=k$.
+\end{ath}
+Af skilgreiningunni leiðir strax:
+\begin{enumerate}[(i)]
+  \item Víðáttur eru staðvegsamanhangandi og þar með staðsamanhangandi.
+  \item Samanhangandi víðáttur eru vegsamanhangandi. 
+  \item Víðáttur eru staðþjappaðar. 
+\end{enumerate}
+\begin{daemi}
+  (a) Algebrulega mengið $A := \left\{ (x,y) \in\R^2 : xy = 0 \right\}$
+  er ekki víðátta. Hins vegar er $A\setminus\{(0,0)\}$ einvíð víðátta
+  sem hefur 4 samhengisþætti.
+
+  (b) Algebrulegt mengi\[
+  A := \left\{ x\in\R^n : f_1(x)=\cdots = f_k(x)=0 \right\}
+  \qquad(k\leq n)
+  \]
+  er $(n-k)$-víð víðátta ef Jacobi-fylkið $J(f_1,\dots,f_k)$ hefur
+  metorðið $k$, skv. setningu um fólgin föll.
+
+  (c) Í skilgreiningu á víðáttu er þess oftast krafist að $X$ sé
+  Hausdorff. Þó svo að víðátta sé \emph{stað-Hausdorff}, þá kemur ekki í
+  sjálfu sér að hún sé Hausdorff. T.d. $\R\coprod\R / \sim$ með $x\sim
+  x$ ef $x\neq 0$. Þessi víðátta er $T_1$.
+
+  (d) $I$ bil, vefjum $I\times I$ upp í sívalning og sívalningnum í
+  kleinuhring, þá fæst víðátta sem er grannmóta $S^1\times S^1$.
+
+  (e) Langa línan (þ.e.a.s. langa hálflínan án upphafspunkts) er
+  víðátta.
+\end{daemi}
+
+\begin{skilgr}
+  Tvívíðar víðáttur kallast yfirleitt \emph{fletir}\index{flötur} og
+  einvíðar \emph{ferlar}\index{ferill}.
+\end{skilgr}
+
+\section{Varprúm (yfir $\R$)}
+Látum $\mathbb P_n(\R)$ tákna mengi allra lína gegnum núllpunkt í
+$\R^{n+1}$. Fyrir $x$ úr $\R^{n+1}\setminus\left\{ 0 \right\}$ látum við
+$\overline{0x}$ tákna línuna gegnum $0$ og $x$ og skilgreinum átæka
+vörpun\[
+\R^{n+1}\setminus \left\{ 0 \right\}\xrightarrow{\pi} \mathbb P_n(\R),
+x\mapsto \overline{0x}.
+\]
+Setjum deildagrannmynstrið á $\mathbb P_n(\R)$ og köllum grannrúmið
+$\mathbb P_n(\R)$ \emph{$n$-víða varprúmið yfir $\R$}\index{varprúm}.
+
+Sýnum að $\mathbb P_n(\R)$ sé $n$-víð víðátta: Táknum einingarkúluhvelið
+í $\R^{n+1}$ með $S^n$. Vörpunin $\pi|_{S^n} : S^n \to \mathbb P_n(\R)$
+er átæk og hefur trefjarnar $\left\{ -x,x \right\}$. Skilgreinum vensl
+$\sim$ á $S^n$ með $x\sim y$ \emph{þ.þ.a.a.} $y=\pm x$. Þá fæst samfelld
+og gagntæk vörpun $\hat\pi : S^n/\sim \to \mathbb P_n(\R)$. En
+$S^n/\sim$ er þjappað og $\mathbb P_n(\R)$ er Hausdorff (gangið úr
+skugga um það), svo að $\hat\pi$ er grannmótun. Hins vegar er ljóst að
+$S^n/\sim$ er $n$-víð víðátta: Ef $x\in S^n$ og $U$ er opið hálfhvel sem
+inniheldur $x$, þá er $\hat\pi|_U : U \to \hat\pi(U)$ grannmótun og
+$\hat\pi(U)$ er opin grennd um $\hat\pi(x)$. 
+
+\begin{skilgr}
+  \emph{Verkun granngrúpu $G$ á grannrúm $X$}\index{verkun granngrúpu á
+  grannrúm} er samfelld vörpun $G\times X\to X, (g,x)\mapsto gx$ þ.a.
+  fyrir öll $x$ úr $X$ og $g,h$ úr $G$ gildi\[
+  e_G x = x,
+  \qquad (gh)x = g(hx),
+  \]
+  þar sem $e_G$ er hlutleysa á $G$. Fáum jafngildisvensl á $X$ með\[
+  x\sim y
+  \qquad\text{þ.þ.a.a.}\qquad
+  \text{til sé } g\in G \text{ með } gx = y.
+  \]
+  Jafngildisflokkur staks $x$ úr $X$ er\[
+  Gx := \left\{ gx : g\in G \right\}
+  \]
+  og kallast \emph{braut}\index{braut} staksins $x$ (m.t.t.
+  verkunarinnar). Setjum $X/G := X/\sim$ með deildagrannmynstrinu og
+  köllum $X/G$ \emph{brautarúm}\index{brautarúm} verkunarinnar.
+\end{skilgr}
+\begin{ath}
+  Fyrir sérhvert $g$ úr $G$ er vörpunin\[
+  \phi_g : X\to X, x\mapsto gx
+  \]
+  grannmótun; andhverfan er $\phi_{g^{-1}}$. 
+\end{ath}
+Fáum sértilfelli: Ef $G = (\R,+)$, þá kallast grannrúm $X$, sem $\R$
+verkar á, \emph{hreyfikerfi}\index{hreyfikerfi} (e. dynamical system). Í
+þessu tilfelli er litið á $X$ sem mengi af \emph{ástöndum} einhvers
+kerfis. Fyrir hvert ástand $x$ er ákveðið hvert ástandið verður eftir
+$t$ tímaeiningar; táknum það ástand $tx$. Höfum $0\cdot x = x$, $(t+s)x
+= t(sx)$. 
+
+\begin{daemi}
+  (1) $\mathbb U\times\C\to\C, (u,w)\mapsto uw$. Brautirnar eru annars
+  vegar hringir með miðju $o$ og hins vegar $\left\{ o \right\}$.
+  Brautarúmið $\C/\mathbb U$ er grannmóta $[0,+\infty[$. 
+
+  (2) $\Z^2\times\R^2\to\R^2,\left( (m,n),(x,y)
+  \right)\mapsto(x+m,y+n)$. \emph{Sýnið:} Brautarúmið er grannmóta
+  $S^1\times S^1$.
+\end{daemi}
+
+
+
+
+
+
+
+\chapter{Teljanleiki og aðskiljanleiki}
+\section{Teljanleikaskilyrði}
+
+\paragraph{Upprifjun}
+Grenndagrunnur fyrir punkt $x$ í grannrúmi er mengi $\mathcal U(x)$ af
+(opnum) grenndum um $x$ þ.a. sérhver grennd um $x$ innihaldi stak úr
+$\mathcal U(x)$. 
+\begin{daemi}
+  Ef $(X,d)$ er firðrúm, þá er \[
+  \mathcal U(x) := \left\{ B_d(x,\frac 1n):n\in\N^* \right\}
+  \]
+  grenndagrunnur fyrir $x$ úr $X$.
+\end{daemi}
+
+\paragraph{}
+\begin{skilgr}
+  Segjum að 
+  \begin{enumerate}[(i)]
+    \item fullnægi \emph{fyrsta teljanleikaskilyrðinu}\index{fyrsta
+      teljanleikaskilyrðið} ef sérhver punktur úr $X$ hefur teljanlegan
+      grenndagrunn,
+    \item fullnægi \emph{öðru teljanleikaskilyrðinu}\index{annað
+      teljanleikaskilyrðið} ef $\mathcal T_X$ hefur teljanlegan grunn,
+    \item sé \emph{Lindelöf-rúm}\index{Lindelöf-rúm} ef sérhver opin
+      þakning á $X$ hefur teljanlega hlutþakningu,
+    \item  sé \emph{sundurgreinanlegt}\index{sundurgreinanlegt} ef það
+      hefur teljanlegt þétt hlutmengi.
+  \end{enumerate}
+\end{skilgr}
+\begin{setn}
+  Annað teljanleikaskilyrðið hefur öll hin í för með sér (en almennt
+  ekki öfugt). Ef $X$ er firðanlegt, þá er (i) alltaf uppfyllt og hin
+  þrjú eru jafngild.
+\end{setn}
+\begin{proof}
+  Einföld æfing, sjá bls. 191 og dæmi 5 í grein 30 í kennslubók.
+\end{proof}
+\begin{setn}
+  \begin{enumerate}[(i)]
+    \item $X$ grannrúm og $Y\subseteq X$. Ef $X$ fullnægir fyrsta [öðru]
+      teljanleikaskilyrðinu, þá gerir $Y$ það líka.
+    \item Ef grannrúm $X_1,\dots,X_n$ uppfylla fyrsta [annað]
+      teljanleikaskilyrðið, þá gerir $\prod_{i=1}^n X_i$ það líka.
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  Næsta ljóst, sjá bls. 191 í kennslubók.
+\end{proof}
+\begin{daemi}
+  Látum $\R_\ell$ vera $\R$ með grannmynstrinu sem grunnurinn $\left\{
+  \left[a,b\right[ : a,b\in\R, a<b \right\}$ framleiðir.
+  \begin{enumerate}[(i)]
+    \item $\R_\ell$ fullnægir fyrsta teljanleikaskilyrðinu: Ef
+      $x\in\R_\ell$, þá er $\left\{ \left[x,x+1/n\right[ : n\in\N^*
+      \right\}$ teljanlegur grenndagrunnur fyrir $x$.
+    \item $\R_\ell$ er sundurgreinanlegt vegna þess að $\Q$ er þétt í
+      $\R_\ell$. 
+    \item $\R_\ell$ fullnægir ekki öðru teljanleikaskilyrðinu: Látum
+      $\mathcal B$ vera grunn fyrir $\R_\ell$. Fyrir
+      sérhvert $x\in\R_\ell$ veljum við $B_x$ úr $\mathcal B$ þ.a. $x\in
+      B_x\subseteq \left[x,x+1\right[$. Þá er auðséð að $B_x\neq B_y$ ef
+      $x\neq y$ og þar með er $\mathcal B$ ekki teljanlegur.
+    \item $\R_\ell$ er Lindöf: Látum $\mathcal A$ vera opna þakningu á
+      $\R_\ell$. Þá er til fínni þakning á $\R_\ell$ af grunnstökum,
+      við getum því gert ráð fyrir að\[
+      \mathcal A 
+      = \left\{ 
+        \left[a_\alpha, b_\alpha\right[ : \alpha\in J
+      \right\}.
+      \]
+      Setjum $C := \bigcup_{\alpha\in J}\left]a_\alpha,b_\alpha\right[$
+      og lítum á $C$ sem hlutrúm í $\R$ (með venjulega grannmynstrinu).
+      Þar sem $\left\{ \left]a_\alpha,b_\alpha \right[ : \alpha\in J
+      \right\}$ er opin þakning á $C$, þá  hefur hún teljanlega
+      hlutþakningu\[
+      \mathcal A'
+      = \left\{ \left]a_\alpha,b_\alpha\right[ :
+      \alpha=\alpha_1,\alpha_2,\dots \right\}.
+      \]
+      Okkur nægir því að sýna að $\R\setminus C$ sé teljanlegt: Ef
+      $x\in\R\setminus C$, þá er til $\alpha$ úr $J$ þ.a. $x=a_\alpha$.
+      Veljum $q_x$ úr $\left]a_\alpha,b_\alpha\right[\cap\Q$ og fáum að
+      $\left]x,q_x\right[\subseteq\left]a_\alpha,b_\alpha\right[\subseteq
+      C$. Fyrir $x,y\in\R\setminus C$ þ.a. $x<y$ gildir að $q_x<q_y$ því 
+      annars væri $y\in\left]x,q_x\right[\subseteq C$. Þetta gefur
+      stranglega vaxandi fall $\R\setminus C\to \Q$, svo að $\R\setminus
+      C$ er teljanlegt.
+  \end{enumerate}
+\end{daemi}
+\begin{daemi}
+  Faldrúm tveggja Lindelöf-rúma þarf ekki að vera Lindelöf. $\R_\ell$ er
+  Lindelöf, en $\R_\ell^2 := \R_\ell\times\R_\ell$, svokölluð
+  \emph{Sorgenfrey-slétta}\index{Sorgenfrey-slétta}, er ekki Lindelöf:
+  \begin{itemize}
+    \item $L := \left\{ x\times(-x) : x\in\R_\ell \right\}$ er lokað í
+      $\R_\ell^2$.
+    \item Þekjum $\R_\ell^2$ með öllum mengjum af gerðinni
+      $\left[a,b\right[\times\left[-a,d\right[$ og $\R_\ell^2\setminus
+      L$. Sýnum að þessi opna þakning eigi sér enga teljanlega
+      hlutþakningu: $L\cap (\R_\ell^2\setminus L) = \emptyset$ og
+      $L\cap(\left[a,b\right[ \times \left[-a,d\right[ ) = \left\{
+      a\times(-a) \right\}$ og $L$ er óteljanlegt.
+  \end{itemize}
+\end{daemi}
+\begin{daemi}
+  Hlutrúm í Lindelöf-rúmi þarf ekki að vera Lindelöf: $I^2 = I\times
+  I$ ($I = [0,1]$) með orðabókargrannmynstrinu er þjappað og þar
+  með Lindelöf-rúm. Hlutrúmið $I\times\left]0,1\right[$ í $I^2$ er hins
+  vegar ekki Lindelöf-rúm því að opna þakningin $\left\{ \left\{ t
+  \right\}\times\left]0,1\right[ :t\in I \right\}$ á sér enga teljanlega
+  hlutþakningu (þetta er skipting).
+\end{daemi}
+
+
+\section{Aðskilnaðarskilyrði}
+
+\begin{skilgr}
+  \begin{enumerate}[(i)]
+    \item Grannrúm $X$ er sagt \emph{reglulegt}\index{reglulegt
+      grannrúm} eða $T_3$\index{T3-rum@$T_3$-rúm}, ef það er $T_1$ (þ.e.
+      einstökungarnir eru lokuð mengi) og fyrir sérhvert lokað mengi
+      $A\subseteq X$ og sérhvert $b$ úr $X\setminus A$ eru til
+      sundurlægar opnar grenndir $U$ um $a$ og $V$ um $b$. 
+    \item Grannrúm $X$ er sagt \emph{normlegt}\index{normlegt grannrúm}
+      eða $T_4$\index{T4-rum@$T_4$-rúm}, ef það er $T_1$ og fyrir öll
+      sundurlæg lokuð mengi $A$ og $B$ í $X$ eru til sundurlægar opnar
+      grenndir $U$ um $A$ og $V$ um $B$.
+  \end{enumerate}
+\end{skilgr}
+\begin{setn}
+  Látum $X$ vera $T_1$-rúm.
+  \begin{enumerate}[(i)]
+    \item $X$ er reglulegt \emph{þ.þ.a.a.} fyrir sérhvern punkt $x$ úr
+      $X$ og sérhverja grennd $U$ um $x$ sé til grennd $V$ um $x$ þ.a.
+      $\overline V\subseteq U$.
+    \item $X$ er normlegt \emph{þ.þ.a.a.} fyrir sérhvert lokað mengi $A$
+      í $X$ og sérhverja grennd $U$ um $A$ sé til grennd $V$ um $A$ þ.a.
+      $\overline V\subseteq U$.
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  Auðséð (sjá bls. 196 í kennslubók).
+\end{proof}
+\begin{setn}
+  \begin{enumerate}[(i)]
+    \item Hlutrúm í Hausdorff-rúmi [reglulegu rúmi] er Hausdorff
+      [reglulegt].
+    \item Faldrúm Hausdorff-rúma [reglulegra rúma] er Hausdorff
+      [reglulegt].
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  Höfum þegar séð Hausdorff-tilfellin svo við látum okkur nægja að sanna
+  fullyrðingarnar fyrir regluleg rúm.
+
+  (i) $Y$ hlutrúm í reglulegu rúmi $X$, $B$ lokað í $Y$ og $x\in
+  Y\setminus B$. Þar sem $\overline B \cap Y = B$, þá er $x\notin
+  \overline B$ og því eru til sundurlægar opnar grenndir $U$ um
+  $\overline B$ og $V$ um $x$ í $X$. Þar með eru $U\cap Y$ og $V\cap Y$
+  sundurlægar opnar grenndir um $B$ og $x$ í $Y$. 
+
+  (ii) $(X_\alpha)_{\alpha\in I}$ fjölskylda af reglulegum grannrúmum og
+  $x = (x_\alpha)_{\alpha\in I}\in \prod_{\alpha\in I} X_\alpha$. Látum
+  $U$ vera opna grennd um $x$ og sýnum að $x$ eigi sér lokaða grenndí
+  $\prod_{\alpha\in I} X_\alpha$ sem sé innihaldin í $U$ (sjá síðustu
+  setningu). Veljum grunngrennd $\prod_{\alpha\in I} U_\alpha$ um $x$ í
+  $U$. Ef $U_\alpha\neq X_\alpha$, þá veljum við grennd $V_\alpha$ um
+  $x_\alpha$ í $X_\alpha$ þ.a. $\overline V_\alpha\subseteq U_\alpha$.
+  Ef $U_\alpha = X_\alpha$, þá setjum við $V_\alpha=X_\alpha$. Þá er
+  $\prod_{\alpha\in I} V_\alpha$ grennd um $x$ og\[
+  \overline{\prod_{\alpha\in I} V_\alpha}
+  = \prod_{\alpha\in I} \overline V_\alpha
+  \subseteq \prod_{\alpha\in I} U_\alpha
+  \subseteq U.
+  \]
+\end{proof}
+% 02.03.2010
+\begin{daemi}
+  $\R_K$ er Hausdorff en er ekki reglulegt. Mengið $K=\left\{
+  1/n:n\in\N^* \right\}$ er lokað í $\R_K$. Sýnum að ekki séu til opnar
+  sundurlægar grenndir um $0$ og $K$. Ef $U$ er opin grennd um $0$ og
+  $V$ er opin grennd um $K$, þá er til grunngrennd
+  $\left]a,b\right[\setminus K$ um $0$ sem er innihaldin í $U$. Tökum
+  $1/n$ úr $\left]a,b\right[$ og veljum $c,d$ úr $\R$ þ.a. $0<c<d$ og
+  $\frac 1n\in\left]c,d\right[\subseteq V$. Þá er
+  $\left]c,d\right[\cap\left( \left]a,b\right[\setminus K \right) \neq
+  \emptyset$.
+\end{daemi}
+\begin{daemi}
+  $\R_\ell$ er  normlegt: Látum $A$ og $B$ vera sundurlæg lokuð mengi í
+  $\R_\ell$. Fyrir sérhvert $a$ úr $A$ veljum við $x_a>a$ þ.a.
+  $\left[a,x_a\right[\cap B =\emptyset$ og fyrir sérhvert $b$ úr $B$
+  veljum við $x_b>b$ þ.a. $\left[b,x_b\right[\cap A=\emptyset$. Þá er
+  $U:= \bigcup_{a\in A}\left[a,x_a\right[$ opin grennd um $A$ og $V :=
+  \bigcup_{b\in B}\left[b,x_b\right[$ opin grennd um $B$, $U\cap V =
+  \emptyset$ því að $\left[a,x_a\right[\cap\left[b,x_b\right[=\emptyset$
+  fyrir öll $a$ úr $A$ og $b$ úr $B$.
+\end{daemi}
+\begin{setn}
+  \begin{enumerate}[(i)]
+    \item Firðanleg grannrúm eru normleg.
+    \item Þjöppuð Hausdorff-rúm eru normleg.
+    \item Regluleg Lindelöf-rúm eru normleg. 
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  (i) Látum $A$ og $B$ vera sundurlæg lokuð mengi í firðŕumi $(X,d)$.
+  Fyrir sérhvert $x$ úr $A$ veljum við $\varepsilon_x>0$ þ.a.
+  $B_d(x,\varepsilon_x)\cap B =\emptyset$ og fyrir sérhvert $y$ úr $B$
+  veljum við $\varepsilon_y>0$ þ.a. $B_d(y,\varepsilon_y)\cap
+  A=\emptyset$. Þá eru $U :=\bigcup_{x\in A} B_d(x,\varepsilon_x/2)$ og
+  $V:=\bigcup_{x\in B} B_d(y,\varepsilon_x/2)$ opnar sundurlægar
+  grenndir um $A$ og $B$ í $X$. 
+
+  (ii) Látum $A$ og $B$ vera sundurlæg lokuð mengi í þjöppuðu
+  Hausdorff-rúmi $X$. Þá eru $A$ og $B$ þjöppuð svo fyrir sérhvert $x$
+  úr $B$ eru til sundurlægar opnar grenndir $U_x$ um $A$ og $V_x$ um
+  $x$. Nú er $\left\{ V_x : x\in B \right\}$ opin þakning á $B$ svo til
+  eru $x_1,\dots,x_k$ úr $B$ þ.a. $B\subseteq V_{x_1}\cup\cdots\cup
+  V_{x_k}$. Setjum $U := U_{x_1}\cap\cdots\cap U_{x_k}$ og $V:=
+  V_{x_1}\cup\cdots\cup V_{x_k}$. Þá fæst að $B\subseteq V$, $A\subseteq
+  U$ og $V\cap U=\emptyset$.
+
+  (iii) Tökum fyrst eftir því að þó svo hlutrúm í Lindelöf-rúmi þurfi
+  ekki að vera Lindelöf (sjá æfingu 5 bls. 193 í kennslubók), þá er
+  \emph{lokað} hlutrúm í Lindelöf-rúmi alltaf Lindelöf-rúm (bætum bara
+  fyllimengi þess við þakninguna). Látum $A$ og $B$ vera sundurlæg lokuð
+  hlutmengi í reglulegu Lindelöf-rúmi $X$. Fyrir sérhvert $x$ úr $A$
+  veljum við opnar sundurlægar grenndir $U_x$ um $x$ og $W_x$ um $B$.
+  Þá er $U_x\subseteq X\setminus W_x$ sem er lokað svo að $\overline
+  U_x\subseteq X\setminus W_x$, þar með er $\overline U_x\cap B
+  =\emptyset$. Safnið $(U_x)_{x\in A}$ er opin þakning á $A$ og hefur
+  því teljanlega hlutþakningu $(U_n)_{n\in\N}$ vegna þess að $A$ er
+  lokað. Með því að setja $U_0\cup\cdots\cup U_n$ í stað $U_n$, þá getum
+  við gert ráð fyrir að $(U_n)_{n\in\N}$ sé vaxandi. Með sama hætti fáum
+  við opna vaxandi þakningu $(V_n)_{n\in\N}$ á $B$ þ.a. $\overline
+  V_n\cap A = \emptyset$ fyrir öll $n\in\N$. Setjum nú\[
+  U_n' := U_n\setminus\overline V_n, \qquad
+  V_n' := V_n\setminus\overline U_n, \qquad
+  U    := \bigcup_{n\in\N} U_n',     \qquad
+  V    := \bigcup_{n\in\N} V_n'.
+  \]
+  Þá er $A\subseteq U$ og $B\subseteq V$. Sýnum að $U\cap V =
+  \emptyset$. Ef $x\in U\cap V$, þá eru til $n,m\in\N$ með $x\in U_n'$
+  og $x\in V_m'$. Segjum t.d. að $n\leq m$. Þá er $x\in
+  V_m\setminus\overline U_m$ og $x\in U_n'\subseteq U_n\subseteq U_m$,
+  sem er mótsögn!
+\end{proof}
+\begin{fylgisetn}\label{fylgisetn:regluleg_hausdorff}
+  Staðþjöppuð Hausdorff-rúm eru regluleg. 
+\end{fylgisetn}
+\begin{proof}
+  Látum $X$ vera staðþjappað Hausdorff-rúm. Þá er Alexandroff-þjöppunin
+  $\hat X$ þjappað Hausdorff-rúm, svo skv. (ii) úr síðustu setningu er
+  það normlegt. Af því leiðir að $\hat X$ er reglulegt og þar með er $X$
+  reglulegt sem hlutrúm í $\hat X$.
+\end{proof}
+\begin{fylgisetn}
+  Staðþjöppuð Hausdorff-rúm eru Baire-rúm.
+\end{fylgisetn}
+\begin{proof}
+  Látum $X$ vera staðþjappað Hausdorff-rúm. Látum $(U_n)_{n\in\N}$ vera
+  fjölskyldu af opnum mengjum í $X$ þ.a. um öll $n\in\N$ gildi
+  $\overline U_n = X$. Sýnum að $\overline{\bigcap_{n\geq 0}U_n}=X$.
+  Látum $V$ vera opið ekki-tómt hlutmengi í $X$. Skilgreinum runu
+  $(V_n)_{n\geq 0}$ af ekki-tómum opnum mengjum í $X$ með eftirfarandi
+  hætti
+  \begin{itemize}
+    \item $V_0 := V$.
+    \item G.r.f. að við höfum valið opið-ekki-tómt mengi $V_n$. Þar sem
+      $U_n$ er þétt í $X$, þá er $U_n\cap V_n\neq\emptyset$ og þar sem
+      $X$ er reglulegt skv. fylgisetningu
+      \ref{fylgisetn:regluleg_hausdorff}, þá er til opið ekki-tómt
+      hlutmengi $V_{n+1}$ í $X$ þ.a. $\overline V_{n+1} \subseteq
+      U_n\cap V_n$.
+  \end{itemize}
+  Þar eð $X$ er staðþjappað, þá getum við valið $V_1$ þ.a. $\overline
+  V_1$ sé þjappað og fáum þá minnkandi runu af lokuðum ekki-tómum
+  hlutmengjum \[
+  \overline V_1
+  \supseteq \overline V_2
+  \supseteq \overline V_3
+  \supseteq \cdots
+  \]
+  í þjappaða rúminu $\overline V_1$ og þar með\[
+  \emptyset
+  \neq\bigcap_{n\geq 0}\overline V_n
+  \subseteq V \cap \left( \bigcap_{n\geq 0} U_n \right).
+  \]
+\end{proof}
+\begin{setn}
+  Velröðuð mengi eru normleg m.t.t. röðunargrannmynstursins.
+\end{setn}
+\begin{proof}
+  Látum $X$ vera velraðað mengi. Tökum fyrst eftir að sérhvert bil af
+  gerðinni $\left]x,y\right]$ er opið í $X$. Látum $A$ og $B$ vera lokuð
+  sundurlæg hlutmengi í $X$. Fyrir sérhvert $a\in A$ látum við $I_a$
+  vera opið mengi af gerðinni $\left]x_a,a\right]$ þ.a. $I_a\cap B =
+  \emptyset$ ef $a\neq \min X$. Ef $a = \min X$ þá látum við $I_a$ vera
+  opna mengið $\{a\}=\left]-\infty,a^+\right[$. Á samsvarandi hátt
+  skilgreinum við $I_b$ fyrir öll $b$ úr $B$. Þá er fljótséð að
+  $U:=\bigcup_{a\in A} I_a$ og $V:=\bigcup_{b\in B}I_b$ eru opnar
+  sundurlægar grenndir um $A$ og $B$.
+\end{proof}
+\begin{ath}
+  Hægt á að vera (JIM sagði að stæði í Munkres) að sanna tilsvarandi
+  niðurstöðu fyrir hvaða línulega röðuð mengi sem er.
+\end{ath}
+% 08.03.2010
+\begin{daemi}
+  $S_\Omega\times \overline S_\Omega$ er \emph{ekki} normlegt rúm. Áður
+  en við sýnum fram á þetta skulum við veita nokkrum atriðum eftirtekt
+  \begin{itemize}
+    \item $S_\Omega$ og $\overline S_\Omega$ eru normleg skv. síðustu
+      setningu og því regluleg. Hér er því dæmi um reglulegt rúm, sem er
+      ekki normlegt. Jafnframt sýnir þetta að faldrúm normlegra rúma
+      þarf ekki að vera normlegt.
+    \item $\overline S_\Omega\times\overline S_\Omega$ er þjappað
+      Hausdorff-rúm og þar með normlegt svo þetta dæmi sýnir að hlutrúm
+      í normlegu rúmi er ekki endilega normlegt.
+  \end{itemize}
+  Látum nú $\Delta$ tákna hornalínuna í $\overline
+  S_\Omega\times\overline S_\Omega$. Þá er $\Delta$ lokað í $\overline
+  S_\Omega\times \overline S_\Omega$,vegna þess að $\overline S_\Omega$
+  er Hausdorff, og þar með er $A := \Delta\cap(S_\Omega\times\overline
+  S_\Omega)=\Delta\setminus\left\{ \Omega\times\Omega \right\}$ lokað í
+  $S_\Omega\times\overline S_\Omega$. Einnig er ljóst að $B := S_\Omega
+  \times\left\{ \Omega \right\}$ er lokað i $S_\Omega\times\overline
+  S_\Omega$ því að $\overline S_\Omega$ er $T_1$. $A$ og $B$
+  eru því sundurlæg lokuð mengi í $S_\Omega\times\overline S_\Omega$.
+  Sýnum að þau eigi sér ekki sundurlægar opnar grenndir. Beitum óbeinni
+  sönnun og g.r.f. að til séu sundurlæg opin mengi $U$ og $V$ í
+  $S_\Omega\times\overline S_\Omega$ þ.a. $A\subseteq U$ og $B\subseteq
+  V$. Fyrir sérhvert $x$ úr $S_\Omega$ setjum við\[
+  \beta(x) := 
+  \min\left\{ 
+    \beta\in \overline S_\Omega : x<\beta,x\times\beta\notin U
+  \right\}
+  \]
+  sem er vel skilgreint þvi að $x\times\Omega\notin U$ og þar sem $V\cap
+  U = \emptyset$ þá er $\beta(x)\in S_\Omega$. Skilgreinum runu
+  $(x_n)_{n\geq 0}$ í $S_\Omega$ sem svo:
+  \begin{align*}
+    x_0     &:= \text{einhver punktur í } S_\Omega, \\
+    x_{n+1} &:= \beta(x_n) \text{ fyrir öll } n\geq 0.
+  \end{align*}
+  Þá er runan stranglega vaxandi: $x_0<x_1<\cdots$. Setjum
+  $b:=\sup_{n}x_n$ (alltaf til í $S_\Omega$) og fáum
+  $\lim_{n\to\infty}x_n = b$ og því $\beta(x_n) = x_{n+1}\longrightarrow
+  b$ og þar með $x_n\times\beta(x_n)\longrightarrow b\times b$. Þetta er
+  í mótsögn við að $U$ er opin grennd um $b\times b$ og $x_n \times
+  \beta(x_n)\notin U$ fyrir öll $n$. 
+\end{daemi}
+\begin{skilgr}
+  Látum $A$ og $B$ vera lokuð hlutmengi í grannrúmi $X$. Við segjum að
+  unnt sé að \emph{aðskilja $A$ og $B$ með samfelldu
+  falli}\index{aðskilja með samfelldu falli} ef til er samfellt fall
+  $f:X\to\left[ 0,1 \right]$ þ.a. $f|_A = 0$ og $f|_B = 1$.
+\end{skilgr}
+\begin{skilgr}
+  Grannrúm er sagt \emph{fullkomlega reglulegt}\index{fullkomlega
+  reglulegt grannrúm} ef það er $T_1$ og hægt er að aðskilja sérhvert
+  lokað hlutmengi $A$ í $X$ og sérhvern einstökung $\left\{ x
+  \right\}$ þar sem $x\notin A$ með samfelldu falli.
+\end{skilgr}
+\begin{setn}
+  [Hjálparsetning Urysohns]\index{Urysohn!hjálparsetning}
+  Tvö lokuð og sundurlæg hlutmengi í normlegu rúmi er unnt að aðskilja
+  með samfelldu falli.
+\end{setn}
+\begin{proof}
+  Látum $A$ og $B$ vera sundurlæg lokuð mengi í normlegu rúmi $X$.
+  Segjum að endanlega runu af opnum mengjum $C=(C_0,C_1,\dots,C_m)$ sé
+  \emph{(leyfileg) keðja af lengd} $m$ ef\[
+  A\subseteq C_0 \subseteq C_1 \subseteq\cdots\subseteq C_m\subseteq
+  X\setminus B
+  \]
+  og $\overline C_{k-1}\subseteq \overline C_k$; $k=1,\dots,m$. Setjum
+  $C_{-1}=\emptyset$ og $C_{m+1} = X$ og köllum opnu mengin
+  $C_{k+1}\setminus \overline C_{k-1}$ \emph{opnu stalla} keðjunnar $C$,
+  $k=0,\dots,m$. Tökum eftir að opnu stallarnir mynda (opna) þakningu á
+  $X$. Fyrir slíkt $C$ skilgreinum við $\chi_C:X\to \left[ 0,1 \right]$
+  með því að setja fyrir sérhvert $k$ úr $\left\{ 0,\dots,m \right\}$\[
+  \chi_C(x) = \begin{cases}
+    \frac km, &\text{ef $x\in C_k\setminus \overline C_{k-1}$}\\
+    1,        &\text{ef $x\in X\setminus C_m$}.
+  \end{cases}
+  \]
+  Tökum eftir að á stallinum $C_{k+1}\setminus \overline C_{k-1}$ tekur
+  $\chi_C$ bara gildin $\frac{k+1}{m}$ og $\frac{k}{m}$ og munur þeirra
+  er $\frac 1m$. Búum til runu $(C^{(n)})_{n\geq 1}$ af leyfilegum
+  keðjum, þar sem $C^{(n)}$ er af lengd $2^n$:\[
+  C^{(1)} := (C_0,C_1)
+  \text{ þar sem }
+  C_1 = X\setminus B
+  \text{ og $C_0$ er valið þ.a. }
+  A\subseteq C_0\subseteq\overline C_0 \subseteq C_1.
+  \]
+  Eftir að hafa búið til leyfilega keðju $C^{(n)}$ af lengd $2^n$, þá
+  búum við til keðju $C^{(n+1)}$ af lengd $2^{n+1}$ með eftirfarandi
+  hætti: Fyrir sérhvert $k$ úr $\left\{ 1,\dots,2^{n} \right\}$ veljum
+  við opið mengi $C'$ þ.a.\[
+  \overline{C^{(n)}_{k-1}}
+  \subseteq C'
+  \subseteq \overline{C'}
+  \subseteq C^{(n)}_k
+  \]
+  og bætum því við keðjuna; tölusetjum síðan upp á nýtt í vaxandi röð.
+  Ljóst er að $C^{n+1}$ er af lengd $2^{n+1}$.
+
+  Setjum $\chi_n := \chi_{C^{(n)}}$  og fáum minnkandi runu af föllum
+  $X\to\left[ 0,1 \right]$. Hún hefur markgildi $f:=\lim_{n\to\infty}
+  \chi_n$. Ljóst er að $f|_A = 0$ og $f|_B = 1$. Sýnum að $f$ sé
+  samfellt:
+
+  Fljótséð er að\[
+  0
+  \leq \chi_n -f 
+  = \sum_{k=n}^{\infty}(\chi_k-\chi_{k+1})
+  \leq \sum_{k=n}^{\infty} \frac{1}{2^{k+1}}
+  = \frac{1}{2^n},
+  \]
+  og þar með $\chi_n - \frac{1}{2^n}\leq f \leq \chi_n$. Munurinn á
+  stærsta og minnsta gildi $\chi_n$ á opnu stöllum keðjunar
+  $C^{(n)}$ er $\frac{1}{2^n}$ svo að munurinn á gildum $f$ í tveimur
+  punktum úr sama stalli $C^{(n)}$ er $\leq
+  \frac{1}{2^n}+\frac{1}{2^n}= \frac{1}{2^{n+1}}$. Látum $x\in X$ og
+  $\varepsilon>0$. Veljum $n$ þannig að $\frac{1}{2^{n-1}}<\varepsilon$.
+  Opnu stallar keðjunnar $C^{(n)}$ mynda opna þakningu á $X$. Tökum
+  stall sem inniheldur $x$. Hann er opin grennd um $x$ í $X$ og
+  $|f(x) - f(y)\leq \frac{1}{2^{n-1}}<\varepsilon$ fyrir öll $y$ úr
+  honum.
+\end{proof}
+
+\paragraph{Upprifjun \textnormal{(sjá líka næsta dæmablað)}}
+Látum $X$ vera mengi, $f:X\to \R$ vera takmarkað fall og $A\subseteq X$.
+setjum \[
+\| f \|_A := \sup\left\{ |f(x)| : x\in A \right\}.
+\]
+Þá er $\|\cdot\|_X$ staðall á vigurrúmi allra takmarkaðra falla á $X$.
+Ef $X$ er grannrúm, þá er vigurrúm allra \emph{samfelldra} takmarkaðra
+falla $X\to\R$ með stalinum $\|\cdot\|_X$ fullkomið staðalrúm (þ.e.a.s.
+Banach-rúm).
+
+\paragraph{}
+\begin{setn}
+  [Framlengingarsetning
+  Tietze-Urysohns]\index{Urysohn!framlengingarsetning
+  Tietze-Urysohns}\index{Tietze!framlengingarsetning
+  Tietze-Urysohns}
+  Fyrir grannrúm $X$ eru eftirtalin skilyrði jafngild:
+  \begin{enumerate}[(i)]
+    \item $X$ er normlegt.
+    \item Fyrir sérhvert lokað mengi $A$ í $X$ og sérhvert samfellt fall
+      $f:A\to\left[ 0,1 \right]$ er til samfellt fall $F:X\to\left[ 0,1
+      \right]$ með $F|_A = f$. 
+  \end{enumerate}
+\end{setn}
+\begin{hjalparsetn}\label{hjalp:urysohn.1}
+  Látum $X$ vera normlegt rúm, $A$ vera lokað í $X$ og $f:A\to\R$ vera
+  takmarkað og samfellt. Þá er til samfellt fall $F:X\to\R$ með
+  $\|f-F\|_A\leq \frac 23 \|f\|_A$ og $\|F\|_X = \frac 13\|f\|_A$.
+\end{hjalparsetn}
+% 09.03.2010
+\begin{ath}
+  Ef $A$, $B$ lokuð í grannrúmi $X$ og unnt er að aðskilja $A$ og $B$
+  með samfelldu falli $f:X\to\left[ 0,1 \right]$, þ.e.a.s. $f|_A = 0$ og
+  $f|_B = 1$, þá er, fyrir öll $a,b$ úr $\R$ þ.a. $a<b$, hægt að finna
+  samfellt fall $g:X\to\left[ a,b \right]$ þ.a. $g|_A = a$ og $g|_B =
+  b$, þ.e. fallið\[
+  g(x) := a + (b-a)f(x).
+  \]
+\end{ath}
+\begin{proof}
+  [Sönnun á hjálparsetningu \ref{hjalp:urysohn.1}]
+  Látum $r := \|f\|_A = \sup\left\{ |f(a)|:a\in A \right\}$. Mengin
+  $B:=f^{-1}(\left[ r/3,r \right])$ og $C:=f^{-1}(\left[-r,-r/3\right])$
+  eru sundurlæg og lokuð í $X$, svo skv. Urysohn er til samfellt fall
+  $F:X\to\left[-r/3,r/3\right]$ þ.a. $F|_C=-r/3$ og $F|_B=r/3$. Fljótséð
+  er að $F$ fullnægir umbeðnum skilyrðum.
+\end{proof}
+\begin{setn}
+  [Framlengingarsetning Tietze-Urysohn]
+  Fyrir grannrúm $X$ eru eftirtalin skilyrði jafngild: 
+  \begin{enumerate}[(i)]
+    \item $X$ er normlegt.
+    \item Fyrir sérhvert lokað mengi $A$ í $X$ og sérhvert samfellt
+      fall $f:A\to\left[ 0,1 \right]$ er til samfellt fall $F:X\to\left[
+      0,1 \right]$ með $f|_A = f$.
+  \end{enumerate}
+\end{setn}
+\begin{proof} 
+  \emph{(ii)$\Rightarrow$(i):} Látum $A$ og $B$ vera lokuð og sundurlæg
+  í $X$. Þá er $f:A\cup B\to\left[ 0,1 \right]$, $f|_A=0$ og $f|_B=1$
+  samfellt fall. Það framlengist í samfellt fall $F:X\to\left[ 0,1
+  \right]$ skv. (ii) og $F^{-1}(\left[ 0,1/2 \right[)$ og
+  $F^{-1}(\left] 1/2,1 \right])$ eru opnar sundurlægar grenndir um $A$
+  og $B$.
+
+  \emph{(i)$\Rightarrow$(ii):} Með þrepun búumm við til runu
+  $(F_n)_{n\geq 1}$ af samfelldum föllum $F_n : X\to\R$ þ.a. 
+  \begin{equation}
+    \left\| f - \sum_{k=1}^n F_k \right\|_A
+    \leq
+    \left( \frac 23 \right)^n \|f\|_A
+    \label{eq:tietze_proof.1}
+  \end{equation}
+  og
+  \begin{equation}
+    \|F_n\|_X
+    \leq \frac 13 \left( \frac 23 \right)^{n-1}\cdot\|f\|_A
+    \label{eq:tietze_proof.2}.
+  \end{equation}
+  Sýnum á eftir hvernig smíða má rununa.
+  Út frá \eqref{eq:tietze_proof.2} fæst að\[
+  \sum_{n=1}^{\infty}
+  \leq \sum_{n=1}^{\infty}\frac 13\left( \frac 23
+    \right)^{n-1}\cdot\|f\|_A
+  = \|f\|_A
+  < +\infty
+  \]
+  og þar með er $\sum_{n\geq 1} F_n$ samleitin í jöfnum mæli á $X$ og
+  hefur samfellt fall $F$ sem markgildi. Út frá
+  \eqref{eq:tietze_proof.1} fæst svo að \[
+  \|f-F\|_A
+  = \lim_{n\to\infty} \left\| f - \sum_{k=1}^{n}F_k\right\|_A
+  = 0
+  \]
+
+  \emph{Smíði rununnar:} Skv. síðustu hjálparsetningu er til samfellt
+  fall $F_1 : X\to\R$ þ.a. $\|f-F_1\|_A\leq\frac 23\|f\|_A$ og
+  $\|F_1\|_X=\frac 13\|f\|_A$. Þegar $F_1,\dots,F_n$ eru fengin þá getum
+  við beitt hjálparsetningu á flalið $g:= f-\sum_{k=1}^{n}F_k$ til þess
+  að finna samfellt fall $F_{n+1}:X\to\R$ þ.a.\[
+  \left\|f-\sum_{k=1}^{n+1} F_k \right\|_A
+  = \|g-F_{n+1}\|_A
+  \leq \frac 23 \|g\|_A
+  \leq \frac 23\left( \frac 23 \right)^n \|f\|_A
+  = \left( \frac 23 \right)^{n+1} \|f\|_A.
+  \]
+\end{proof}
+\emph{Viðbót:} Skilyrðin (i) og (ii) eru jafngild eftirfarandi skilyrði:
+\begin{itemize}
+  \item[(iii)] Fyrir sérhvert lokað mengi $A$ í $X$ og sérhvert
+    samfellt $f:A\to\R$ er til samfellt fall $F:X\to\R$ með $F|_A = f$.
+\end{itemize}
+
+\emph{(iii)$\Rightarrow$(i):} Ef $A$ og $B$ eru sundurlæg lokuð
+hlutmengi í $X$, þá er fallið $f:A\cup B\to\R$, $f|_A=0$ og $f|_B=1$
+samfellt svo skv. (iii) framlengist það í samfellt fall $F:X\to\R$ og
+$F^{-1}(\left]-\infty,1/2\right[)$ og $F^{-1}(\left]1/2,+\infty\right[)$
+eru þá opnar sundurlægar grenndir um $A$ og $B$.
+
+\emph{(ii)$\Rightarrow$(iii):} $A$ lokað í $X$ og $f:A\to\R$ samfellt.
+Þá er $g=\frac 2\pi \arctan\circ f: A\to\left]-1,1,\right[$ samfellt og
+hefur samfellda framlengingu $G:X\to\left[ -1,1 \right]$. Mengið
+$B:=G^{-1}(\{-1,1\})$ er lokað og $A\cap B=\emptyset$; þar með er til
+(skv. (ii)) samfellt fall $\varphi:X\to\left[ 0,1 \right]$ þ.a.
+$\varphi|_A=1$ og $\varphi|_B=0$. Þá er $\varphi\cdot
+G:X\to\left]-1,1\right[$ og $\varphi\cdot G|_A=G|_A=g$ (ath að
+$\varphi|_A=1$) svo að fallið
+$F:=\tan\circ(\frac{\pi}{2}\cdot\varphi\cdot G):X\to\R$ er samfellt og
+$F|_A=f$.
+
+\begin{setn}
+  [Greypingarsetning]\index{greypingarsetning}
+
+  Látum $X$ vera grannrúm og 
+  \[  \left\{ f_\alpha:X\to Y_\alpha :\alpha\in I\right\}  \]
+  vera fjölskyldu af samfelldum vörpunum þ.a.
+  \begin{enumerate}[(i)]
+    \item Ef $x,y\in X$ og $x\neq y$, þá er til $\alpha\in I$ þ.a.
+      $f_\alpha(x)\neq f_\alpha(y)$ (sagt að fjölskyldan
+      $(f_\alpha)_{\alpha\in I}$ aðgreini punkt í $X$).
+    \item Ef $A$ er \emph{lokað} í $X$ og $x\in X\setminus A$, þá er til
+      $\alpha\in I$ þ.a. $f_\alpha(x)\notin f_\alpha(A)$. 
+  \end{enumerate}
+  Þá er vörpunin $f:=(f_\alpha)_{\alpha\in I}:X\to\prod_{\alpha\in
+  I}Y_\alpha$ greyping.
+\end{setn}
+\begin{proof}
+  Vörpunin $f:X\to\prod_{\alpha\in I} Y_\alpha$ er samfelld og skv. (i)
+  er hún eintæk. Viljum sýna að hún gefi af sér grannmótnun $X\to f(X)$,
+  en til þess nægir að sýna að $f(U)$ sé opið í $f(X)$ fyrir sérhvert
+  opið $U$ í $X$.
+
+  Látum $U$ vera opið í $X$ og $y\in f(U)$. Veljum $x$ úr $U$ þ.a.
+  $f(x)=y$. Þar eð $X\setminus U$ er lokað og $x\notin X\setminus U$, þá
+  er skv. (ii) til $\alpha$ úr $I$ þ.a.
+  $f_\alpha(x)\notin\overline{f_\alpha(X\setminus U)}$. Mengið
+  $V:=\pi_\alpha^{-1}(Y_\alpha\setminus\overline{f_\alpha(X\setminus
+  U)}) = \left\{ (y_\beta)_{\beta\in I}
+  y_\alpha\notin\overline{f_\alpha(X\setminus U)}\right\}$ er opið í
+  $\prod_{\alpha\in I} Y_\alpha$. Sýnum að $V\cap f(X)\subseteq f(Y)$:
+  Ef $z\in X$ og $f(z)\in V$, þá er $f_\alpha(z)\notin
+  \overline{f_\alpha(X\setminus U)}$ og því $z\notin X\setminus U$ sem
+  þýðir að $z\in U$. Þar með er sýnt að $f(U)$ er opið í $f(X)$.
+\end{proof}
+% 15.03.2010
+\begin{ath}
+  Ef $X$ er $T_1$-rúm, þá leiðir (ii) til (i).
+\end{ath}
+\begin{setn}
+  [Firðanleikasetning Urysohns]
+  \index{Urysohn!firðanleikasetning}\index{firðanleikasetning Urysohns}
+  Reglulegt grannrúm sem hefur teljanlegan grunn er firðanlegt.
+\end{setn}
+\begin{proof}
+  Látum $X$ vera reglulegt rúm þ.a. $\mathcal T_X$ eigi sér teljanlegan
+  grunn $\mathcal B$. Þar sem $X$ er reglulegt Lindelöf-rúm, þá er það
+  normlegt. Fyrir sérhvert $(B,C)$ úr $\mathcal B\times\mathcal B$ sem
+  uppfyllir $\overline{B}\subseteq C$, getum við fundið
+  samfellt fall $f: X\to\left[ 0,1 \right]$ þ.a. $f|_{\overline B}=0$ og
+  $f|_{X\setminus C} = 1$. Fjöldi slíkra spyrða (tvennda) er
+  teljannlegur; látum $(f_n)_{n\in\N}$ vera upptalningu á tilheyrandi
+  föllum. Sýnum að safnið $\left\{ f_n:X\to [0,1]\mid n\in\N \right\}$
+  fullnægi skilyrði (ii) úr greypingarsetningunni og þar með einnig
+  skilyrði (i) úr greypingarsetningunni:
+
+  Ef $A$ er lokað í $X$ og $x\in X\setminus A$, þá er til $C$ úr
+  $\mathcal B$ með $x\in C\subseteq X\setminus A$. Finnum opna grennd
+  $V$ um $X$ með $\overline V\subseteq C$ og síðan $B$ úr $\mathcal B$
+  þ.a. $x\in B\subseteq V$. Þá er $x\in B\subseteq\overline B\subseteq
+  C$. Látum $f_n$ vera fallið sem tilheyrir $(B,C)$. Ljóst er að $f_n(x)
+  = 0$ og $f_n |_A = 1$ svo að sýnt er að $(f_n)_{n\in\N}$ fullnægir
+  forsendum greypingarsetningarinnar.
+
+  Fáum því greypingu $f=(f_n)_{n\in\N}: X\to [0,1]^\omega$. En
+  $[0,1]^\omega$ er firðanlegt vegna þess að það er hlutrúm í
+  $\R^\omega$, sem er firðanlegt.
+\end{proof}
+
+\section{Hlutun á einum}
+
+\begin{skilgr}
+  Látum $X$ vera grannrúm og $f:X\to\C$ vera vörpun. Skilgreinum \[
+  \supp(f) := \left\{ x\in X: f(x)\neq 0 \right\},
+  \]
+  og köllum þetta mengi \emph{stoð}\index{stoð} $f$.
+\end{skilgr}
+\begin{ath}
+  Almennar, í staðinn fyrir $\C$ getum við sett $\R$, eða bara eitthvert
+  rúm sem hefur núllstak.
+\end{ath}
+\begin{skilgr}
+  Látum $(U_\alpha)_{\alpha\in I}$ vera opna þakningu á grannrúmi $X$.
+  \emph{Hlutun á einum (á $X$) m.t.t. þakningarinnar
+  $(U_\alpha)_{\alpha\in I}$ } er fjölskylda af samfelldum föllum
+  $\left( \phi_\alpha : X\to \left[ 0,1 \right] \right)_{\alpha\in I}$
+  sem fullnægir eftirfarandi skilyrðum:
+  \begin{enumerate}[(i)]
+    \item $\supp(\phi_\alpha)\subseteq U_\alpha$ fyrir öll $\alpha\in
+      I$.
+    \item Mengjafjölskyldan $(\supp\phi_\alpha)_{\alpha\in I}$ er
+      \emph{staðendanleg}\index{staðendanleiki} (þ.e. sérhver punktur
+      $x$ úr $X$ á sér grennd sem sker aðeins endanlega mörg mengi úr
+      fjölskyldunni). 
+    \item $\sum_{\alpha\in I}^{}\phi_\alpha(x) = 1$ fyrir sérhvert $x$
+      úr $X$. 
+  \end{enumerate}
+\end{skilgr}
+\begin{ath}
+  Skilyrði (iii) hefur merkingu vegna (ii).
+\end{ath}
+\begin{setn}
+  Látum $U_1,\dots,U_n$ vera opna þakningu á normlegu rúmi $X$. Þá er
+  til hlutun á einum m.t.t. þakningarinnar.
+\end{setn}
+\begin{proof}
+  Sýnum fyrst með þrepun að $X$ eigi sér opna þakning $V_1,\dots,V_n$
+  þ.a. $\overline V_i\subseteq U_i$ fyrir $i=1,\dots,n$.
+  \begin{itemize}
+    \item $A := X\setminus U_2\cup\cdots\cup U_n$ er lokað í $X$ og
+      innihaldið í $U_1$ svo til er opin grennd $V_1$ um $A$ þ.a.
+      $\overline V_1\subseteq U_1$ vegna þess að $X$ er normlegt. Ljóst
+      er að $V_1,U_2,\dots,U_n$ er opin þakning á $X$.
+    \item G.r.f. að við höfum opin mengi $V_1,\dots,V_{k-1}$ ($k\geq 2$)
+      þ.a. $V_1,\dots,V_{k-1},U_k,\dots,U_n$ þeki $X$ og $\overline
+      V_i\subseteq U_i$ fyrir $i=1,\dots,k-1$. Þá er $A := X\setminus
+      V_1\cup\cdots\cup V_{k-1}\cup U_{k+1}\cup\cdots\cup U_n$ lokað í
+      $X$ og innihaldið í $U_k$. Veljum þá opna grennd $V_k$ um $A$ þ.a.
+      $\overline V_k\subseteq U_k$ og fáum opna þakningu
+      $V_1,\dots,V_k,U_{k+1},\dots,U_n$ með $\overline V_i\subseteq U_i$
+      fyrir $i=1,\dots,k$.
+  \end{itemize}
+  Sýnum nú fram á tilvist hlutunarinnar. Athugum að skilyrðið (ii) er
+  sjálfkrafa uppfyllt. Veljum opna þakningu $W_1,\dots,W_n$ á $X$ þ.a.
+  $\overline W_i\subseteq V_i$ fyrir $i=1,\dots,n$. Skv. hjálparsetningu
+  Urysohns er, fyrir sérhvert $i$ úr $\left\{ 1,\dots,n \right\}$, til
+  samfellt fall $\psi_i:X\to\left[ 0,1 \right]$ þ.a. $\psi_i|_{\overline
+  W_i} = 1$ og $\psi_i|_{X\setminus V_i} = 0$. Þar sem $\psi_i$ er núll
+  alls staðar utan lokaða mengisins $\overline V_i$, þá er
+  $\supp\psi_i\subseteq\overline V_i\subseteq U_i$. Skilgreinum samfellt
+  fall $\Psi:X\to\R$ með $\Psi(x):=\sum_{i=1}^{n}\Psi_i(x)$ fyrir öll
+  $x\in X$. Þar eð $X=W_1\cup\cdots\cup W_n$, þá er $\Psi(x)>0$ fyrir
+  öll $x\in X$. Föllin $\phi_1,\dots,\phi_n$ sem skilgreind eru með
+  $\phi_i(x) := \psi_i(x)/\Psi(x)$ $\forall x\in X$ mynda því
+  bersýnilega hlutun á einum með tilliti til $U_1,\dots,U_n$. 
+\end{proof}
+\begin{fylgisetn}
+  Á þjappaðri víðáttu er til hlutun á einum m.t.t. hvaða endanlegrar opinnar
+  þakningar sem er.
+\end{fylgisetn}
+\begin{proof}
+  Þjöppuð víðátta er normleg.
+\end{proof}
+\begin{ath}
+  Reyndar er hægt að sýna fram á eftirfarandi niðurstöðu: Á víðáttu sem
+  er teljanleg í óendanlegu (þ.e. $\infty$ hefur teljanlegan grunn í
+  Alexandroff-þjöppuninni) eru alltaf til hlutanir á einum.
+\end{ath}
+\begin{daemi}
+  $X$ þjöppuð $m$-víð víðátta. Sýnum að unnt sé að greypa $X$ inn í
+  $\R^N$ fyrir einhverja náttúrlega tölu $N$. Þar sem $X$ er þjöppuð, þá
+  eru til opin mengi $U_1,\dots,U_n$ í $X$ þannig að $X =
+  U_1\cup\cdots\cup U_n$ og fyrir sérhvert $i$ er til grannmótun
+  $g_i:U_i\to\underbrace{g(U_i)}_{\text{opið}}\subseteq \R^m$. Veljum
+  hlutun á einum $\phi_1,\dots,\phi_n$ m.t.t. $U_1,\dots,U_n$ og
+  skilgreinum fyrir sérhvert $i$ úr $\left\{ 1,\dots,n \right\}$
+  samfellda vörpun $h_i: X\to\R^m$ með \[
+  h_i(x) := \begin{cases}
+    \phi_i(x)\cdot g_i(x),&\text{ef }x\in U_i,\\
+    0_{\R^m},             &\text{ef }x\in X\setminus\supp\phi_i.
+  \end{cases}
+  \]
+  Sýnum að vörpunin \[
+  F: X\to (\underbrace{\R\times\cdots\times\R}_{n\text{ sinnum}}) \times
+  (\underbrace{\R^m\times\cdots\times\R^m}_{n\text{ sinnum}}),
+  \quad
+  F(x) := (\phi_1(x),\dots,\phi_n(x), h_1(x),\dots,h_n(x))
+  \]
+  sé greyping: Ljóst er að $F$ er samfelld, svo okkur nægir að sýna að
+  $F$ sé eintæk vegna þess að $X$ er þjappað. G.r.f. að $F(x) = F(y)$.
+  Þar sem $\sum_{i=1}^{n}\phi_i (x) = 1$, þá er til $i$ þ.a.
+  $\phi_i(x)=\phi_i(y)>0$ svo að $x,y\in U_i$. Þá fæst að $h_i(x) =
+  \phi_i(x)g_i(x) = \phi_i(y)g_i(y) = h_i(y)$ og því $g_i(x)=g_i(y)$. En
+  $g_i$ er eintæk svo að $x=y$.
+\end{daemi}
+
+% 16.03.2010
+
+\section{Tychonoff-setningin}
+
+\begin{skilgr}
+  Segjum að safn hlutmengja í titleknu mengi hafi \emph{ekki tómt
+  endanlegt snið}\index{ekki tómt endanlegt snið}\index{e.e.s.}
+  (skammstafað e.e.s.) ef sniðmengi sérhvers endanlegs hlutsafns er ekki
+  tómt.
+\end{skilgr}
+
+\begin{ath}
+  [Upprifjun] 
+  Grannrúm $X$ er þjappað \emph{þ.þ.a.a.} um sérhvert safn
+  $\mathcal C$ í $\mathcal P(X)$ sem hefur e.e.s., gildir að
+  $\bigcap_{C\in\mathcal C}\overline C \neq \emptyset$.
+\end{ath}
+
+\begin{hjalparsetn}
+  \label{hjalp:tych_1}
+  Látum $X$ vera mengi og $\mathcal A\subseteq\mathcal P(X)$ þ.a.
+  $\mathcal A$ hafi e.e.s.  Þá er til $\mathcal D\subseteq\mathcal P(X)$
+  þ.a. $\mathcal A\subseteq \mathcal D$, $\mathcal D$ hefur e.e.s. og
+  $\mathcal D$ er óstækkanlegt m.t.t. þessara eiginleika, þ.e.a.s. ef
+  $\mathcal D'$ hefur e.e.s. og $\mathcal D\subseteq \mathcal D'$, þá er
+  $\mathcal D =\mathcal D'$.
+\end{hjalparsetn}
+\begin{proof}
+  Látum $\mathbb A$ vera mengi allra safna $\mathcal B$ í $\mathcal
+  P(X)$ þannig að $\mathcal A\subseteq \mathcal B$ og $\mathcal B$ hafi
+  e.e.s. og röðum stökunum í $\mathbb A$ með
+  \emph{íveruröðuninni}\index{iverurodun@íveruröðun} $\subsetneq$.
+  Við viljum sýna að $\mathbb A$ hafi óstækkanlegt stak. Skv.
+  hjálparsetningu Zorn nægir að sýna að sérhvert línulega raðað
+  hlutmengi í $\mathbb A$ sé takmarkað að ofan. Látum $\mathbb B$ vera
+  línulega raðað hlutmengi í $\mathbb A$ og setjum $\mathcal
+  C:=\bigcup_{\mathcal B\in\mathbb B} \mathcal B$ og sýnum að $\mathcal
+  C\in\mathbb B$ (þá er $\mathcal C$ stærsta stakið í $\mathbb B$ og þar
+  með $\mathbb B$ takmarkað að ofan).
+  \begin{itemize}
+    \item Augljóslega gildir $\mathcal A\subseteq \mathcal C$. 
+    \item \emph{$\mathcal C$ hefur e.e.s.:} Látum
+      $C_1,\dots,C_n\in\mathcal C$. Þá gildir um sérhvert $i$ að til er
+      $\mathcal B_i$ úr $\mathbb B$ þannig að $C_i\in\mathcal B_i$. Nú
+      er $\left\{ \mathcal B_1,\dots,\mathcal B_n \right\}$ endanlegt
+      hlutmengi í línulega raðaða menginu $\mathbb B$ og hefur því
+      stærsta stak, m.ö.o. er til $k$ úr $\left\{ 1,\dots,n \right\}$
+      þ.a. $\mathbb B_i\subseteq \mathbb B_k$ fyrir $i=1,\dots,n$; þar
+      með eru $C_1,\dots,C_n$ stök úr $\mathcal B_k$ og $\mathcal B_k$
+      hefur e.e.s., svo að $C_1\cap\cdots\cap C_n\neq\emptyset$.
+  \end{itemize}
+\end{proof}
+\begin{hjalparsetn}
+  \label{hjalp:tych_2}
+  Látum $X$ vera mengi og $\mathcal D$ vera safn hlutmengja í $X$ sem
+  hefur e.e.s. og er óstækkanlegt m.t.t. þess eiginleika. Þá gildir
+  \begin{enumerate}[(a)]
+    \item Endanlegt sniðmengi af stökum úr $\mathcal D$ er stak í
+      $\mathcal D$. 
+    \item Ef $A\subseteq X$ og $A$ sker sérhvert stak úr $\mathcal D$,
+      þá er $A$ í $\mathcal D$.  
+  \end{enumerate}
+\end{hjalparsetn}
+\begin{proof}
+  (a) Látum $\mathcal B$ vera sniðmengi endanlega margra staka úr
+  $\mathcal D$ og setjum $\mathcal E := \mathcal D\cup\left\{ B
+  \right\}$. Okkur nægir að sýna að $\mathcal E$ hafi e.e.s., því þá er
+  $\mathcal D=\mathcal E$ og þar með $B\in\mathcal D$. Skrifum
+  $B=\bigcap_{C\in\mathcal C'} C$ með $\mathcal C'$ sem endanlegt
+  hlutmengi í $\mathcal D$. Látum nú $\mathcal C$ vera endanlegt
+  hlutmengi í $\mathcal E$. Ef $B\notin \mathcal C$, þá er $\mathcal
+  C\subseteq \mathcal D$ og því $\bigcap_{C\in\mathcal C}C\neq\emptyset$
+  vegna þess að $D$ hefur e.e.s. Ef hins vegar $B\in\mathcal C$, þá
+  setjum við $\mathcal C'':=\left( C\setminus\left\{ B \right\}
+  \right)\cup \mathcal C'$, þá er $\mathcal C''$ endanlegt hlutmengi í
+  $\mathcal D$ og þar með 
+  \begin{align*}
+    \emptyset
+    &\neq \bigcap_{C\in\mathcal C''} C
+    = \left( \bigcap_{C\in\mathcal C\setminus\left\{ B \right\}} C \right) 
+    \cap \left(\bigcap_{C\in\mathcal C'} C\right)
+    = \left( \bigcap_{C\in\mathcal C\setminus\left\{ B \right\}} C
+    \right)\cap B 
+    = \bigcap_{C\in\mathcal C} C.
+  \end{align*}
+
+  (b) Setjum $\mathcal E:=\mathcal D\cup\left\{ A \right\}$. Ef
+  $D_1,\dots,D_n\in\mathcal D$, þá er $D_1\cap\cdots\cap D_n\in\mathcal
+  D$ skv. (a) og því $D_1\cap\cdots\cap D_n\cap A\neq\emptyset$; þar
+  með hefur $\mathcal E$ e.e.s., svo $\mathcal E = \mathcal D$ og því
+  $A\in\mathcal D$.
+\end{proof}
+\begin{setn}
+  [Tychonoff]\index{Tychonoff}\label{setn:tychonoff}
+  Faldrúm þjappaðra grannrúma er þjappað.
+\end{setn}
+\begin{proof}
+  Látum $X = \prod_{\alpha\in J} X_\alpha$ með $X_\alpha$ þjappað fyrir
+  öll $\alpha\in J$. Látum $\mathcal A$ ver safn hlutmengja í $X$ þ.a
+  $\mathcal A$ hafi e.e.s. Sýnum að $\bigcap_{A\in\mathcal A}\overline
+  A\neq\emptyset$: Skv. hjálparsetningu \ref{hjalp:tych_1} er til
+  óstækkanlegt $\mathcal D$ þannig að $\mathcal A\subseteq\mathcal D$.
+  Látum $\alpha\in J$ og látum $\pi_\alpha:X\to X_\alpha$ vera
+  $\alpha$-ta ofanvarpið. Safnið $\left\{ \pi_\alpha(D)\mid D\in\mathcal
+  D\right\}$ í $\mathcal P(X_\alpha)$ hefur e.e.s. svo
+  $\bigcap_{D\in\mathcal D}\overline{\pi_\alpha(D)}\neq\emptyset$ vegna
+  þess að $X_\alpha$ er þjappað. Fyrir sérhvert $\alpha\in J$ veljum við
+  $x_\alpha$ úr $\prod_{\alpha\in J}\overline{\pi_\alpha(D)}$ og setjum
+  $\mathbf x = (x_\alpha)_{\alpha\in J} \in X$. Okkur nægir að sýna að
+  $\mathbf x\in\overline D$ fyrir öll $D\in\mathcal D$. Látum nú
+  $D\in\mathcal D$. Þá gildir um sérhvert $\alpha\in J$ og sérhverja
+  grennd $U_\alpha$ um $x_\alpha$ að
+  $U_\alpha\cap\pi_\alpha(D)\neq\emptyset$ vegna þess að
+  $x_\alpha\in\overline{\pi_\alpha(D)}$. Þar með er\[
+  \pi_\alpha\left( \pi_\alpha^{-1}(U_\alpha)\cap D \right)
+  = U_\alpha\cap\pi_\alpha(D)
+  \neq \emptyset
+  \]
+  og því $\pi_\alpha^{-1}(U_\alpha)\neq\emptyset$. Skv. hjálparsetningu
+  \ref{hjalp:tych_2} (b) er því $\pi_\alpha^{-1}(U_\alpha)\in\mathcal D$
+  fyrir sérhverja grennd $U_\alpha$ um $x_\alpha$ og skv.
+  hjálparsetningu \ref{hjalp:tych_2} (a) sker sérhver grunngrennd um $x$
+  öll $D$ úr $\mathcal D$ (því að slík grennd er endanlegt sniðmengi af
+  gerðinni $\pi^{-1}(U_\alpha)$). Af því leiðir að $\mathbf
+  x\in\overline D$ fyrir öll $D\in\mathcal D$. 
+\end{proof}
+
+\section{Grannmynstur á fallarúmum}
+
+\begin{skilgr}
+  Látum $X$ vera mengi og $Y$ grannrúm. Fyrir sérhvert $x\in X$ og
+  sérhvert opið mengi $U$ í $Y$ setjum við\[
+  S(x,U) := \left\{ f\in Y^X\mid f(x)\in U \right\}.
+  \]
+  Mengin $S(x,U)$ mynda hlutgrunn fyrir grannmynstur á $Y^X$ sem kallast
+  \emph{grannmynstur vejulegrar samleitni}\index{grannmynstur!
+  venjulegrar samleitni}\index{venjuleg samleitni}.
+\end{skilgr}
+\begin{ath}
+  Umrætt grannmynstur er bara faldgrannmynstur á $Y^X$.
+\end{ath}
+\begin{setn}
+  Látum $X$ vera mengi og $Y$ grannrúm. Fallaruna $(f_n:X\to
+  Y)_{n\in\N}$ stefnir á fall $f:X\to Y$ í ofangreindu grannmynstri
+  \emph{þ.þ.a.a.} $f_n(x)\to f(x)$ fyrir öll $x$ úr $X$.
+\end{setn}
+\begin{proof}
+  Létt æfing.
+\end{proof}
+\begin{daemi}
+  [Æfing]
+  $X$ grannrúm og $(Y,d)$ firðrúm. Fyrir sérhvert $f$ úr $Y^X$,
+  sérhvert þjappað $C$ í $X$og sérhvert $\varepsilon>0$ setjum við\[
+  B_C(f,\varepsilon)
+  := \left\{ g\in Y^X \mid \sup_{x\in C} d(f(x),g(x))<\varepsilon
+  \right\}.
+  \]
+  Sýna á að mengin $B_C(f,\varepsilon)$ myndi grunn fyrir grannmynstur á
+  $Y^X$.
+\end{daemi}
+\begin{skilgr}
+  Þetta grannmynstur kallast \emph{grannmynstur þjappaðrar
+  samleitni}\index{grannmynstur!þjappaðrar samleitni}\index{zjoppud
+  samleitni@þjöppuð samleitni}.
+\end{skilgr}
+% 22.03.2010
+\begin{setn}
+  $X$ grannrúm og $(Y,d)$ firðrúm. Runa $(f_n)$ í $Y^X$ stefnir á $f$ í
+  grannmynstri þjappaðrar samleitni \emph{þ.þ.a.a.} $(f_n|_C)$ stefni í
+  jöfnum mæli á $f|_C$ fyrir sérhvert $C$ þjappað í $X$.
+\end{setn}
+\begin{proof}
+  Augljóst.
+\end{proof}
+\begin{skilgr}
+  Grannrúm $X$ er sagt \emph{þjapplega framleitt}\index{zjapplega
+  framleitt@þjapplega framleitt} ef það fullnægir eftirfarandi
+  skilyrði
+  \begin{quote}
+    Hlutmengi $A$ í $X$ er opið [lokað] \emph{þ.þ.a.a.} $A\cap C$ sé
+    opið [lokað] í $C$ fyrir sérhvert þjappað $C$ í $X$.
+  \end{quote}
+\end{skilgr}
+\begin{hjalparsetn}
+  \label{hjalp:thjapplega_framleitt.1}
+  Grannrúm $X$ er þjapplega framleitt ef það fullnægir öðru hvoru
+  eftirfarandi skilyrða:
+  \begin{enumerate}[(i)]
+    \item $X$ er staðþjappað.
+    \item Sérhver punktur í $X$ á sér teljanlegan grenndagrunn. 
+  \end{enumerate}
+\end{hjalparsetn}
+\begin{proof}
+  (i) Látum $A\subseteq X$ þ.a. $A\cap C$ sé opið fyrir sérhvert þjappað
+  $C$ í $X$. Ef $x\in A$, þá er til opin grennd $U$ um $x$ í $X$ þ.a.
+  $\overline U$ sé þjappað. Þá er $A\cap\overline U$ opið í $\overline
+  U$ og þar með er $A\cap U$ opið í $U$ og því einnig í $X$. Punkturinn
+  $x$ er því innri punktur í $A$.
+
+  (ii) Látum $A\subseteq X$ þ.a. $A\cap C$ sé lokað í $C$ fyrir sérhvert
+  þjappað $C$ í $X$. Látum $x\in\overline A$ og sýnum að $x\in A$. Til
+  er runa $(x_n)_{n\in\N}$ í $A$ þannig að $x_n\longrightarrow x$ (í
+  $X$). Þar með er $C:=\left\{ x \right\}\cup\left\{ x_n:n\in\N
+  \right\}$ þjappað í $X$ svo að $A\cap C$ er lokað í $C$ og inniheldur
+  þar með $x$. 
+\end{proof}
+\begin{hjalparsetn}
+  \label{hjap:thjapplega_framleitt.2}
+  Látum $X$ og $Y$ vera grannrúm og g.r.f. að $X$ sé þjapplega
+  framleitt. Þá er vörpun $f:X\to Y$ samfelld \emph{ef og aðeins ef}
+  $f|_C:C\to Y$ er samfelld fyrir sérhvert þjappað $C$ í $X$.
+\end{hjalparsetn}
+\begin{proof}
+  Ef $f:X\to Y$ er samfelld, þá er $f|_C:C\to Y$ samfelld fyrir sérhvert
+  hlutmengi $C$ í $X$. Öfugt, g.r.f. að $f:X\to Y$sé vörpun þ.a.
+  $f|_C:C\to Y$ sé samfelld fyrir sérhvert þjappað $C$ í $X$: Látum $V$
+  vera opið í $Y$. Fyrir sérhvert þjappað $C\subseteq X$ fæst þá að
+  $f^{-1}(V)\cap C = (f|_C)^{-1}(V)$ er opið í $C$ og þar með er
+  $f^{-1}(V)$ það líka, því $X$ er þjapplega framleitt.
+\end{proof}
+\begin{ath}
+  [Ritháttur]
+  Fyrir grannrúm $X$ og $Y$ táknum við með $\mathcal C(X,Y)$ mengi allra
+  samfelldra varpana frá $X$ inn í $Y$. 
+\end{ath}
+\begin{setn}
+  Látum $X$ vera þjapplega framleitt grannrúm og $(Y,d)$ vera firðrúm.
+  Þá er $\mathcal C(X,Y)$ lokað í $Y^X$ í grannmynstri þjapplegrar
+  samleitni.
+\end{setn}
+\begin{proof}
+  Látum $f$ vera þéttipunkt $\mathcal C(X,Y)$ í $Y^X$ og sýnum að
+  $f\in\mathcal C(X,Y)$. Til þess nægir að sýna að $f|_C:C\to Y$ sé
+  samfelld fyrir sérhvert þjappað $C\subseteq X$. Látum $C$ vera þjappað
+  í $X$. Veljum, fyrir sérhvert $n$ úr $\N^*$, $f_n$ úr
+  $B_C(f,1/n)\cap\mathcal C(X,Y)$. Þá er auðséð að
+  $f_n|_C\longrightarrow f|_C$ í jöfnum mæli og þar með er $f|_C$
+  samfelld.
+\end{proof}
+\begin{fylgisetn}
+  Látum $X$ vera þjapplega framleitt grannrúm og $(Y,d)$ vera firðrúm.
+  Ef runa af samfelldum vörpunum $(f_n:X\to Y)_{n\in\N}$ stefnir á $f$ í
+  grannmynstri þjappaðrar samleitni á $Y^X$, þá er $f$ samfelld.
+\end{fylgisetn}
+\begin{proof}
+  Augljóst.
+\end{proof}
+\begin{daemi}
+  [Æfing]
+  Látum $X$ vera grannrúm og $(Y,d)$ vera firðrúm. Látum $\mathcal T_1$
+  vera grannmynstur venjulegrar samleitni á $Y^X$, $\mathcal T_2$ vera
+  grannmynstur þjappaðrar samleitni á $Y^X$ og $\mathcal T_3$ vera
+  jafnmælisgrannmynstrið á $Y^X$. Þá gildir\[
+  \mathcal T_1\subseteq \mathcal T_2\subseteq \mathcal T_3.
+  \]
+  Ef $X$ er strjált, þá er $T_1 = T_2$; ef $X$ er þjappað þá er
+  $T_2=T_3$. 
+\end{daemi}
+Látum $X$ og $Y$ vera grannrúm. Fyrir sérhvert þjappað hlutmengi $C$ í
+$X$ og sérhvert opið hlutmengi $U$ í $Y$ setjum við\[
+S(C,U) := \left\{ f\in\mathcal C(X,Y) : f(C)\subseteq U \right\}.
+\]
+Ljóst er að mengin $S(C,U)$ þekja $\mathcal C(X,Y)$ og mynda því
+hlutgrunn fyrir grannmynstur á $\mathcal C(X,Y)$.
+\begin{skilgr}
+  Umrætt grannmynstur kallast
+  \emph{þjappað-opna}\index{zjappad-opna@þjappað-opna} (eða
+  \emph{þjopna})\index{zjopna@þjopna} grannmynstrið á $\mathcal C(X,Y)$. 
+\end{skilgr}
+\begin{setn}
+  Látum $X$ vera grannrúm og $(Y,d)$ vera firðrúm. Þá er þjopna
+  grannmynstrið á $\mathcal C(X,Y)$ jafnt grannmynstri þjappaðrar
+  samleitni.
+\end{setn}
+\begin{proof}
+  Fyrir sérhvert $A$ í $Y$ og sérhvert $\varepsilon>0$ setjum við\[
+  U(X,\varepsilon) := \left\{ y\in Y:d(y,A)<\varepsilon \right\}.
+  \]
+  Tökum eftir: Ef $A$ er þjappað og $V$ er opin grennd um $A$, þá er til
+  $\varepsilon>0$ þ.a. $U(A,\varepsilon)\subseteq V$.
+  \begin{itemize}
+    \item Látum $S(C,U)$ vera eitt af hlutgrunnsstökum þjopna
+      grannmynstursins og $f\in S(C,U)$. Þá er $f(C)$ þjappað hlutmengi
+      í $U$ svo að til er $\varepsilon>0$ þ.a.
+      $U(f(C),\varepsilon)\subseteq U$. Fyrir sérhvert $g$ úr
+      $B_C(f,\varepsilon)$ gildir ljóslega að $g(x)\in
+      U(f(C),\varepsilon)$ fyrir öll $x$ úr $C$ svo að $g(C)\subseteq U$
+      og þar með $B_C(f,\varepsilon)\subseteq S(C,U)$. Af þessu sést að
+      grannmynstur þjappaðrar samleitni er fínna en þjopna
+      grannmynstrið.
+    \item Öfugt, látum $f\in\mathcal C(X,Y)$, $C$ vera þjappað í $X$ og
+      $\varepsilon>0$. Sérhver punktur $x$ úr $X$ á sér opna grennd
+      $V_x$ þ.a. $f(\overline V_x)\subseteq B(f(x),\varepsilon/3)$. Þar
+      sem $C$ er þjappað, þa'eru til $x_1,\dots,x_n$ úr $C$ þ.a.
+      $C\subseteq V_{x_1}\cup\cdots\cup V_{x_n}$. Setjum $C_j
+      :=\overline V_{x_j}\cap C$ fyrir $j=1,\dots,n$. Þá eru $C_j$-in
+      þjöppuð og fljótséð er að $f\in S(C,B(f(x),\varepsilon/3))\cap
+      \cdots S(C_n,B(f(x_n),\varepsilon/3))\subseteq
+      B_C(f,\varepsilon)$. Þar með er sýnt að þjopna grannmynstrið er
+      fínna en grannmynstur þjappaðrar samleitni.
+  \end{itemize}
+\end{proof}
+\begin{ath}
+  $X$ grannrúm og $Y$ firðanlegt rúm. Þá segir setningin okkur að
+  grannmynstur þjappaðrar samleitni á $C(X,Y)$ er óháð valinu á firð sem
+  skilgreinir grannmynstur á $Y$. Sér í lagi gildir þetta þegar $X$ er
+  þjappað; þ.e.a.s. jafnmælisgrannmynstrið er óháð valinu á firð sem
+  skilgreinir grannmynstrið á $Y$.
+\end{ath}
+% 23.03.2010 && 24.03.2010
+\begin{setn}
+  Látum $X$ vera staðþjappað Hausdorff-rúm og $Y$ vera grannrúm. Þá er
+  vörpunin\[
+  e : X\times\mathcal C(X,Y)\to Y, e(x,f) := f(x)
+  \]
+  samfelld þegar $\mathcal C(X,Y)$ er með þjopna grannmynstrið.
+\end{setn}
+\begin{skilgr}
+  Vörpunin $e$ kallst
+  \emph{gildistökuvörpunin}\index{gildistökuvörpunin}
+\end{skilgr}
+\begin{proof}
+  [Sönnun á síðustu setningu]
+  Látum $(x,f)\in X\times\mathcal C(X,Y)$ og $V$ vera opna grennd um
+  $f(x)=e(x,f)$ í $Y$. Þar sem $f$ er samfelld og $X$ er staðþjappað og
+  Hausdorff, þá er til opin grennd $U$ um $x$ í $X$ þ.a. $\overline U$
+  sé þjappað og $f(\overline U)\subseteq V$: Þá er $U\times S(\overline
+  U,V)$ opin grennd um $(x,f)$ í $X\times\mathcal C(X,Y)$ og fyrir
+  sérhvert $(x',f')$ úr $U\times S(\overline U,V)$ gildir augljóslega að
+  $e(x',f')=f'(x')\in V$. Þar með er sýnt að $e$ er samfelld.
+\end{proof}
+Sérhver vörpun $f: X\times Z\to Y$ gefur af sér vörpun $F:Z\to Y^X$ sem
+er skilgreind með $(F(z))(x):=f(x,z)$, m.ö.o. er $F(z) = f(\cdot,z)$.
+Öfugt, sérhver vörpun $F:Z\to Y^X$ gefur af sér vörpun $f:X\times Z\to
+Y$, sem skilgreind er með $f(x,z):=(F(z))(x)$. Þessar varpanir eru
+sagðar tilheyra hvor annarri. 
+\begin{ath}
+  Ef $f:X\times Z\to Y$ er samfelld, þá tekur $F$ gildi sín í $\mathcal
+  C(X,Y)$ og þá lítum við ávallt á $F$ sem vörpun $Z\to \mathcal
+  C(X,Y)$.
+\end{ath}
+\begin{setn}
+  Látum $X,Y$ og $Z$ vera grannrúm og setjum þjopna grannmynstrið á
+  $\mathcal C(X,Y)$.
+  \begin{enumerate}[(i)]
+    \item Ef $f:X\times Z\to Y$ er samfelld, þá er tilheyrandi vörpun
+      $F:Z\to \mathcal C(X,Y)$ líka samfelld.
+    \item G.r.f. að $X$ sé staðþjappað og Hausdorff. Ef $F:Z\to\mathcal
+      C(X,Y)$ er samfelld, þá er tilheyrandi vörpun $f:X\times Z\to Y$
+      líka samfelld.
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  (i) G.r.f. að $f:X\times Z\to Y$ sé samfelld og látum $z_0$ vera
+  punkt úr $Z$. Til að sýna að $F$ sé samfelld í $z_0$ nægir að sýna að
+  fyrir sérhvert opið hlutmengi af gerðinni $S(C,U)$ í $\mathcal C(X,Y)$
+  sem inniheldur $F(z_0)$ sé til opin grennd $W$ um $z_0$ í $Z$ þ.a.
+  $F(W)\subseteq S(C,U)$. Nú er $F(z_0)\in S(C,U)$, svo
+  $(F(z_0))(C)\subseteq U$, en það jafngildir því að $f(x,z_0)\in U$
+  fyrir öll $x\in C$, svo $f(C\times\left\{ z_0 \right\})\subseteq U$.
+  Þar eð $f$ er samfelld, þá er $f^{-1}(U)$ opin grennd um $z_0$ af
+  gerðinni tiltekið $C\times\left\{ z_0 \right\}$, í $C\times Z$. Skv.
+  hólkasetningunni er þá til opin grennd $W$ um $z_0$ í $Z$ þ.a.
+  $C\times W\subseteq f^{-1}(U)$ því $C$ er þjappað. Það þýðir að
+  $(F(z))(x) = f(x,z)\in U$ fyrir öll $x\in C$ og öll $z\in W$, svo
+  $F(W)\subseteq S(C,U)$.
+
+  (ii) Athugum að $f = \id_X\times F\circ e$
+  svo $f$ er samskeyting tveggja samfelldra varpana og því samfelld.
+\end{proof}
+
+\part{Algebruleg grannfræði}
+\chapter{Ýmis verkefni í grannfræði}
+Meðal verkefna sem við höfum áhuga á eru
+\begin{enumerate}
+  \item Er til samfelld vörpun $f:B^n\to B^n$ sem hefur engan kyrrapunkt
+    ($n=0$ er fáfengilegt, $n=1$ er milligildissetningin)?
+  \item Er til samfelld vörpun $f:B^n \to S^{n-1}$ þ.a. $f(x) = x$ fyrir
+    öll $x$ úr $S^{n-1}$? Slík vörpun kallast
+    \emph{inndráttur}\index{inndráttur} (tilfellið $n=1$ er einfalt,
+    þar er þetta ekki hægt því ekki til samfelld vörpun frá
+    samanhangandi bilinu $\left[ -1,1 \right]$ yfir í $\left\{ -1,1
+    \right\}$).
+  \item Er til samfellt vigursvið á $S^n$ sem verður hvergi núll?
+    M.ö.o., er til samfelld vörpun $f:S^n \to \R^{n+1}$ þ.a. $f(x)\cdot
+    x = 0$ (innfeldi) fyrir öll $x\in S^n$? (Ef $n=1$ þá greinilega
+    hægt). 
+
+    Ef $S$ er hlutvíðátta í $\R^n$ og fyrir öll $x\in S$ látum við $T_x
+    S$ vera snertisléttu $S$ í $x$, þá er
+    \emph{vigursvið}\index{vigursvið} samfelld vörpun $F:S\to\R^n$ þ.a.
+    $F(x)\in T_x S$.
+  \item Er fyrir öll $\varepsilon>0$ til samfelld vörpun
+    $\gamma:S^n\to S^n$ sem hefur engan kyrrapunkt og uppfyllir
+    $\|\gamma(x)-x\|<\varepsilon$ fyrir öll $x\in S^n$?
+
+    Ef $\varepsilon>2$, þá er $\gamma = -\id$ slík vörpun. Ef
+    $\varepsilon$ er nógu lítið, $n=0$, þá er þetta ekki hægt, en ef
+    $n=1$ þá er þetta auðveldlega hægt með því að snúa kúluhvelinu.
+  \item Getur $\R^n$ verið grannmóta $\R^m$ ef $n\neq m$? ($n=1$ og
+    $m>1$ er einfalt tilfelli, sést með því að taka einn punkt úr hvoru
+    menginu).
+  \item Er $S^2$ grannmóta hringfeldinu $S^1\times S^1$?
+  \item Er hringfeldið $S^1\times S^1$ (kleinuhringur) grannmóta
+    kleinuhring með tveimur götum? 
+\end{enumerate}
+\begin{ath}
+  [Ritháttur]
+  Fyrir $x:=(x_1,\dots,x_n)\in\R^n$ setjum við
+  $\|x\|:=\sqrt{x_1^2+\cdots+x_n^2}$. Látum hér 
+  \begin{align*}
+    B^n &:= \left\{ x\in\R^n : \|x\|\leq 1 \right\}\\
+    S^n &:= \left\{ x\in\R^n : \|x\|   = 1 \right\}.
+  \end{align*}
+\end{ath}
+
+\begin{skilgr}
+  Látum $X$ vera grannrúm og $A\subseteq X$. Samfelld vörpun $r: X\to A$
+  þ.a. $r(a) = a$ fyrir öll $a\in A$ kallast
+  \emph{inndráttur}\index{inndráttur}; ef slík vörpun er til þá er sagt
+  að $A$ sé \emph{inndrægi (af $X$)}\index{inndrægi}.
+\end{skilgr}
+
+\section{Samtoganir}
+\begin{skilgr}
+  Samfelldar varpanir $f,g:X\to Y$ eru sagðar
+  \emph{samtoga}\index{samtoga}, táknað
+  $f\simeq g$, ef til er samfelld vörpun $F:X\times I\to Y$ ($I = \left[
+  0,1 \right]$) þannig að $F(x,0) = f(x)$ og $F(x,1) = g(x)$ fyrir öll
+  $x\in X$. Vörpunin $F$ kallast \emph{samtogun frá $f$ til
+  $g$}\index{samtogun}.
+
+  Almennar, látum $A\subseteq X$. Við segjum að $F$ sé \emph{samtogun
+  frá $f$ til $g$ með tilliti til $A$} (og þá að \emph{$f$ sé samtoga
+  $g$ m.t.t. $A$}) ef $F:X\times I\to Y$ er samtogun frá $f$ til $g$ og
+  $F(a,t)=f(a)$ fyrir öll $t\in I$ ef $a\in A$. Táknum þetta með
+  $f\simeq g \prel A$.
+\end{skilgr}
+% 29.03.2010
+\begin{setn}
+  $f\simeq g \prel A$ eru jafngildisvensl á $Y^X$.
+\end{setn}
+\begin{proof}
+  \begin{description}
+    \item[Sjálfhverfa] $f\simeq f \prel A$ vegna þess að
+      $F:X\times[0,1]\to Y, F(x,t) = f(x)$ er samtogun frá $f$ til $f$
+      með tilliti til $A$.
+    \item[Samhverfa] Ef $H:X\times[0,1]\to Y$ er samtogun frá $f$ til
+      $g$ m.t.t. $A$, þá er $G:X\times[0,1]\to Y, G(x,t):= H(x,1-t)$
+      samtogun frá $g$ til $f$ m.t.t. $A$. 
+    \item[Gegnvirkni] Ef $F:f\simeq g \prel A$ og $G:g\simeq
+      h\prel A$, þá fæst $H:f\simeq h\prel A$ með því
+      að setja\[
+      H(x,t) := 
+      \begin{cases}
+        F(x,2t),   & 0 \leq t \leq 1/2,\\
+        G(x,2t-1), & 1/2  \leq t\leq 1.
+      \end{cases}
+      \]
+  \end{description}
+\end{proof}
+\begin{ath}
+  $g(x) = F(x,1) = G(x,0)$.
+\end{ath}
+\begin{daemi}
+  Til er inndráttur $f:B^n \to S^{n-1}$ \emph{þ.þ.a.a.}
+  $\id:S^{n-1}\to S^{n-1}$ sé samtoga fastri vörpun.
+\end{daemi}
+\begin{proof}
+  Ef $f:B^{n}\to S^{n-1}$ er inndráttur, þá setjum við\[
+  H: S^{n-1}\times[0,1]\to S^{n-1}; (x,t)\mapsto f(tx).
+  \]
+  Þá er $H(x,1) = f(x) = x$ fyrir öll $x\in S^{n-1}$ og $H(x,0) = f(0)$,
+  þ.e.a.s. $H:f(0)\simeq \id_{S^{n-1}}$.
+
+  Öfugt, ef $H:S^{n-1}\times[0,1]\to S^{n-1}$ er samfelld með $H(x,0)=
+  c$ og $H(x,1) = x$ fyrir öll $x\in S^{n-1}$ þá skilgreinum við
+  inndrátt $f:B^n\to S^{n-1}$ með\[
+  f(x) := 
+  \begin{cases}
+    H(x/\|x\|, \|x\|), & x \neq 0,\\
+    c,                 & x = 0.
+  \end{cases}
+  \]
+  Fljótséð er að $f$ er samfelld vörpun (æfing).
+\end{proof}
+\begin{daemi}
+  Köllum $a_n : S^n\to S^n, x\mapsto -x$
+  \emph{andfætisvörpun}\index{andfætisvörpun}. Ef til er samfellt
+  vigursvið á $S^n$ sem er hvergi núll, þá er $a_n\simeq \id_{S^n}$.
+\end{daemi}
+\begin{proof}
+  G.r.f. að $f:S^n \to \R^{n+1}$ sé samfelld og uppfylli $f(x)\neq 0$ og
+  $f(x)\cdot x = 0$ fyrir öll $x\in S^{n-1}$. Setjum $H(x,t)=a(t)\cdot x
+  + b(t,x)\cdot f(x)$. Til þess að $H$ sé vörpun frá $S^n\times[0,1]$ yfir
+  í $S^n$, þá þarf að gilda $\|H(x,t)\|=1$, þ.e.a.s.
+  \begin{align*}
+    1
+    &= \| a(t)x + b(t,x)f(x) \|^2 \\
+    &= a(t)^2 \underbrace{\|x\|}_{1} + b(t,x)^2 \|f(x)\|^2  \\
+    &= a(t)^2 + b(t,x)^2\underbrace{\|f(x)\|^2}_{0}.
+  \end{align*}
+  Tökum $a(t)=1-2t$ og þá $b(t,x) := \frac{2\sqrt{t-t^2}}{\|f(x)\|}$.
+\end{proof}
+\begin{setn}\label{setn:samtog_ohad}
+  Látum $f_1,f_2:X\to Y$ og $g_1,g_2: Y\to Z$ vera samfelldar og
+  $A\subseteq X$. Ef $f_1\simeq f_2\prel A$ og $g_1\simeq
+  g_2\prel{f_1(A)}$, þá er $g_1\circ f_1\simeq g_2\circ f_2\prel A$.
+\end{setn}
+\begin{proof}
+  $F:f_1\simeq f_2\prel A$, $G:g_1\simeq g_2\prel{f(A)}$. Skilgreinum
+  $H:X\times[0,1]\to Z$ með $H(x,t) := G(F(x,t),t)$. Þá er $H:g_1\circ
+  f_1\simeq g_2\circ f_2 \prel A$.
+\end{proof}
+
+\section{Ríkjafræði}
+
+\begin{skilgr}
+  \emph{Ríki $\mathcal C$}\index{ríki} samanstendur af 
+  \begin{enumerate}[(i)]
+    \item Safni, $\Ob \mathcal C$, af \emph{hlutum}\index{hlutir (í ríki)}.
+    \item Fyrir sérhverja raðspyrðu $(X,Y)$ af hlutum úr $\Ob \mathcal
+      C$ er gefið mengi $\Hom(X,Y)$ (eða $\Hom_{\mathcal C}(X,Y)$).
+      Stökin í $\Hom(X,Y)$ nefnast \emph{mótanir frá $X$ til $Y$}.
+    \item Fyrir sérhverja raðaða þrennd $(X,Y,Z)$ af hlutum úr $\Ob
+      \mathcal C$ er gefin vörpun $\Hom(X,Y)\times\Hom(Y,Z)\to\Hom(X,Z),
+      (f,g)\mapsto g\circ f$ sem við köllum
+      \emph{samskeytingu}\index{samskeyting (ríkjafræði)}.
+  \end{enumerate}
+  Skrifum oft $f:X\to Y$ eða $X\xrightarrow{f} Y$ í stað
+  $f\in\Hom(X,Y)$. Jafnframt er þess krafist að eftirfarandi gildi:
+  \begin{description}
+    \item[Tengiregla] Ef $f:X\to Y$, $g:Y\to Z$ og $h:Z\to W$, þá er
+      $h\circ (g\circ f) = (h\circ g)\circ f$.
+    \item[Tilvist hlutleysu] Fyrir sérhvert $Y$ úr $\Ob\mathcal C$ er
+      til mótun $1_Y$ úr $\Hom(Y,Y)$ þ.a. fyrir öll $f$ úr $\Hom(X,Y)$
+      og öll $g$ úr $\Hom(Y,Z)$ gildi að $1_Y\circ f = f$ og $g\circ 1_Y
+      = g$.
+  \end{description}
+\end{skilgr}
+\begin{ath}
+  Stundum er skrifað $\id_Y$ í stað $1_Y$. Tökum eftir að $1_Y$ er
+  ótvírætt ákvörðuð.
+\end{ath}
+\begin{skilgr}
+  Við segjum að $f$ úr $\Hom(X,Y)$ sé \emph{einsmótun}\index{einsmótun
+  (ríkjafræði)} ef til er $g$ úr $\Hom(Y,X)$ þ.a. $g\circ f = 1_X$ og
+  $f\circ g = 1_Y$.
+\end{skilgr}
+\begin{daemi}
+  \begin{enumerate}[(1)]
+    \item Mengjaríkið $\mathbf{Men}$: $\Ob\mathbf{Men}$ er safn
+      sallra mengja, \[\Hom_{\mathbf{Men}}(X,Y) = Y^X.\]
+    \item Grúpuríkið $\mathbf{Grp}$: $\Ob\mathbf{Grp}$ er safn allra
+      grúpa, $\Hom_{\mathbf{Grp}}$ er mengi allra grúpumótana $X\to Y$.
+    \item Mótlaríkið $\mathbf{Mot}_R$, þar sem $R$ er baugur:
+      $\Ob\mathbf{Mot}_R$ er safn allra (vinstri) $R$-mótla,
+      $\Hom_{\mathbf{Mot}_R}(X,Y)$ er mengi allra $R$-línulegra varpana
+      ($R$-mótla mótlana) $X\to Y$. 
+    \item Grannrúmaríkið $\mathbf{Top}$: $\Ob\mathbf{Top}$ er safn allra
+      grannrúma, $\Hom_{\mathbf{Top}}(X,Y)=\mathcal C(X,Y)$. 
+    \item $X$ og $Y$ grannrúm og $f:X\to Y$ samfelld. Látum $[f]$ vera
+      \emph{samtogunarflokk}\index{samtogunarflokkur} $f$, þ.e.a.s.
+      jafngildisflokk $f$ m.t.t. venslanna $\simeq$. Þá getum við
+      skilgreint $[g]\circ[f] := [g\circ f]$ (óháð valinu á fulltrúum
+      skv. setningu \ref{setn:samtog_ohad}); fáum
+      \emph{samtogunarríkið}\index{samtogunarríkið} $\mathbf{Hot}$:
+      $\Ob\mathbf{Hot}$ er safn allra grannrúma,
+      $\Hom_{\mathbf{Hot}}(X,Y)$ er mengi allra samtogunarflokka
+      samfelldra varpana $X\to Y$. 
+  \end{enumerate}
+\end{daemi}
+\begin{skilgr}
+  Látum $\mathcal C$ og $\mathcal C'$ vera tvö ríki. 
+  \begin{enumerate}
+    \item \emph{Varpi}\index{varpi} (functor) $F:\mathcal C\to\mathcal
+      C'$ er vörpun sem úthlutar hverjum hlut $X$ úr $\Ob\mathcal C$
+      ákveðnum hlut $F(X)$ í $\Ob\mathcal C'$ og sérhverri mótun $f$ úr
+      $\Hom_{\mathcal C}(X,Y)$ ákveðinni mótun $F(f)$ úr
+      $\Hom_{\mathcal C}(F(X),F(Y))$ þannig að eftirfarandi skilyrði séu
+      uppfyllt:
+      \begin{enumerate}[(i)]
+        \item Ef $f:X\to Y$ og $g:Y\to Z$ eru mótanir í $\mathcal C$, þá
+          er $F(g\circ f) = F(g)\circ F(f)$.
+        \item Fyrir öll $X$ úr $\Ob\mathcal C$ er $F(1_X)=1_{F(X)}$. 
+      \end{enumerate}
+    \item \emph{Hjávarpi}\index{hjávarpi} (cofunctor) $F:\mathcal C\to
+      \mathcal C'$ er vörpun sem úthlutar hverjum hlut $X$ úr
+      $\Ob\mathcal C$ ákveðnum hlut $F(X)$ úr $\Ob\mathcal C'$ og hverri
+      mótun $f$ úr $\Hom_{\mathcal C}(X,Y)$ ákveðinni mótun $F(f)$ úr
+      $\Hom_{\mathcal C'}(F(Y),F(X))$ þannig að eftirfarandi gildi:
+      \begin{enumerate}[(i)]
+        \item Ef $f:X\to Y$ og $g:Y\to Z$ eru mótanir í $\mathcal C$, þá
+          er $F(g\circ f) = F(f)\circ F(g)$. 
+        \item Fyrir öll $X$ úr $\Ob\mathcal C$ er $F(1_X) = 1_{F(X)}$. 
+      \end{enumerate}
+  \end{enumerate}
+\end{skilgr}
+\begin{figure}[h]
+  \begin{align*}
+    \xymatrix{
+    X\ar[r]^f & 
+    Y \ar[r]^g &
+    Z \ar@{~>}[r] &
+    F(X) \ar[r]^{F(f)} &
+    F(Y) \ar[r]^{F(g)} &
+    F(Z)
+    }\tag{varpi}
+    \\
+    \xymatrix{
+    X\ar[r]^f & 
+    Y \ar[r]^g &
+    Z \ar@{~>}[r] &
+    F(X) &
+    F(Y) \ar[l]^{F(f)} &
+    F(Z) \ar[l]^{F(g)}
+    }\tag{hjávarpi}
+  \end{align*}
+  \caption{Varpi og hjávarpi}
+  \label{fig:varpi_hjavarpi}
+\end{figure}
+\begin{daemi}
+  \begin{enumerate}[(1)]
+    \item  $R$-víxlbaugur. Fyrir $R$-mótul $M$ setjum við $M^* :=
+      \Hom_R(M,R)$ (svokallaður \emph{nykurmótull}\index{nykurmótull}
+      $M$). Setjum $D:\mathbf{Mot}_R\to\mathbf{Mot}_R, D(M) = M^*$ og
+      fyrir $f:M\to N, D(f): N^*\to M^*, D(f) = f^*$. Þá er $D$
+      hjávarpi.  
+      \[ \xymatrix{ 
+      M \ar[r]^f\ar[dr]_{l\circ f = f^*(l) = D(f)(l)}
+      & N \ar[d]^{l\in N^*} \\ 
+      & R
+      }
+      \] 
+      þar sem $n \cdot x =
+      (\underbrace{1_R+\cdots+1_R}_{n\text{liðir}})\cdot x$.
+    \item Fyrir grannrúm $X$ setjum við $F(X) = X$ og fyrir $f:X\to Y$
+      setjum við $F(f) = [f]$ sem samtogunarflokk $f$. Þá er
+      $F:\mathbf{Top}\to\mathbf{Hot}$ varpi.
+    \item \emph{Gleymskuvarpar}\index{gleymskuvarpar}:
+      \begin{enumerate}[(i)]
+        \item $\mathbf{Mot}_R\to \mathbf{Mot}_\Z$.
+        \item $\mathbf{Mot}_\Z\to \mathbf{Grp}$.
+        \item $\mathbf{Grp}\to \mathbf{Men}$.
+      \end{enumerate}
+  \end{enumerate}
+\end{daemi}
+% 30.03.2010 
+\section{Vegsamtoganir}
+Skrifum $I:=[0,1]$. \emph{Vegur}\index{vegur} í grannrúmi $X$ er
+samfelld vörpun $I\to X$.
+\begin{skilgr}
+  $X$ grannrúm og $\alpha,\beta:I\to X$ vegir. Segjum að $\alpha$ og
+  $\beta$ séu \emph{vegsamtoga}\index{vegsamtoga} ef
+  $\alpha\simeq\beta\prel{\{0,1\}}$ og skrifum þá $\alpha\simeq_p\beta$
+  ($p$ stendur fyrir \emph{path}).
+  
+  Látum $\alpha,\beta:I\to X$ vera vegi þannig að $\alpha(1)=\beta(0)$
+  og skilgreinum $\alpha*\beta:I\to X$ með 
+  \[
+  (\alpha*\beta)(t) :=
+  \begin{cases}
+    \alpha(2t)  & 0\leq t \leq 1/2\\
+    \beta(2t-1) & 1/2\leq t\leq 1
+  \end{cases}
+  \]
+  og köllum þennan nýja veg frá $\alpha(0)$ til $\beta(1)$
+  \emph{samsetningu}\index{samsetning vega} veganna $\alpha$ og $\beta$.
+\end{skilgr}
+\begin{setn}
+  Ef $\alpha_1\simeq_p\alpha_2$ og $\beta_1\simeq_p\beta_2$ og
+  $\alpha_1(1)=\beta_1(0)$ (og þar með einnig $\alpha_2(1)=\beta_2(0)$),
+  þá er $\alpha_1*\beta_1\simeq_p\alpha_2*\beta_2$.
+\end{setn}
+\begin{proof}
+  Fyrir $H_1:\alpha_1\simeq_p\alpha_2$ og $H_2:\beta_1\simeq_p\beta_2$
+  setjum við\[
+  H(t,s) := 
+  \begin{cases}
+    H_1(2t,s)   & 0\leq t\leq 1/2\\
+    H_2(2t-1,s) & 1/2\leq t\leq 1.
+  \end{cases}
+  \]
+  Þá er $H:\alpha_1*\beta_1\simeq_p\alpha_2*\beta_2$.
+\end{proof}
+\begin{ath}
+  [ritháttur]
+  Látum $[\alpha]$ tákna jafngildisflokk $\alpha$ með tilliti til
+  venslanna $\simeq_p$.
+\end{ath}
+\begin{skilgr}
+  [byggir á síðustu setningu]
+  Ef $\alpha(1)=\beta(0)$ þá setjum við
+  $[\alpha]*[\beta]:=[\alpha*\beta]$ (vorum að sanna að þetta er óháð
+  vali á fulltrúum flokkanna).
+\end{skilgr}
+\begin{setn}
+  Fyrir sérhvert grannrúm $X$ getum við skilgreint ríki $\Pi(X)$ þannig
+  að hlutirnir í $\Pi(X)$ séu punktarnir í $X$ og mótanir frá $x$ til
+  $y$ séu jafngildisflokkarnir $[\alpha]$ þar sem $\alpha$ er vegur frá
+  $x$ til $y$. Allar mótanir þessa ríkis eru einsmótanir.
+\end{setn}
+\begin{ath}
+  [ritháttur]
+  Skrifum $\Pi(x,y)$ í stað $\Hom_{\Pi(X)}(x,y)$ fyrir mengi allra
+  jafngildisflokka vega milli $x$ og $y$.
+\end{ath}
+\begin{ath}
+  Um $\Pi(X)$ gildir að $\Ob\Pi(X)=X$ er mengi og allar mótanirnar eru
+  einsmótanir. Slík ríki kallast \emph{grýpi}\index{grýpi} (e.
+  \emph{groupoid}) og sér í lagi köllum við $\Pi(X)$
+  \emph{undirstöðugrýpi}\index{undirstöðugrýpi} $X$. 
+\end{ath}
+\begin{proof}
+  [Sönnun á síðustu setningu]
+  Sýnum fyrst að $\Pi(X)$ sé ríki.
+  \begin{description}
+    \item[Tengiregla] Látum $\alpha,\beta$ og $\gamma$ vera vegi í $X$
+      þannig að $\alpha(1)=\beta(0)$ og $\beta(1)=\gamma(0)$. Við viljum
+      sýna að $(\alpha*\beta)\gamma\simeq_p\alpha*(\beta*\gamma)$. Höfum
+      nú að \[
+      (\alpha*\beta)*\gamma =
+      \begin{cases}
+        \alpha(4t),   & 0\leq   t\leq 1/4,\\
+        \beta(4t-1),  & 1/4\leq t\leq 1/2,\\
+        \gamma(2t-1), & 1/2\leq t\leq 1
+      \end{cases}
+      \]
+      og \[
+      \alpha*(\beta*\gamma) = 
+      \begin{cases}
+        \alpha(2t),   & 0\leq t\leq 1/2,\\
+        \beta(4t-2),  & 1/2\leq t\leq 3/4,\\
+        \gamma(4t-3), & 3/4\leq t\leq 1.
+      \end{cases}
+      \]
+      (Æfing) Finnum
+      $H:(\alpha*\beta)*\gamma\simeq_p\alpha*(\beta*\gamma)$. Nú gildir
+      að ef $\alpha:I\to X$ er vegur í $X$, $h:I\to I$ er samfelld þ.a.
+      $h(0)=0$ og $h(1)=1$, $\beta=\alpha\circ h$, þá er
+      $\alpha\simeq_p\beta$ því vörpunin 
+      \[
+      H:I\times I\to X, 
+      H(t,s):= \alpha(sh(t)+(1-s)t)
+      \]
+      er vegsamtogun frá $\alpha$ til $\beta$.
+    \item[Tilvist hlutleysa] Fyrir sérhvert $x\in X$ setjum við
+      $e_x:I\to X,t\mapsto x$ (fastavegur). Látum $\alpha:I\to X$ vera
+      veg þannig að $\alpha(0)=x$ og $\alpha(1)=:y$. Þá er
+      $e_x*\alpha\simeq_p\alpha$ og $\alpha\simeq_p e_y\simeq_p \alpha$
+      skv. fullyrðingunni hér að ofan. Þar með er $[e_x]$ hlutleysan í
+      $\Pi(x,x)$ og sýnt er að $\Pi(X)$ er ríki. 
+  \end{description}
+  Sýnum nú að allar mótanirnar séu einsmótanir: Ef $\alpha$ er vegur frá
+  $x$ til $y$ í $X$, þá er $\overline\alpha:I\to X, t\mapsto\alpha(1-t)$
+  vegur frá $y$ til $x$ og $H:I\times I\to X$,
+  \[
+  H(t,s) := 
+  \begin{cases}
+    \alpha(2st),      & 0\leq t \leq 1/2, \\
+    \alpha(2s(1-t)),  & 1/2\leq t\leq 1
+  \end{cases}
+  \]
+  er vegsamtogun frá $e_x$ til $\alpha*\overline\alpha$. En það þýðir að
+  $[\alpha]*[\overline\alpha]=[e_x]$ og þar með er $[\alpha]$ einsmótun.
+\end{proof}
+\begin{ath}
+  Fyrir sérhvert $x\in X$ er $\Pi(x,x)$ grúpa m.t.t. aðgerðarinnar $*$.
+\end{ath}
+\begin{skilgr}
+  Látum $X$ vera grannrúm og $x_0\in X$. Setjum
+  $\pi_1(X,x_0):=\Pi(x_0,x_0)$ og köllum
+  \emph{undirstöðugrúpu}\index{undirstöðugrúpa} (eða
+  \emph{Poincaré-grúpu}\index{Poincaré-grúpa} $X$ í punkti $x_0$ (eða
+  með \emph{grunnpunkt $x_0$}).
+\end{skilgr}
+\begin{ath}
+  $\pi_1(X,x_0)$ er grúpa jafngildisflokka vega sem byrja og enda í
+  $x_0$.
+\end{ath}
+\begin{setn}
+  Látum $\alpha$ vera veg frá $x_0$ til $x_1$ í grannrúmi $X$. Vörpunin
+  \[
+  \hat\alpha:\pi_1(X,x_0)\to\pi_1(X,x_1),\;
+  \hat\alpha([\beta]) := [\overline\alpha*\beta*\alpha] =
+  [\overline\alpha]*[\beta]*[\alpha]
+  \]
+  er grúpueinsmótun. Ef $\alpha_1$ er annar vegur frá $x_0$ til $x_1$,
+  þá eru einsmótanirnar $\hat\alpha$ og $\hat\alpha_1$ samoka.
+\end{setn}
+\begin{proof}
+  Höfum nú að 
+  \begin{align*}
+    \hat\alpha([\beta]*[\beta'])
+    &= [\overline\alpha]*[\beta]*[\beta']*[\alpha]\\
+    &= [\overline\alpha]*[\alpha]*[\overline\alpha]*[\beta']*[\alpha]\\
+    &= \hat\alpha([\beta])*\hat\alpha([\beta']),
+  \end{align*}
+  svo $\hat\alpha$ er grúpumótun. En ljóst er að $\hat{\overline\alpha}$
+  er andhverfa $\hat\alpha$ svo að $\hat\alpha$ er einsmótun. Fáum svo
+  að 
+  \begin{align*}
+    \hat\alpha_1([\beta)]
+    &= [\overline\alpha_1]*[\beta]*[\alpha_1]\\
+    &= [\overline\alpha_1]*[\alpha]*[\overline\alpha]*[\beta]*[\alpha]*[\overline\alpha]*[\alpha_1] \\
+    &= [\overline\alpha_1*\alpha]*[\overline\alpha]*[\beta]*[\alpha]*[\overline\alpha*\alpha_1] \\
+    &= \underbrace{[\overline\alpha_1*\alpha]}_{\in\pi_1(X,x_1)}*\hat\alpha([\beta])*[\overline\alpha*\alpha]^{-1}.
+  \end{align*}
+\end{proof}
+\begin{fylgisetn}
+  Ef $x_0$ og $x_1$ eru í sama vegsamhengisþætti, þá eru $\pi_1(X,x_0)$
+  og $\pi_1(X,x_1)$ einsmóta.
+\end{fylgisetn}
+\begin{proof}
+  Augljóst.
+\end{proof}
+\begin{skilgr}
+  Grannrúm $X$ er sagt \emph{einfaldlega samanhangandi} ef það er
+  vegsamanhangandi og $\pi_1(X,x_0)$ er einstökungur (bara hlutleysa)
+  fyrir eitthvert (og þar með öll) $x_0$ úr $X$. Skrifum þetta of
+  $\pi_1(X,x_0)=0$.
+\end{skilgr}
+\begin{setn}
+  Í einfaldlega samanhangandi grannrúmi $X$ eru sérhverjir vegir í $X$
+  sem hafa sama upphafs- og endapunkt vegsamtoga.
+\end{setn}
+\begin{proof}
+  Látum $\alpha,\beta:I\to X$ með $\alpha(0)=\beta(0) =: x_0$ og
+  $\alpha(1)=\beta(1)=:x_1$. Þá er
+  $[\overline\alpha*\beta]=[e_{x_1}]$ og þar með
+  \[
+  [\beta]
+  =[e_{x_0}*\beta]
+  =[(\alpha*\overline\alpha)*\beta]
+  =[\alpha*(\overline\alpha*\beta)]
+  =[\alpha*e_{x_1}]
+  =[\alpha].
+  \]
+\end{proof}
+
+% 12.04.2010
+\section{Undirstöðugrúpan og samfelldar varpanir}
+
+Látum $f:X\to Y$ vera samfellda vörpun. Ef $\alpha$ er vegur frá $x$ til
+$y$, þá er $f\circ\alpha$ vegur frá $f(x)$ til $f(y)$ í $Y$. Jafnframt
+gildir:
+\begin{enumerate}[(i)]
+  \item Ef $[\alpha] = [\beta]$, þá eer $[f\circ\alpha]=[f\circ\beta]$.
+  \item Ef $\alpha(1) = \beta(0)$, þá er $f\circ(\alpha*\beta) =
+    (f\circ\alpha)*(f\circ\beta)$. 
+\end{enumerate}
+Af þessu sést að $f$ gefur af sér vörpun\[
+ f_* : \Pi(X)\to\Pi(Y) \quad\text{þ.a.}\quad
+ f_*([\alpha]*[\beta]) = f_*([\alpha])*f([\beta])
+ \quad\text{ef}\quad
+ \alpha(1) = \beta(0).
+\]
+\begin{setn}
+  Látum $f:X\to Y$ vera samfellda vörpun, $x_0\in X$. 
+  \begin{enumerate}[(i)]
+    \item $f$ skilgreinir grúpumótun $f_*:\pi_1(X,x_0)\to\pi_1(Y,f(x_0))$
+    \item Ef $f=\id_X$, þá $f_* = \id_{\pi_1(X,x_0)}$
+    \item Ef $g:Y\to Z$ er samfelld, þá er $(g\circ f)_* = g_*\circ
+      f_*$. 
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  Augljóst.
+\end{proof}
+\begin{fylgisetn}
+  Ef $f:X\to Y$ er grannmótun, þá er
+  $f_*:\pi_1(X,x_0)\to\pi_1(Y,f(x_0))$ grúpumótun fyrir hvaða $x_0$ úr
+  $X$ sem er. Ennfremur gildir að $(f_*)^{-1} = (f^{-1})_*$.
+\end{fylgisetn}
+\begin{proof}
+  Augljóst.
+\end{proof}
+\begin{ath}
+  Ofangreint er unnt að setja fram á máli ríkjafræðinnar:
+  \begin{enumerate}[(1)]
+    \item $\Pi:\mathbf{Top}\to\mathbf{Grypi}$ sem tekur $X$ í $\Pi(X)$
+      og $f$ í $\Pi(f)$ er varpi.
+    \item Látum $\mathbf{Top}^*$ vera ríki allra tvennda $(X,x)$ þar sem
+      $X$ er grannrúm og $x\in X$ og mótunin $f:(X,x)\to(Y,y)$ er
+      samfelld vörpun $X\to Y$ þ.a. $f(x) = y$ (stundum kallað
+      \emph{ríki punktaðra rúma}\index{ríki punktaðra
+      rúma}\index{punktað rúm}). Fáum þá varpa
+      $\pi_1:\mathbf{Top}^*\to\mathbf{Grp}$,
+      $(X,x)\rightsquigarrow\pi_1(X,x)$ og \[
+      ( (X,x)\xrightarrow{f}(Y,y))
+      \rightsquigarrow
+      (\pi_1(X,x)\xrightarrow{f_*}\pi_1(Y,y))
+      \]
+  \end{enumerate}
+\end{ath}
+\begin{setn}
+  Ef $f,g:(X,x_0)\to(Y,y_0)$ eru samfelldar (mótanir í $\mathbf{Top}^*$)
+  og $f\simeq g \prel{\{x_0\}}$, þá er
+  $f_*=g_*:\pi_1(X,x_0)\to\pi_1(Y,y_0)$.
+\end{setn}
+\begin{proof}
+  $f_*([\alpha])=[f\circ\alpha] = [g\circ\alpha] = g_*([\alpha])$.
+\end{proof}
+\begin{ath}
+  Skilgreinum ríkið $\mathbf{Hot}^*$ þar sem hlutirnir eru punktuð rúm
+  $(X,x)$ og mótunin $(X,x)\to(Y,y)$ er samtogunarflokkurinn af
+  samfelldum vörpunum $(X,x)\to(Y,y)$ m.t.t. venslanna
+  $\simeq\prel{\{x\}}$. Skv. síðustu setningu fæstþá varpi
+  $\pi_1:\mathbf{Hot}^*\to\mathbf{Grp}$. Fáum víxlið örvarit
+  \[
+  \xymatrix{
+  \mathbf{Top}^*\ar[r]^{\pi_1}\ar[d]_{\text{sjálfgefna vörpunin}}
+  & \mathbf{Grp} 
+  \\
+  \mathbf{Hot}^*\ar[ur]_{\pi_1}
+  }
+  \]
+\end{ath}
+\begin{skilgr}
+  Grannrúm $X$ er \emph{samdraganlegt}\index{samdraganlegt} ef $\id_X$
+  er samtoga fastri vörpun $X\to X$.
+\end{skilgr}
+\begin{setn}
+  Ef $X$ er samdraganlegt, þá er $\pi_1(X,x_0) = 0$ fyrir öll $x_0$ úr
+  $X$.
+\end{setn}
+\begin{proof}
+  Ljóst.
+\end{proof}
+\begin{daemi}
+  $\pi_1(\R^n,0) = 0$ og almennt er $\pi_1(X,x)=0$ ef $X$ er $*$-laga
+  hlutmengi í $\R^n$.
+\end{daemi}
+\begin{ath}[upprifjun]
+  $X$ grannrúm og $Y$ hlutrúm í $X$, $i:Y\hookrightarrow X$ ívarpið.
+  Segjum að $Y$ sé \emph{inndragi}\index{inndragi} (af) $X$ ef til er
+  samfelld vörpun $r: X\to Y$ þ.a. $r\circ i = \id_Y$. Þá kallast $r$
+  \emph{inndráttur}\index{inndráttur}.
+\end{ath}
+\begin{setn}
+  Ef $Y$ er inndragi $X$ og $x_0\in Y$ og $i:Y\hookrightarrow X$
+  ívarpið, þá er $i_*:\pi(Y,x_0)\to\pi_1(X,x_0)$ eintæk.
+\end{setn}
+\begin{proof}
+  Látum $r:X\to Y$ vera inndrátt. Þá er $r\circ i = \id_Y$ og því 
+  \[
+  \xymatrix{
+  \pi_1(Y,x_0)  \ar[r]^{i_*}\ar@/^1.5pc/[rr]^{\id}
+  & \pi_1(X,x_0)\ar[r]^{r_*}
+  & \pi_1(Y,x_0)
+  }
+  \]
+  svo að $i_*$ er átæk (og $r_*$ átæk).
+\end{proof}
+\begin{skilgr}
+  $Y$ hlutrúm í grannrúmi $X$ og $i:Y\hookrightarrow X$ ívarpið. Segjum
+  að vörpun $r:X\to Y$ sé \emph{inndráttur með
+  samtogun}\index{inndráttur með samtogun} ef $i\circ r\simeq\id_X\prel
+  Y$. Segjum þá að $Y$ sé \emph{inndragi með samtogun af
+  $X$}\index{inndragi með samtogun}.
+\end{skilgr}
+\begin{ath}
+  \begin{enumerate}[(1)]
+    \item Inndráttur með samtogun er inndráttur.
+    \item $r:X\to Y$ er inndráttur með samtogun ef til er samtogun
+      $H:X\times I\to X$ þ.a. 
+      \begin{enumerate}[(i)]
+        \item $H(x,1) = x\;\forall\,x\in X$.
+        \item $H(x,0) = r(x) \;\forall\,x\in X$.
+        \item $H(y,t) = y \;\forall\,y\in Y,\forall\,t\in I$. 
+      \end{enumerate}
+  \end{enumerate}
+\end{ath}
+\begin{daemi}
+  \begin{enumerate}[(1)]
+    \item $S^n$ er inndragi með samtogun af $\R^{n+1}\setminus\{0\}$, \[
+      H:(\R^{n+1}\setminus\{0\})\times I\to\R^{n+1}\setminus\{0\}, 
+      \qquad
+      H(x,t) = tx + (1-t)\frac{x}{\|x\|}. \]
+    \item $\{0\}\hookrightarrow\R^n$ er inndragi með samtogun: 
+      \[
+      H(x,t) = tx.
+      \]
+  \end{enumerate}
+\end{daemi}
+\begin{setn}
+  Látum $X$ og $Y$ vera grannrúm og $P_X:X\times Y\to X$, $P_Y:X\times
+  Y\to Y$ vera ofanvörpin. Ef $(x_0,y_0)\in X\times Y$, þá er \[
+  \left((P_X)_*,(P_Y)_*\right):
+  \pi_1(X\times Y, (x_0,y_0))
+  \to
+  \pi_1(X,x_0)\times \pi_1(Y,y_0)
+  \]
+  einsmótun.
+\end{setn}
+\begin{proof}
+  Ef $[\alpha]\in\pi_1(X,x_0)$ og $[\beta]\in\pi_1(Y,y_0)$ þá er
+  $\alpha\times\beta$ vegur í $X\times Y$ sem byrjar og endar í
+  $(x_0,y_0)$ og $\left( (P_X)_*,(P_Y)_*
+  \right)([\alpha\times\beta])=([\alpha],[\beta])$. Þar með er sýnt að
+  $\left( (P_X)_*,(P_Y)_* \right)$ er átæk. 
+  
+  Sýnum að $( (P_X)_*,(P_Y)_*)$ sé eintæk: Ef $\alpha$ er vegur í
+  $X\times Y$ með $(x_0,y_0)$ sem upphafspunkt og endapunkt og 
+  \[
+  H_X: P_X\circ\alpha\simeq_P e_{x_0},
+  \qquad(
+  \text{jafngilt því að }
+  (P_X)_*([\alpha])=0
+  )
+  \]
+  og
+  \[
+  H_Y: P_Y\circ\alpha\simeq_P e_{y_0},
+  \qquad(
+  \text{jafngilt því að }
+  (P_Y)_*([\alpha])=0
+  )
+  \]
+  þá er 
+  \[
+  H_X\times H_Y : 
+  \alpha = (P_X\circ\alpha)\times(P_Y\circ\alpha)
+  \simeq_P e_{(x_0,y_0)}.
+  \]
+\end{proof}
+\begin{fylgisetn}
+  Ef $Y$ er einfaldlega samanhangandi, þá leiðir ofanvarpið $P_X:X\times
+  Y\to X$ af sér grúpueinsmótun $(P_X)_*:\pi_1(X\times Y, (x_0,
+  y_0))\to\pi_1(X,x_0)$ fyrir öll $(x_0,y_0)\in X\times Y$.
+\end{fylgisetn}
+\begin{proof}
+  Augljóst.
+\end{proof}
+\begin{fylgisetn}
+  Ef $X$ og $Y$ eru einfaldlega samanhangandi, þá er $X\times Y$ það
+  líka.
+\end{fylgisetn}
+\begin{proof}
+  Ljóst.
+\end{proof}
+\begin{setn}
+  Ef $X$ er grannrúm og $i: Y\hookrightarrow X$ er \emph{inndragi með
+  samtogun}\index{inndragi með samtogun}, þá er
+  $i_*:\pi_1(Y,x_0)\to\pi_1(X,x_0)$ einsmótun fyrir sérhvert $x_0$ úr
+  $Y$.
+\end{setn}
+\begin{proof}
+  Vitum að $i_*$ er eintæk. Nú er \[
+  (\id_X)_* = (i\circ r)_* = i_*\circ r_*
+  \]
+  svo að $i_*$ er líka átæk.
+\end{proof}
+\begin{daemi}
+  \begin{enumerate}[(1)]
+    \item $X = S^1\times S^1$ og $y_0\in S^1$. Setjum $Y =
+      S^1\times\{y_0\}$: Þá er $Y$ inndrægi af $X$ vegna þess að
+      $S^1\times S^1\to S^1\times\{y_0\}, (x,y)\mapsto(x,y_0)$ er
+      samfelld. Hér er hins vegar ekki um inndrátt með samtogun að ræða
+      því að $\pi_1(S^1,y_0)\neq 0$ (sjáum það síðar).
+    \item $\pi_1(S^n,x)$ er einsmóta $\pi_1(\R^{n+1}\setminus \{0\},x)$
+      fyrir öll $x\in S^n$. 
+    \item Ef $0\leq n < m$, þá er $\R^m\setminus\R^n$ grannmóta
+      $\R^n\times (\R^{m-n}\setminus \{0\})$ svo að
+      $\pi_1(\R^m\setminus\R^n,x)$ er einsmóta $\pi_1(S^{m-n-1},x)$
+      fyrir öll $x\in \{0\}\times S^{m-n-1}$.
+    \item $\pi_1(\C^2\setminus\C,x)$, $x\in\C^2\setminus\C$, er einsmóta
+      $\pi_1(S^1,*)$ ($*$ þýðir að hér getum við tekið hvaða punkt sem
+      er).
+  \end{enumerate}
+\end{daemi}
+
+\section{Þekjurúm}
+\begin{skilgr}
+  Látum $B$ vera grannrúm. \emph{Þekjurúm}\index{zekjurúm@þekjurúm} yfir
+  $B$ er grannrúm $E$ ásamt átækri samfelldri vörpun (eins konar
+  ofanvarpi) $\pi:E\to B$, svonefndri
+  \emph{þekjuvörpun}\index{zekuvörpun@þekjuvörpun}, sem uppfyllir
+  eftirfarandi skilyrði:
+  \begin{quote}
+    Fyrir sérhvert $b\in B$ er til opin grennd $U$ um $b$ í $B$ þ.a.
+    $\pi^{-1}(U)=\bigcup_{\alpha\in J}V_\alpha$ með $V_\alpha\cap
+    V_\beta = \emptyset$ ef $\alpha\neq\beta$ og
+    $\pi|_{V_\alpha}:V_\alpha\to U$ er grannmótun fyrir sérhvert
+    $\alpha\in J$. 
+  \end{quote}
+\end{skilgr}
+\begin{ath}
+  (i) Þetta skilyrði má einnig orða svona: Fyrir sérhvert $b\in B$ er til
+  opin grennd $U$ um $b$ í $B$, strjált rúm $F$ og grannmótun
+  $\Phi:\pi^{-1}(U)\to U\times F$ þannig að örvaritið 
+  \[\xymatrix{
+  \pi^{-1}(U)\ar[rr]^{\Phi}\ar[dr]_{\pi|_{\pi^{-1}(U)}}
+  &&
+  U\times F\ar[dl]^{P_U}
+  \\
+  & U &
+  }\]
+  sé víxlið.
+
+  (ii) Segjum að $\pi: E\to B$ sé \emph{lausblaða}\index{lausblaða
+  vörpun} ef við höfum víxlið örvarit \[\xymatrix{
+  E\ar[rr]^\sim\ar[dr]_\pi
+  && B\times F\ar[dl]^{P_B}
+  \\
+  & B &
+  }\]
+  með $F$ strjált og $\sim$ þýðir að þarna er grannmótun.
+\end{ath}
+\begin{ath}
+  Samfelld vörpun er þekjuvörpun \emph{þ.þ.a.a.} sérhvert $b$ úr $B$
+  eigi sér opna grennd $U$ þ.a. vörpunin $\pi^{-1}(U)\to U, y\mapsto
+  \pi(y)$ sé lausblaða þekjuvörpun.
+
+% 13.04.2010
+  (Æfing) Ef $\pi:E\to B$ er þekjuvörpun og $A\subseteq B$, þá er
+  $\pi^{-1}(A)\to A, y\mapsto \pi(y)$ þekjuvörpun.
+\end{ath}
+\begin{daemi}
+  \begin{enumerate}[(1)]
+    \item $\exp:\C\to\C^*$ er þekjuvörpun.
+    \item $\R\to S^1, t\mapsto e^{it}$ er þekjuvörpun (skv. æfingunni og
+      (1)). 
+    \item Fyrir sérhverja heiltölu $n>0$ er $\C^*\to\C^*,z\mapsto z^n$
+      þekjuvörpun.
+    \item $S^n\to\mathbb P_n(\mathbb R), x\mapsto [x]$ (þ.e. línan
+      gegnum 0 og $x$) er þekuvörpun. Hér er $\mathbb P_n(\R)$ mengi
+      lína gegnum núllpunkt í $\R^{n+1}$. Jafngildisvenslin $\sim$ á
+      $\R^{n+1}\setminus\{0\}$ eru skilgreind með $x\sim y$
+      \emph{þ.þ.a.a.} $x$ og $y$ liggi á sömu línu gegnum $0$. Setjum
+      deildagrannmynstrið sem $\sim$ skilgreinir á $\mathbb
+      P_n(\R)$. Ath að $S^n$ er þjappað og $\mathbb P_n(\R)$ er
+      Hausdorff, svo deildavörpunin er grannmótun. 
+      
+      (Æfing) Látum $\pi:E\to B$ vera þekjuvörpun. Ef $B$ er
+      samanhangandi, þá hefur $\pi^{-1}(b)$ sömu fjöldatölu fyrir öll
+      $b\in B$. Þessi tala kallast \emph{blaðafjöldi}\index{blaðafjöldi}
+      $\pi$.
+    \item Ef $\pi_1:E_1\to B_1$ og $\pi_2:E_2\to B_2$ eru þekjuvarpanir,
+      þá er $\pi_1\times\pi_2: E_1\times E_2\to B_1\times B_2$ líka
+      þekjuvörpun. 
+  \end{enumerate}
+\end{daemi}
+\begin{skilgr}
+  Látum $\pi:E\to B$ vera þekjuvörpun og $f:X\to B$ vera samfellda
+  vörpun. \emph{Lyfting á $f$ (m.t.t. $\pi$)}\index{lyfting}
+  \[\xymatrix{
+  & E\ar[d]^\pi
+  \\
+  X\ar[r]^f\ar[ur]^{\tilde f}
+  & B
+  }\]
+  er samfelld vörpun $\tilde f:X\to E$ þ.a. $\pi\circ\tilde f=f$.
+\end{skilgr}
+\begin{ath}
+  Þegar þekjuvörpunin sem um ræðir er $\exp:\C\to\C^*$, þá kallast
+  $\tilde f$ \emph{(samfelldur) logri af $f$}\index{logri} (þ.e.a.s.
+  $e^{\tilde f} = f$).
+\end{ath}
+\begin{setn}
+  Látum $\pi:E\to B$ vera þekjuvörpun, $f:X\to B$ vera samfellda vörpun
+  og $\tilde f_1,\tilde f_2$ vera lyftingar á $f$ m.t.t. $\pi$. Ef $X$
+  er samanhangandi og til er $x_0$ úr $X$ þ.a. $\tilde f_1(x_0)=\tilde
+  f_2(x_0)$, þá er $\tilde f_1 = \tilde f_2$. 
+\end{setn}
+\begin{proof}
+  Setjum $X_1 := \{ x\in X : \tilde f_1(x) = \tilde f_2(x) \}$ og sýnum
+  að $X_1$ sé bæði opið og lokað í $X$. Af því leiðir að $X_1 = X$ (og
+  þar með $\tilde f_1 = \tilde f_2$) vegna þess að $X$ er samanhangandi
+  og $x_0\in X_1$ (og þar með $x_1\neq\emptyset$).  Látum $x\in X$ og
+  veljum opna grennd $U$ um $f(x)$ í $B$ þ.a. til sé grannmótun
+  $\Phi:\pi^{-1}(U)\to U\times F$ þar sem $F$ er strjált grannmrúm og
+  örvaritið \[\xymatrix{
+  \pi^{-1}(U)\ar[rr]^\Phi\ar[dr]_\pi
+  && U\times F\ar[dl]^{P_U}
+  \\
+  &U&
+  }\]
+  sé víxlið. Þá eru til $\alpha,\beta$ úr $F$ þ.a. $\Phi(\tilde f_1(x))
+  = (f(x),\alpha)$ og $\Phi(\tilde f_2(x)) = (f(x),\beta)$. Þá er til
+  opin grennd $V$ um $x$ í $X$ þ.a. $\Phi\circ\tilde f_1)(V)\subseteq
+  U\times\{\alpha\}$ og $(\Phi\circ\tilde f_2)(V)\subseteq
+  U\times\{\beta\}$.  Ef $x\notin X_1$, þá er $\alpha\neq\beta$ og því
+  $\tilde f_1(V)\cap\tilde f_2(V) = \emptyset$ og þar með $V\subseteq
+  X\setminus X_1$. Ef $x\in X_1$, þá er $\alpha = \beta$ og því
+  $\tilde{f}_1(y)=\tilde f_2(y)$ fyrir öll $y\in V$; þar með er
+  $V\subseteq X_1$. Við höfum því sýnt að bæði $X_1$ og $X\setminus X_1$
+  eru opin, en það sýnir að $X_1$ er bæði opið og lokað.
+\end{proof}
+\begin{setn}
+  [Samtogunarlyftingarsetningin]\index{samtogunarlyftingarsetningin}
+  Látum $\pi: E\to B$ vera þekjuvörpun, $H: Y\times I\to B$ ($I=[0,1]$)
+  vera samfellda vörpun (samtogun) með $H(y,0) = f(y)$ fyrir öll $y$ úr
+  $Y$. Ef $\tilde f:Y\to E$ er lyfting á $f:Y\to B$ m.t.t. $\pi$, þá er
+  til nákvæmlega ein lyfting $\tilde H:Y\times I\to E$ á $H$ m.t.t.
+  $\pi$ þ.a. $\tilde H(y,0) = \tilde f(y)$ fyrir öll $y\in Y$.
+  \[\xymatrix{
+  & E\ar[d]^\pi \\
+  Y\ar[r]^f\ar[ur]^{\tilde f}
+  & B
+  }
+  \qquad
+  \xymatrix{
+  &E\ar[d]^\pi\\
+  Y\times I\ar[r]^H\ar[ur]^{\tilde H}
+  & B
+  }\]
+\end{setn}
+\begin{proof}
+  Fyrir sérhvert $y$ úr $Y$ þekjum við $H(\{y\}\times)$ með opnum
+  mengjum $(U_j)_{j\in J}$ þ.a. $\pi^{-1}(U_j)\to U_j, x\mapsto\pi(x)$
+  sé lausblaða fyrir sérhvert $j\in J$.  Mengin
+  $(H^{-1}(U_j))_{j\in J}$ mynda opna þakningu á $\{y\}\times I$ svo
+  ekki er til skipting $0=t_0<t_1<t_2<\cdots<t_m=1$ þ.a. fyrir sérhvert
+  $k\in\{1,\dots,m\}$ sé $\{y\}\times[t_{k-1},t_k]$ innihaldið í
+  $H^{-1}(U_{j(k)})$ fyrir eitthvert $j(k)$ úr $J$. Þar eð
+  $[t_{k-1},t_k]$ er þjappað, þá er til opin grennd $V_y$ um $y$ í $Y$
+  þ.a. $V_y\times[t_{k-1},t_k]\subseteq H^{-1}(U_j(k))$, fyrir
+  $k=1,\dots,m$. Setjum $U:=U_{j(1)}$ og veljum grannmótun
+  $\Phi:\pi^{-1}(U)\to U\times F$ þar sem $F$ er strjált þ.a. örvaritið 
+  \[\xymatrix{
+  \pi^{-1}(U)\ar[rr]^{\Phi}\ar[dr]
+  && U\times F\ar[dl]^{P_U} \\
+  & U &
+  }\]
+  verði víxlið. Nú er $H(V_y\times[t_0,t_1])\subseteq U$ ($t_0=0$) svo
+  að $f(V_y)\subseteq U$ og þar með $\Phi(\tilde f(x)) = (f(x),j_0)$
+  fyrir eitthvert $j_0\in J$ og öll $x\in V_y$ (með því að minnka e.t.v.
+  grenndina $V_y$). Skilgreinum lyftingu $\tilde H_1$ á
+  $H|_{V_y\times[t_0,t_1]}$ með $\tilde H_1(x,t) :=
+  \Phi^{-1}(H(x,t),j_0)$. Þá er $\tilde H_1(x,0) = \tilde H_1(x,t_0) =
+  \tilde f(x)$ fyrir öll $x\in V_y$. Lítum á $x\mapsto H(x,t_1)$ í stað
+  $f$ og $x\mapsto \tilde H_1(x,t_1)$ í stað $\tilde f$ og fáum
+  lyftingu á $H|_{V_y\times[t_1,t_2]}$ m.t.t. $\pi$. Með þessum hætti
+  fæst eftirfarandi niðurstaða: Fyrir sérhvert $y\in Y$ er til opin
+  grennd $V_y$ og lyfting $\tilde H_y: V_y\times I\to E$ á
+  $H|_{V_y\times I}$ m.t.t. $\pi$ þ.a. $\tilde H_y(x,0)=\tilde f(x)$
+  fyrir öll $x\in V_y$. Látum $y_1$ og $y_2$ vera ólíka punkta úr $Y$ og
+  $z\in V_{y_1}\cap V_{y_2}$. Þá er $t\mapsto H(z,t)$ þ.a. $\tilde
+  H_{y_1}(z,0) = \tilde H_{y_2}(z,0) = f(z)$ svo skv. síðustu setningu
+  er $\tilde H_{y_1}(z,t) = \tilde H_{y_2}(z,t)$ fyrir sérhvert $t\in
+  I$. Þetta sýnir að einskorðanir $\tilde H_{y_1}$ og $\tilde
+  H_{y_2}$ við $(V_{y_1}\cap V_{y_2})\times I = (V_{y_1}\times
+  I)\cap(V_{y_2}\times I)$ eru eins, og þar sem $(V_y\times
+  I)_{y\in Y}$ er opin þakning á $Y\times I$, þá límast varpanirnar
+  $\tilde H_y$ saman í lyftingu $\tilde H:Y\times I\to E$ þ.a.
+  $\tilde H(y,0) = \tilde f(y)$ fyrir öll $y$ úr $Y$.
+
+% 19.04.2010 
+  Höfum sýnt fram á tilvist $\tilde H$. Sýnum að aðeins sé til ein slík.
+  Ef $\tilde H_1:Y\times I\to E$ er önnur slík lyfting, þá eru $t\mapsto
+  \tilde H(y,t)$ og $t\mapsto \tilde H_1(y,t)$ lyftingar á ferlinum
+  $t\mapsto H(y,t)$ fyrir sérhvert $y\in Y$ og þar með $\tilde H(y,t) =
+  \tilde H_1(y,t)$ fyrir öll $t\in I$ skv. síðustu setningu.
+\end{proof}
+\begin{fylgisetn}\label{fylgisetn:lyft1}
+  Ef $p:E\to B$ er þekjuvörpun, $f:I^n\to B$ er samfelld vörpun og $e\in
+  E$ þ.a. $p(e) = f(\mathbf 0)$, þá er til nákvæmlega ein lyfting
+  $\tilde f$ á $f$ m.t.t. $p$ sem uppfyllir að $\tilde f(\mathbf 0) =
+  e$. Sér í lagi er alltaf hægt að lyfta vegi ($n = 1$) og vegsamtogun
+  ($n=2$).
+\end{fylgisetn}
+\begin{proof}
+  Augljóst fyrir $n=0$. Beitum svo síðustu setningu og þrepum.
+\end{proof}
+\begin{fylgisetn}\label{fylgisetn:lyft2}
+  Látum $p:E\to B$ vera þekjurúm, $\alpha$ og $\beta$ vera vegsamtoga
+  vegi í $B$. Ef $\tilde\alpha$ og $\tilde\beta$ eru lyftingar á
+  $\alpha$ og $\beta$ m.t.t. $p$ með $\tilde\alpha(0)=\tilde\beta(0)$,
+  þá eru $\tilde\alpha$ og $\tilde\beta$ vegsamtoga. Sér í lagi gildir
+  $\tilde\alpha(1)=\tilde\beta(1)$.
+\end{fylgisetn}
+\begin{proof}
+  Látum $H:\alpha\simeq_p\beta$ og $\tilde H:I\times I\to E$ vera
+  lyftingar á $H$ m.t.t. $p$ þ.a. $\tilde
+  H(0,0)=\tilde\alpha(0)=\tilde\beta(0)$. Nú er
+  $H(0,s)=\alpha(0)=\beta(0)$ fyrir öll $s\in I$ svo að $\tilde
+  H(0,s)\in p^{-1}(\alpha(0))$ fyrir öll $s\in I$. En
+  $p^{-1}(\alpha(0))$ er strjált rúm og því $\tilde H(0,s)$ fast, þ.e.
+  $\tilde H(0,s)=\tilde\alpha(0)$ fyrir öll $s\in I$. Á sama hátt fæst
+  að $\tilde H(1,s)$ er fast. Varpanirnar $t\mapsto\tilde H(t,s)$ og 
+  $t\mapsto\tilde\alpha(t)$ eru lyftingar á $\alpha$ og
+  $\tilde(0,0)=\tilde\alpha(0)$ svo að $\tilde H(t,0)=\tilde\alpha(t)$
+  fyrir öll $t\in I$. Á sama hátt fæst að $\tilde H(t,1)=\tilde\beta(t)$
+  fyrir öll $t\in I$. Þar með fæst $\tilde
+  H:\tilde\alpha\simeq_p\tilde\beta$.
+\end{proof}
+\begin{ath}
+  Lyfting á lykkju (þ.e.a.s. lokuðum vegi) þarf \emph{alls ekki} að vera
+  lykkja.
+\end{ath}
+\begin{setn}
+  $\pi_1(S^1,*)\cong\Z$
+\end{setn}
+\begin{proof}
+  Lítum á $S^1$ sem einingarhringinn í $\C$ og reiknum út
+  $\pi_1(S^1,1)$. Höfum þekjuvörpun $p:\R\to S^1,t\mapsto\exp(2\pi
+  i\cdot t)$. Ljóst að $p^{-1}(1)=\Z$. Fyrir $[\alpha]$ úr
+  $\pi_1(S^1,1)$ veljum við lyftingu $\tilde\alpha$ á $\alpha$ með
+  $\tilde\alpha(0)=0$. Vitum að $\tilde\alpha(1)$ er óháð valinu á
+  $\alpha$ úr $[\alpha]$ svo að við fáum vörpun
+  $\varphi:\pi_1(S^1,1)\to\Z,[\alpha]\mapsto\tilde\alpha(1)$. Sýnum að
+  $\varphi$ sé einsmótun:
+
+  \emph{$\varphi$ er grúpumótun:} Ef $\alpha$ og $\beta$ eru lykkjur í
+  $S^1$ sem byrja i $1$ og $\tilde\alpha$ og $\tilde\beta$ eru lyftingar
+  á $\alpha$ og $\beta$ með $\tilde\alpha(0)=\tilde\beta(0)=0$, þá er
+  $\tilde\beta_1:I\to\R,t\mapsto\tilde\alpha(1)+\tilde\beta(t)$ lyfting
+  á $\beta$ sem uppfyllir $\tilde\beta_1(0)=\tilde\alpha(1)$. Þar með er
+  $\tilde\alpha*\tilde\beta_1$ vel skilgreindur vegur og ljóst er að
+  $\tilde\alpha*\tilde\beta_1$ er lyfting á $\alpha*\beta$ með
+  $(\tilde\alpha*\tilde\beta_1)(0)=\tilde\alpha(0)=0$. Fáum því \[
+  \varphi([\alpha]*[\beta])
+  = (\tilde\alpha*\tilde\beta_1)(1)
+  = \tilde\beta_1(1)
+  = \tilde\alpha(1) + \tilde\beta(1)
+  = \varphi([\alpha])+\varphi([\beta]).
+  \]
+
+  \emph{$\varphi$ er eintæk:} Ef $\alpha$ er lykkja með endapunkt $1$ í
+  $S^1$, $\tilde\alpha$ lyfting á $\alpha$ með $\tilde\alpha(0)=0$ og
+  $\varphi([\alpha])=0$, þ.e. $\tilde\alpha(1)=0$, þá er $\tilde\alpha$
+  lykkja í $\R$ með endapunkt $0$. Þar með er til samtogun
+  $H:0\simeq_p\tilde\alpha$ (0 er hér fastalykkja) sem gefur af sér
+  vegsamtogun $p\circ H:1\simeq_p\alpha$ (1 er hér fastalykkja) og því
+  er $[\alpha]$ hlutleysan í $\pi_1(S^1,1)$.
+
+  \emph{$\varphi$ er átæk:} Viljum sýna að fyrir sérhvert $n\in\Z$ sé
+  til $[\alpha]$ úr $\pi_1(S^1,1)$ þ.a. $\varphi([\alpha])=n$. Nú er
+  $\tilde\alpha:I\to\R,t\mapsto nt$ vegur frá $0$ til $n$ í $\R$ og
+  $p\circ\tilde\alpha$ er lykkja í $S^1$ með endapunkt $1$. Þar með er
+  $\varphi([p\circ\tilde\alpha])=n$.
+\end{proof}
+\begin{fylgisetn}\label{fylgisetn:brouwer.hjalp}
+  $S^1$ er ekki inndragi af $B^2$.
+\end{fylgisetn}
+\begin{proof}
+  Ef svo væri, þá fengist eintæk grúpumótun
+  $\pi_1(S^1,1)\to\pi_1(B^2,1)$, sem er í mótsögn við að
+  $\pi_1(S^1,1)\cong\Z$ en $\pi_1(B^2,1)=0$.
+\end{proof}
+\begin{fylgisetn}
+  $\pi_1(S^1\times S^1,(1,1))\cong\Z\times\Z$.
+\end{fylgisetn}
+\begin{proof}
+  Augljóst.
+\end{proof}
+\begin{fylgisetn}
+  $\pi_1(\C^*,1)\cong\Z$.
+\end{fylgisetn}
+\begin{proof}
+  $S^1$ er inndragi með samtogun af $\C^*$ og því
+  $\pi_1(S^1,1)\cong\pi_1(\C^*,1)$.
+\end{proof}
+\begin{fylgisetn}
+  [Brouwer]
+  Sérhver samfelld vörpun $B^2\to B^2$ hefur kyrrapunkt.
+\end{fylgisetn}
+\begin{proof}
+  Leiðir beint af fylgisetningu \ref{fylgisetn:brouwer.hjalp} og dæmi 33
+  af vikublaði 13.
+\end{proof}
+\begin{ath}
+  [Ritháttur og talsmáti]
+  $Y$ grannrúm. Fastalykkja sem hefur $y$ úr $Y$ sem
+  \emph{grunnpunkt}\index{grunnpunktur} táknast hér eftir með $1_y$.
+  Lykkja $\alpha$ í $Y$ með grunnpunkt $1_y$ er sögð
+  \emph{núllsamtoga}\index{nullsamtoga@núllsamtoga} ef $[\alpha]=[1_y]$.
+\end{ath}
+\begin{ath}
+  [Táknmál]
+  Fyrir veg $\alpha$ er $\hat\alpha$ tilsvarandi einsmótun,
+  $\overline\alpha$ vegurinn í hina áttina og $\tilde\alpha$ er lyfting.
+\end{ath}
+\begin{setn}
+  Látum $p:E\to B$ vera þekjurúm og $b\in B$.
+  \begin{enumerate}[(i)]
+    \item Ef $e\in p^{-1}(b)$, þá er $p_*:\pi_1(E,e)\to\pi_1(B,b)$
+      eintæk.
+    \item Ef $E$ er vegsamanhangandi, þá mynda hlutgrúpurnar
+      $p_*(\pi_1(E,e))$ fyrir $e$ úr $p^{-1}(b)$ samokunarflokk af
+      hlutgrúpum í $\pi_1(B,b)$. 
+  \end{enumerate}
+\end{setn}
+\begin{proof}
+  (i) Ef $[\gamma]\in\pi_1(E,e)$ og
+  $p_*([\gamma])=[p\circ\gamma]=[1_b]$, þá er til
+  $H:p\circ\gamma\simeq_p 1_b$. Látum $\tilde H:I\times I\to E$ vera
+  lyftingu á $H$, þ.e. $\tilde H(0,0)=e$. Þá er $\tilde
+  H:\gamma\simeq_p 1_e$ og því $[\gamma]=[1_e]\in\pi_1(E,e)$.
+
+
+  (ii) Látum $e_1,e_2\in p^{-1}(b)$ og $\omega$ vera veg frá $e_1$ til
+  $e_2$ í $E$. Þá fæst einsmótun \[
+  \hat\omega([\alpha]) 
+  = [\omega*\alpha*\overline\omega].
+  \]
+  Nú er $p\circ\omega$ lykkja í $(B,b)$ svo að \[
+  p_*([\omega*\alpha*\overline\omega])
+  = p_*([\omega])*p_*([\alpha])*p_*([\omega])^{-1}
+  \]
+  og þar með 
+  \[
+  p_*([\omega])*p_*(\pi_1(E,e_2))*p_*([\omega])^{-1}
+  = p_*(\pi_1(E,e_1)).
+  \]
+  Nú þarf bara að taka eftir að sérhvert $[\alpha]$ úr $\pi_1(B,b)$ er
+  af gerðinni $p_*([\tilde\alpha])$, þar sem $\tilde\alpha$ er lyfting á
+  $\alpha$. Þar með er sýnt að grúpurunan $(p_*(\pi_1(E,e)))_{e\in
+  p^{-1}(b)}$ er mynda heilan samokunarflokk í $\pi_1(B,b)$.
+\end{proof}
+\begin{ath}
+  Ef $p:E\to B$ er þekjurúm, þá verkar $\pi_1(B,b)$ á $p^{-1}(b)$ með
+  eftirfarandi hætti: Fyrir $e$ úr $p^{-1}(b)$ og $[\alpha]$ úr
+  $\pi_1(B,b)$ látum við $\tilde\alpha_e$ vera lyftinguna á $\alpha$ sem
+  uppfyllir $\tilde\alpha_e(0)=e$. Setjum 
+  \[  e[\alpha]:=\tilde\alpha_e. \]
+  Fáum greinilega að $e[1_b] = e$ og \[
+  e([\alpha]*[\beta])
+  = e[\alpha*\beta]
+  = (e[\alpha])[\beta].
+  \]
+  Öll $[\alpha]$ úr $\pi_1(B,b)$ sem halda ákveðnu $e$ úr $p^{-1}(b)$
+  föstu, þ.e.a.s $e[\alpha]=e$ mnda hlutgrúpu í $\pi_1(B,b)$ sem við
+  köllum \emph{stöðugleikagrúpu
+  $e$}\index{stzgleikagrupa@stöðugleikagrúpa}. Auðséð er að hún er engin
+  önnur en $p_*(\pi_1(E,e))$. Ef $E$ er vegsamanhangandi, þá er verkunin
+  $\pi_1(B,b)$ á $p^{-1}(b)$ \emph{gegnvirk}, þ.e.
+  $e\cdot\pi_1(B,b)=p^{-1}(b)$. M.ö.o. þá hefur verkunin aðeins eina
+  \emph{braut}\index{braut}.
+\end{ath}
+\begin{fylgisetn}\label{fylgisetn:thekju.1}
+  $p:E\to B$ þekjuvörpun, $E$ vegsamanhangandi, $e\in E$ og $b=p(e)$. Þá
+  er $\#p^{-1}(b)=[\pi_1(B,b):p_*(\pi_1(E,e))]$.
+\end{fylgisetn}
+\begin{proof}
+  Ljóst.
+\end{proof}
+\begin{fylgisetn}\label{fylgisetn:thekju.2}
+  $p:E\to B$ þekjuvörpun, $B$ og $E$ vegamanhangandi, $e\in E$ og
+  $b=p(e)$. Eftirfarandi skilyrði eru jafngild:
+  \begin{enumerate}[(i)]
+    \item $p$ er grannmótun.
+    \item $p_*:\pi_1(E,E)\to\pi_1(B,b)$ er einsmótun.
+    \item $p_*$ er átæk. 
+  \end{enumerate}
+\end{fylgisetn}
+\begin{proof}
+  \emph{(i)$\Rightarrow$(ii)$\Rightarrow$(iii):} Ljóst.
+
+  \emph{(iii)$\Rightarrow$(i):} Skv. fylgisetningu
+  \ref{fylgisetn:thekju.1} er $\#p^{-1}(b)=1$. Þar sem $B$ er
+  vegsamanhangandi þá er $\#p^{-1}(x)=1$ fyrir öll $x\in B$. En það
+  hefur í för með sér að $p$ er gagntæk, samfelld og opin, þ.e.
+  grannmótun.
+\end{proof}
+\begin{fylgisetn}\label{fylgisetn:thekju.3}
+  Ef $p:E\to B$ er þekjuvörpun, $E$ vegsamanhangandi og $B$ einfaldlega
+  samanhangandi, þá er $p$ grannmótun. 
+\end{fylgisetn}
+\begin{proof}
+  Augljóst út frá fylgisetningu \ref{fylgisetn:thekju.2}.
+\end{proof}
+\begin{fylgisetn}\label{fylgisetn:thekju.4}
+  Ef $B$ er einfaldlega samanhangandi og vegsamanhangandi þá er sérhvert
+  þekjurúm yfir $B$ lausblaða.
+\end{fylgisetn}
+\begin{proof}
+  Ef $p:E\to B$ er þekjuvörpun, þá gildir um sérhvern (veg)samhengisþátt
+  $C$ í $E$ að $p|_C:C\to B$ er þekjuvörpun (sjá dæmi sett fyrir á vbl.
+  14). En þá er $p|_C:C\to B$ grannmótun skv. fylgisetningu
+  \ref{fylgisetn:thekju.3}.
+\end{proof}
+
+
+
+
+\paragraph{}
+\printindex
+
+\end{document}
